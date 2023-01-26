@@ -1,0 +1,31 @@
+<div *ngIf="content" class="pb-[32px] h-[1200px] block">
+  <img
+    class="h-full w-full object-cover"
+    *ngIf="
+      content.preview &&
+      content.preview.images.length &&
+      content.post_hint === redditPostHint.IMAGE
+    "
+    [src]="content.url"
+  />
+
+  <video
+    *ngIf="
+      content.preview &&
+      content.preview.reddit_video_preview &&
+      content.post_hint === redditPostHint.LINK
+    "
+    class="w-full h-full object-cover"
+    autoplay
+    loop
+    muted
+  >
+    <source [src]="content.preview.reddit_video_preview.fallback_url" />
+  </video>
+
+  <!-- <iframe
+class="w-full h-full"
+*ngIf="content.post_hint === 'rich:video'"
+[src]="content.secure_media_embed.media_domain_url | trustResource"
+></iframe> -->
+</div>

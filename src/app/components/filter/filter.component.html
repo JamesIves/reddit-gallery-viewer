@@ -1,0 +1,154 @@
+<div *ngIf="activeFilter | async as filter">
+  <!-- TODO: Need to finish up this and split up these components a little better -->
+  <!-- <div class="sm:hidden">
+    <label for="tabs" class="sr-only">Select a tab</label>
+    
+    <select
+      id="tabs"
+      name="tabs"
+      class="block w-full rounded-md border-gray-300 focus:border-indigo-500 focus:ring-indigo-500"
+    >
+      <option selected>My Account</option>
+
+      <option>Company</option>
+
+      <option>Team Members</option>
+
+      <option>Billing</option>
+    </select>
+  </div> -->
+  <div class="hidden sm:block">
+    <nav
+      class="isolate flex divide-x divide-gray-200 rounded-lg shadow"
+      aria-label="Tabs"
+    >
+      <!-- Current: "text-gray-900", Default: "text-gray-500 hover:text-gray-700" -->
+      <button
+        (click)="toggleFilter(redditFilter.HOT)"
+        [ngClass]="{
+          'text-gray-900': filter === redditFilter.HOT,
+          'text-gray-500 hover:text-gray-700': filter !== redditFilter.HOT
+        }"
+        class="rounded-l-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+        aria-current="page"
+      >
+        <span>Hot</span>
+        <span
+          aria-hidden="true"
+          [ngClass]="{
+            'bg-indigo-500': filter === redditFilter.HOT,
+            'bg-transparent': filter !== redditFilter.HOT
+          }"
+          class="bg-indigo-500 absolute inset-x-0 bottom-0 h-0.5"
+        ></span>
+      </button>
+
+      <button
+        (click)="toggleFilter(redditFilter.NEW)"
+        [ngClass]="{
+          'text-gray-900': filter === redditFilter.NEW,
+          'text-gray-500 hover:text-gray-700': filter !== redditFilter.NEW
+        }"
+        class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+      >
+        <span>New</span>
+        <span
+          [ngClass]="{
+            'bg-indigo-500': filter === redditFilter.NEW,
+            'bg-transparent': filter !== redditFilter.NEW
+          }"
+          aria-hidden="true"
+          class="absolute inset-x-0 bottom-0 h-0.5"
+        ></span>
+      </button>
+
+      <button
+        (click)="toggleFilter(redditFilter.TOP)"
+        [ngClass]="{
+          'text-gray-900': filter === redditFilter.TOP,
+          'text-gray-500 hover:text-gray-700': filter !== redditFilter.TOP
+        }"
+        class="group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+      >
+        <span>Top</span>
+        <span
+          [ngClass]="{
+            'bg-indigo-500': filter === redditFilter.TOP,
+            'bg-transparent': filter !== redditFilter.TOP
+          }"
+          aria-hidden="true"
+          class="absolute inset-x-0 bottom-0 h-0.5"
+        ></span>
+      </button>
+
+      <button
+        (click)="toggleFilter(redditFilter.RISING)"
+        [ngClass]="{
+          'text-gray-900': filter === redditFilter.RISING,
+          'text-gray-500 hover:text-gray-700': filter !== redditFilter.RISING
+        }"
+        class="rounded-r-lg group relative min-w-0 flex-1 overflow-hidden bg-white py-4 px-4 text-sm font-medium text-center hover:bg-gray-50 focus:z-10"
+      >
+        <span>Rising</span>
+        <span
+          [ngClass]="{
+            'bg-indigo-500': filter === redditFilter.RISING,
+            'bg-transparent': filter !== redditFilter.RISING
+          }"
+          aria-hidden="true"
+          class="bg-transparent absolute inset-x-0 bottom-0 h-0.5"
+        ></span>
+      </button>
+    </nav>
+
+    <div *ngIf="filter === redditFilter.TOP">
+      <label for="location" class="block text-sm font-medium text-gray-700"
+        >Location</label
+      >
+      <select
+        id="location"
+        *ngIf="activeSubFilter | async as subFilter"
+        (change)="toggleSubFilter($event)"
+        name="location"
+        class="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+      >
+        <option
+          [selected]="subFilter === redditSubFilter.ALL"
+          [value]="redditSubFilter.ALL"
+        >
+          All Time
+        </option>
+        <option
+          [selected]="subFilter === redditSubFilter.HOUR"
+          [value]="redditSubFilter.HOUR"
+        >
+          Past Hour
+        </option>
+        <option
+          [selected]="subFilter === redditSubFilter.DAY"
+          [value]="redditSubFilter.DAY"
+        >
+          Past Day
+        </option>
+        <option
+          [selected]="subFilter === redditSubFilter.WEEK"
+          [value]="redditSubFilter.WEEK"
+        >
+          Past Week
+        </option>
+        <option
+          [selected]="subFilter === redditSubFilter.MONTH"
+          [value]="redditSubFilter.MONTH"
+        >
+          Past Month
+        </option>
+        <option
+          [selected]="subFilter === redditSubFilter.YEAR"
+          [value]="redditSubFilter.YEAR"
+        >
+          Past Year
+        </option>
+      </select>
+    </div>
+  </div>
+</div>

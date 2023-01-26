@@ -1,0 +1,21 @@
+<div
+  class="search-results x-auto mx-auto max-w-7xl sm:px-6 lg:px-8 h-full w-full"
+>
+  <ul *ngIf="query$ | async as query">
+    <!-- Leverages virtual scroll to keep performance under control with large amounts of images.
+      Docs: https://material.angular.io/cdk/scrolling -->
+    <cdk-virtual-scroll-viewport
+      scrollWindow
+      itemSize="1232"
+      (scrolledIndexChange)="onScroll(query.nextPage)"
+      class="search-results__viewport"
+    >
+      <li
+        *cdkVirtualFor="let result of query.results"
+        class="pb-[32px] h-[1200px] block"
+      >
+        <app-media [content]="result"></app-media>
+      </li>
+    </cdk-virtual-scroll-viewport>
+  </ul>
+</div>

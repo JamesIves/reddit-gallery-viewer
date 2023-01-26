@@ -1,0 +1,66 @@
+<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="term" class="block text-sm font-medium text-gray-700"
+      >Search</label
+    >
+    <div class="mt-1 flex rounded-md shadow-sm">
+      <span
+        class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
+        >/r/</span
+      >
+      <input
+        type="text"
+        name="term"
+        formControlName="term"
+        id="term"
+        class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        placeholder="cats"
+      />
+    </div>
+  </div>
+
+  <button class="button sr-only" type="submit">Purchase</button>
+</form>
+
+<ng-container *ngIf="safeMode$ | async as enabledSafeMode">
+  <div class="flex items-center justify-between">
+    <span class="flex flex-grow flex-col">
+      <span class="text-sm font-medium text-white" id="availability-label"
+        >Show Inappropriate Content</span
+      >
+      <span class="text-sm text-slate-300" id="availability-description"
+        >Content marked as inappropriate to minors will be hidden by default.
+        Enabling this toggle will display it.</span
+      >
+    </span>
+    <!-- Enabled: "bg-indigo-600", Not Enabled: "bg-gray-200" -->
+    <button
+      (click)="
+        toggleSafeMode(
+          enabledSafeMode === safeModeSetting.ENABLED
+            ? safeModeSetting.DISABLED
+            : safeModeSetting.ENABLED
+        )
+      "
+      [ngClass]="{
+        'bg-indigo-600': enabledSafeMode === safeModeSetting.DISABLED,
+        'bg-gray-200': enabledSafeMode === safeModeSetting.ENABLED
+      }"
+      type="button"
+      class="bg-gray-200 relative inline-flex h-6 w-11 flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+      role="switch"
+      aria-checked="false"
+    >
+      <span class="sr-only">Use setting</span>
+      <!-- Enabled: "translate-x-5", Not Enabled: "translate-x-0" -->
+      <span
+        [ngClass]="{
+          'translate-x-5': enabledSafeMode === safeModeSetting.DISABLED,
+          'translate-x-0': enabledSafeMode === safeModeSetting.ENABLED
+        }"
+        aria-hidden="true"
+        class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
+      ></span>
+    </button>
+  </div>
+</ng-container>
