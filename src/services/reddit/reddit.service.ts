@@ -1,7 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable } from 'rxjs';
-import { mergeMap, scan, switchMap } from 'rxjs/operators';
+import {
+  BehaviorSubject,
+  combineLatest,
+  EMPTY,
+  map,
+  Observable,
+  of,
+} from 'rxjs';
+import { catchError, mergeMap, scan, switchMap } from 'rxjs/operators';
 import {
   RedditFilter,
   IRedditQuery,
@@ -62,8 +69,18 @@ export class RedditService {
               page,
               subFilter,
               safeMode,
-            })
+            }).pipe(
+              catchError(() => {
+                /**
+                 * If the stream catches an error return an empty array.
+                 * For the sake of this demo we'll just assume that the subreddit
+                 * has no content if it doesn't exist.
+                 */
+                return of([]);
+              })
+            )
           ),
+
           /**
            * If the page observable emits instead of creating a new list it
            * will instead concat the previous results together with the new ones.
@@ -214,7 +231,6 @@ export class RedditService {
       path.searchParams.append(RedditRequestParameters.T, subFilter);
     }
 
-    console.log(safeMode);
     return this.http.get<IRedditResultNatural>(path.toString()).pipe(
       map((result) =>
         result.data.children

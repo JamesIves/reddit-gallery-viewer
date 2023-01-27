@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RedditFilter, RedditSubFilter } from 'src/app/models/reddit.model';
 import { RedditService } from 'src/services/reddit/reddit.service';
+import { Observable } from 'rxjs';
 
 /**
  * Displays a series of filtering options used to display which content
@@ -16,14 +17,11 @@ import { RedditService } from 'src/services/reddit/reddit.service';
 })
 export class FilterComponent {
   protected readonly redditFilter = RedditFilter;
-  protected readonly redditSubFilter = RedditSubFilter;
 
-  public readonly activeFilter;
-  public readonly activeSubFilter;
+  public readonly activeFilter: Observable<RedditFilter>;
 
   public constructor(private readonly redditService: RedditService) {
     this.activeFilter = this.redditService.getSubRedditFilter();
-    this.activeSubFilter = this.redditService.getSubRedditSubFilter();
   }
 
   /**
@@ -32,16 +30,5 @@ export class FilterComponent {
    */
   public toggleFilter(filter: RedditFilter): void {
     this.redditService.setSubRedditFilter(filter);
-  }
-
-  /**
-   * Toggles the active sub filter. Only applicable for certain primary filter choices such as Top.
-   */
-  public toggleSubFilter(event: Event) {
-    const e = event.target as HTMLSelectElement;
-    if (event) {
-      const value = e.value as RedditSubFilter;
-      this.redditService.setSubRedditSubFilter(value);
-    }
   }
 }

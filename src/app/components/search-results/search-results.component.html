@@ -1,7 +1,32 @@
 <div
-  class="search-results x-auto mx-auto max-w-7xl sm:px-6 lg:px-8 h-full w-full"
+  class="search-results x-auto mx-auto max-w-7xl sm:px-6 lg:px-8 h-full w-full min-h-screen"
 >
+  <app-sub-filter></app-sub-filter>
   <ul *ngIf="query$ | async as query">
+    <div *ngIf="!query.results.length" class="text-center">
+      <svg
+        class="mx-auto h-12 w-12 text-gray-400"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          vector-effect="non-scaling-stroke"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+        />
+      </svg>
+      <h3 class="mt-2 text-sm font-medium text-gray-900">No content :(</h3>
+      <p class="mt-1 text-sm text-gray-500">
+        This might be because either the subreddit you've searched for doesn't
+        exist, or that there's no gallery content to show. Alternatively it
+        could be because the content of this subreddit is age flagged.
+      </p>
+    </div>
+
     <!-- Leverages virtual scroll to keep performance under control with large amounts of images.
       Docs: https://material.angular.io/cdk/scrolling -->
     <cdk-virtual-scroll-viewport

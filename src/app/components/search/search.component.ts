@@ -1,8 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { SafeMode } from 'src/app/models/reddit.model';
 import { RedditService } from 'src/services/reddit/reddit.service';
 
 /**
@@ -15,15 +13,10 @@ import { RedditService } from 'src/services/reddit/reddit.service';
   standalone: true,
 })
 export class SearchComponent {
-  protected readonly safeModeSetting = SafeMode;
-  protected readonly safeMode$: Observable<SafeMode>;
-
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly redditService: RedditService
-  ) {
-    this.safeMode$ = this.redditService.getSafeMode();
-  }
+  ) {}
 
   /**
    * Contains all of the search form data points.
@@ -39,13 +32,5 @@ export class SearchComponent {
     if (this.searchForm.value.term) {
       this.redditService.setSubRedditName(this.searchForm.value.term);
     }
-  }
-
-  /**
-   * Enables and disables the safe mode option.
-   * @param enabled The safe mode option to toggle to.
-   */
-  public toggleSafeMode(enabled: SafeMode): void {
-    this.redditService.setSafeMode(enabled);
   }
 }

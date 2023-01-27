@@ -1,25 +1,29 @@
 <div class="min-h-full">
-  <div class="bg-top-gradiant pb-32">
+  <div class="bg-top-gradiant py-32">
     <header class="py-10 flex items-center h-96">
       <div
         class="mx-auto text-center flex flex-col items-center justify-center max-w-7xl px-4 sm:px-6 lg:px-8"
       >
-        <h1 class="dynamic-text-shadow font-fugaz text-white">
+        <app-navbar></app-navbar>
+        <h1 class="dynamic-text-shadow font-fugaz text-white uppercase">
           Reddit Gallery
         </h1>
-        <p class="text-white dynamic-text-shadow max-w-2xl py-4">
-          Shows a never-ending stream of images from your favourite Reddit.
+        <p
+          class="text-white dynamic-text-shadow uppercase font-fugaz font-bold max-w-2xl pt-2 pb-8 text-lg"
+        >
+          Shows a never-ending stream of images from your favourite Reddit
           board.
         </p>
         <app-search></app-search>
+        <app-safe-mode class="py-8"></app-safe-mode>
       </div>
     </header>
   </div>
 
   <main class="-mt-32">
-    <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8">
+    <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 relative">
       <app-filter></app-filter>
-      <div class="rounded-lg bg-slate-800 px-5 py-6 shadow sm:px-6">
+      <div class="rounded-b-lg bg-slate-100 px-5 py-6 shadow sm:px-6">
         <app-search-results></app-search-results>
         <router-outlet></router-outlet>
       </div>

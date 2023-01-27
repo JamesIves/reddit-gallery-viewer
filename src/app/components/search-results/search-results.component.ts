@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 import { RedditService } from 'src/services/reddit/reddit.service';
 import { IRedditQuery } from '../../models/reddit.model';
 import { MediaComponent } from '../media/media.component';
+import { SubFilterComponent } from '../sub-filter/sub-filter.component';
 
 /**
  * Displays the search result for the specified Reddit page.
@@ -21,7 +22,7 @@ import { MediaComponent } from '../media/media.component';
   selector: 'app-search-results',
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MediaComponent, CommonModule, ScrollingModule],
+  imports: [MediaComponent, CommonModule, ScrollingModule, SubFilterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './search-results.component.html',
 })
