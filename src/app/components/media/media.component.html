@@ -23,9 +23,9 @@
     <source [src]="content.preview.reddit_video_preview.fallback_url" />
   </video>
 
-  <!-- <iframe
-class="w-full h-full"
-*ngIf="content.post_hint === 'rich:video'"
-[src]="content.secure_media_embed.media_domain_url | trustResource"
-></iframe> -->
+  <iframe
+    class="w-full h-full"
+    *ngIf="content.post_hint === 'rich:video'"
+    [src]="content.secure_media_embed.media_domain_url | trustResource"
+  ></iframe>
 </div>

@@ -76,6 +76,9 @@ export interface IRedditResult {
   url: string;
   id: string;
   over_18: boolean;
+  secure_media_embed: {
+    media_domain_url: string;
+  };
   preview?: {
     reddit_video_preview?: {
       fallback_url: string;

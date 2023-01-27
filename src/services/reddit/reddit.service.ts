@@ -242,7 +242,8 @@ export class RedditService {
                 safeMode === SafeMode.DISABLED) &&
               item.post_hint &&
               (item.post_hint === RedditPostHint.LINK ||
-                item.post_hint === RedditPostHint.IMAGE)
+                item.post_hint === RedditPostHint.IMAGE ||
+                item.post_hint === RedditPostHint.RICH_VIDEO)
           )
       )
     );
