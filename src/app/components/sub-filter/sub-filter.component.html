@@ -14,7 +14,7 @@
     *ngIf="activeSubFilter$ | async as subFilter"
     (change)="toggleSubFilter($event)"
     name="location"
-    class="bg-slate-200 hover:bg-slate-300 transition-all font-bold text-lg block w-full rounded-md border-gray-300 py-4 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+    class="bg-slate-300 hover:bg-slate-400 transition-all font-bold text-lg block w-full rounded-md border-gray-300 py-4 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
   >
     <option
       [selected]="subFilter === redditSubFilter.ALL"
