@@ -5,7 +5,8 @@ import { environment } from './environments/environment';
 
 import { importProvidersFrom } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { LoaderInterceptorService } from './services/loader/loader-interceptor.service';
 
 const routes: Routes = [];
 
@@ -17,5 +18,10 @@ bootstrapApplication(AppComponent, {
   providers: [
     importProvidersFrom(RouterModule.forRoot(routes)),
     importProvidersFrom(HttpClientModule),
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoaderInterceptorService,
+      multi: true,
+    },
   ],
 }).catch((err) => console.error(err));

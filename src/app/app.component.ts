@@ -1,12 +1,10 @@
-import { Component, importProvidersFrom } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppRoutingModule } from './app-routing.module';
-import { SearchComponent } from './components/search/search.component';
-import { RouterModule, RouterOutlet, Routes } from '@angular/router';
-import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
 import { FilterComponent } from './components/filter/filter.component';
-import { SafeModeComponent } from './components/safe-mode/safe-mode.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { SafeModeComponent } from './components/safe-mode/safe-mode.component';
+import { SearchResultsComponent } from './components/search-results/search-results.component';
+import { SearchComponent } from './components/search/search.component';
 
 @Component({
   selector: 'app-root',

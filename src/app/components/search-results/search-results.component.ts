@@ -14,6 +14,7 @@ import { RedditService } from 'src/services/reddit/reddit.service';
 import { IRedditQuery } from '../../models/reddit.model';
 import { MediaComponent } from '../media/media.component';
 import { SubFilterComponent } from '../sub-filter/sub-filter.component';
+import { LoaderService } from 'src/services/loader/loader.service';
 
 /**
  * Displays the search result for the specified Reddit page.
@@ -43,12 +44,18 @@ export class SearchResultsComponent {
    */
   protected readonly query$: Observable<IRedditQuery>;
 
+  protected readonly loading$: any;
+
   /**
    * @inheritdoc
    * @param redditService The Reddit service used to handle data from the Reddit API.
    */
-  public constructor(private readonly redditService: RedditService) {
+  public constructor(
+    private readonly redditService: RedditService,
+    private readonly loaderService: LoaderService
+  ) {
     this.query$ = this.redditService.getQuery();
+    this.loading$ = this.loaderService.getLoading();
   }
 
   /**

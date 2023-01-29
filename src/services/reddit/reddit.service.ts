@@ -1,13 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {
-  BehaviorSubject,
-  combineLatest,
-  EMPTY,
-  map,
-  Observable,
-  of,
-} from 'rxjs';
+import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
 import { catchError, mergeMap, scan, switchMap } from 'rxjs/operators';
 import {
   RedditFilter,

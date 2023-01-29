@@ -6,8 +6,5 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.scss']
 })
-export class NavbarComponent {
-
-}
+export class NavbarComponent {}
