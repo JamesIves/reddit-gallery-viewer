@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SafeMode } from 'src/app/models/reddit.model';
 import { Observable } from 'rxjs';
@@ -13,8 +13,8 @@ import { RedditService } from 'src/services/reddit/reddit.service';
   selector: 'app-safe-mode',
   standalone: true,
   imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './safe-mode.component.html',
-  styleUrls: ['./safe-mode.component.scss'],
 })
 export class SafeModeComponent {
   protected readonly safeModeSetting = SafeMode;

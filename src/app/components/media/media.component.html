@@ -1,4 +1,4 @@
-<div *ngIf="content" class="pb-[32px] h-[1200px] block">
+<div *ngIf="content" class="pb-[32px] h-[1200px] block overflow-hidden">
   <img
     class="h-full w-full object-cover"
     *ngIf="
@@ -23,9 +23,17 @@
     <source [src]="content.preview.reddit_video_preview.fallback_url" />
   </video>
 
+  <!-- <div
+    *ngIf="
+      content.post_hint === redditPostHint.LINK && content.secure_media_embed
+    "
+    class="w-full h-full object-cover"
+    [innerHtml]="content.secure_media_embed.content | safeHtml"
+  ></div> -->
+
   <iframe
     class="w-full h-full"
-    *ngIf="content.post_hint === 'rich:video'"
+    *ngIf="content.post_hint === redditPostHint.RICH_VIDEO"
     [src]="content.secure_media_embed.media_domain_url | trustResource"
   ></iframe>
 </div>

@@ -44,7 +44,10 @@ export class SearchResultsComponent {
    */
   protected readonly query$: Observable<IRedditQuery>;
 
-  protected readonly loading$: any;
+  /**
+   * Observable used to inform loading state.
+   */
+  protected readonly loading$: Observable<boolean>;
 
   /**
    * @inheritdoc

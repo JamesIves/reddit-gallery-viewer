@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RedditFilter, RedditSubFilter } from 'src/app/models/reddit.model';
 import { RedditService } from 'src/services/reddit/reddit.service';
 import { Observable } from 'rxjs';
+import { LoaderService } from 'src/services/loader/loader.service';
 
 /**
  * Displays a series of filtering options used to display which content
@@ -16,12 +17,27 @@ import { Observable } from 'rxjs';
   templateUrl: './filter.component.html',
 })
 export class FilterComponent {
+  /**
+   * @inheritdoc
+   */
   protected readonly redditFilter = RedditFilter;
 
+  /**
+   * Observable used to display the current loading state.
+   */
+  protected readonly loading$: Observable<boolean>;
+
+  /**
+   * Observable used to indicate the currently active filter.
+   */
   public readonly activeFilter: Observable<RedditFilter>;
 
-  public constructor(private readonly redditService: RedditService) {
+  public constructor(
+    private readonly redditService: RedditService,
+    private readonly loaderService: LoaderService
+  ) {
     this.activeFilter = this.redditService.getSubRedditFilter();
+    this.loading$ = this.loaderService.getLoading();
   }
 
   /**

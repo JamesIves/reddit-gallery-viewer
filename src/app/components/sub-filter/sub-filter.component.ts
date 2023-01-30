@@ -12,10 +12,24 @@ import { RedditFilter, RedditSubFilter } from 'src/app/models/reddit.model';
   templateUrl: './sub-filter.component.html',
 })
 export class SubFilterComponent {
-  protected readonly activeSubFilter$: Observable<RedditSubFilter>;
+  /**
+   * Observable used to inform the current active filter.
+   */
   protected readonly activeFilter$: Observable<RedditFilter>;
 
+  /**
+   * Observable used to inform the current active sub filter.
+   */
+  protected readonly activeSubFilter$: Observable<RedditSubFilter>;
+
+  /**
+   * @inheritdoc
+   */
   protected readonly redditFilter = RedditFilter;
+
+  /**
+   * @inheritdoc
+   */
   protected readonly redditSubFilter = RedditSubFilter;
 
   public constructor(private readonly redditService: RedditService) {

@@ -11,7 +11,7 @@ import { LoaderService } from './loader.service';
 
 /**
  * The Loader Interceptor observes incoming/outgoing requests
- * and uses the spy to inform the LoaderService when to toggle
+ * and uses the spy to inform the {@see LoaderService} when to toggle
  * the loading stare.
  */
 @Injectable({

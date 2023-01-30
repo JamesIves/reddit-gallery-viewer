@@ -76,8 +76,14 @@ export interface IRedditResult {
   url: string;
   id: string;
   over_18: boolean;
+  secure_media: {
+    oembed: {
+      html: string;
+    };
+  };
   secure_media_embed: {
     media_domain_url: string;
+    content: string;
   };
   preview?: {
     reddit_video_preview?: {

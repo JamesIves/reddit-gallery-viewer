@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { FilterComponent } from './components/filter/filter.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
@@ -16,6 +16,7 @@ import { SearchComponent } from './components/search/search.component';
     FilterComponent,
     SafeModeComponent,
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
   standalone: true,
 })

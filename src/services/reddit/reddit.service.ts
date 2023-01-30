@@ -234,7 +234,8 @@ export class RedditService {
               ((safeMode === SafeMode.ENABLED && !item.over_18) ||
                 safeMode === SafeMode.DISABLED) &&
               item.post_hint &&
-              (item.post_hint === RedditPostHint.LINK ||
+              ((item.post_hint === RedditPostHint.LINK &&
+                item.secure_media_embed) ||
                 item.post_hint === RedditPostHint.IMAGE ||
                 item.post_hint === RedditPostHint.RICH_VIDEO)
           )

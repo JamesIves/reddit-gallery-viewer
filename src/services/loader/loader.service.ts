@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 /**
  * Service which is used to inform loading states when data
@@ -9,7 +9,7 @@ import { Observable, Subject } from 'rxjs';
   providedIn: 'root',
 })
 export class LoaderService {
-  public readonly loading$: Subject<boolean> = new Subject();
+  public readonly loading$: Subject<boolean> = new BehaviorSubject(false);
 
   public start(): void {
     console.log('-LOADING STARTED');

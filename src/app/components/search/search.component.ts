@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RedditService } from 'src/services/reddit/reddit.service';
 
@@ -9,6 +9,7 @@ import { RedditService } from 'src/services/reddit/reddit.service';
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule],
   standalone: true,
 })
