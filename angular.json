@@ -42,7 +42,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/reddit-gallery-viewer"
+              "baseHref": "/reddit-gallery-viewer/"
             },
             "development": {
               "buildOptimizer": false,
