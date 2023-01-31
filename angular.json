@@ -17,7 +17,6 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "baseHref": "/reddit-gallery-viewer",
             "outputPath": "dist/reddit-gallery-viewer",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -42,7 +41,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "baseHref": "/reddit-gallery-viewer"
             },
             "development": {
               "buildOptimizer": false,
