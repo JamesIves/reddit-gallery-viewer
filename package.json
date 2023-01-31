@@ -1,13 +1,23 @@
 {
-  "name": "reddit-gallery-viewer",
-  "version": "0.0.0",
+  "name": "@jamesives/reddit-gallery-viewer",
   "author": "James Ives <iam@jamesiv.es> (https://jamesiv.es)",
+  "description": "Shows a never-ending stream of images from your favourite Reddit board using the API.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "keywords": [
+    "angular",
+    "reddit",
+    "gallery",
+    "jives"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "lint": "ng lint",
+    "lint:format": "prettier --write ."
   },
   "private": true,
   "dependencies": {
@@ -22,15 +32,25 @@
     "@angular/router": "15.1.0",
     "@tailwindcss/forms": "0.5.3",
     "rxjs": "7.8.0",
-    "tslib": "2.3.0",
-    "zone.js": "~0.12.0"
+    "zone.js": "0.12.0"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "15.1.2",
+    "@angular-eslint/builder": "15.2.0",
+    "@angular-eslint/eslint-plugin": "15.2.0",
+    "@angular-eslint/eslint-plugin-template": "15.2.0",
+    "@angular-eslint/schematics": "15.2.0",
+    "@angular-eslint/template-parser": "15.2.0",
     "@angular/cli": "15.1.2",
     "@angular/compiler-cli": "15.1.0",
     "@types/jasmine": "4.3.0",
+    "@typescript-eslint/eslint-plugin": "5.48.1",
+    "@typescript-eslint/parser": "5.48.1",
     "autoprefixer": "10.4.13",
+    "eslint": "8.31.0",
+    "eslint-config-prettier": "8.6.0",
+    "eslint-plugin-prettier": "4.2.1",
+    "prettier": "2.8.3",
     "jasmine-core": "4.5.0",
     "karma": "6.4.0",
     "karma-chrome-launcher": "3.1.0",

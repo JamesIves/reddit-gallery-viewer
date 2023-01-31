@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {CommonModule} from '@angular/common'
 
 /**
  * The navbar component displays any top level nav items.
@@ -9,6 +9,6 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule],
-  templateUrl: './navbar.component.html',
+  templateUrl: './navbar.component.html'
 })
 export class NavbarComponent {}

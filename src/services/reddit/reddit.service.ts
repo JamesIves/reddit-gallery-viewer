@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, combineLatest, map, Observable, of } from 'rxjs';
-import { catchError, mergeMap, scan, switchMap } from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http'
+import {Injectable} from '@angular/core'
+import {BehaviorSubject, combineLatest, map, Observable, of} from 'rxjs'
+import {catchError, mergeMap, scan, switchMap} from 'rxjs/operators'
 import {
   RedditFilter,
   IRedditQuery,
@@ -11,32 +11,32 @@ import {
   SafeMode,
   IRedditResultNatural,
   RedditRequestParameters,
-  RedditPostHint,
-} from 'src/app/models/reddit.model';
+  RedditPostHint
+} from 'src/app/models/reddit.model'
 
 /**
  * Service which is used to communicate with the Reddit API.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class RedditService {
-  private static readonly API_BASE = '/r';
-  private static readonly MAX_CONTENT_FETCH = 24;
-  private static readonly DEFAULT_SUBREDDIT = 'cats';
-  private static readonly DEFAULT_PAGE = 't3_';
+  private static readonly API_BASE = '/r'
+  private static readonly MAX_CONTENT_FETCH = 24
+  private static readonly DEFAULT_SUBREDDIT = 'cats'
+  private static readonly DEFAULT_PAGE = 't3_'
 
-  private readonly _safeMode$ = new BehaviorSubject<SafeMode>(SafeMode.ENABLED);
+  private readonly _safeMode$ = new BehaviorSubject<SafeMode>(SafeMode.ENABLED)
   private readonly _subRedditName$ = new BehaviorSubject(
     RedditService.DEFAULT_SUBREDDIT
-  );
+  )
   private readonly _subRedditPage$ = new BehaviorSubject(
     RedditService.DEFAULT_PAGE
-  );
-  private readonly _subRedditFilter$ = new BehaviorSubject(RedditFilter.HOT);
+  )
+  private readonly _subRedditFilter$ = new BehaviorSubject(RedditFilter.HOT)
   private readonly _subRedditSubFilter$ = new BehaviorSubject<RedditSubFilter>(
     RedditSubFilter.ALL
-  );
+  )
 
   /**
    * The query$ observable is the main mechanism of the app.
@@ -44,24 +44,24 @@ export class RedditService {
    * and re-fetch data based on input changes. This observable can be subscribed to
    * within a component to generate a list of content using the async pipe.
    */
-  private readonly _query$: Observable<IRedditQuery>;
+  private readonly _query$: Observable<IRedditQuery>
 
   public constructor(private readonly http: HttpClient) {
     this._query$ = combineLatest([
       this.getSubRedditName(),
       this.getSubRedditFilter(),
       this.getSubRedditSubFilter(),
-      this.getSafeMode(),
+      this.getSafeMode()
     ]).pipe(
       switchMap(([name, filter, subFilter, safeMode]) =>
         this.getSubRedditPage().pipe(
-          mergeMap((page) =>
+          mergeMap(page =>
             this.getSubRedditContent({
               name,
               filter,
               page,
               subFilter,
-              safeMode,
+              safeMode
             }).pipe(
               catchError(() => {
                 /**
@@ -69,7 +69,7 @@ export class RedditService {
                  * For the sake of this demo we'll just assume that the subreddit
                  * has no content if it doesn't exist.
                  */
-                return of([]);
+                return of([])
               })
             )
           ),
@@ -82,16 +82,16 @@ export class RedditService {
           scan(
             (acc, curr) => ({
               results: curr.length ? acc.results.concat(curr) : acc.results,
-              nextPage: curr[curr.length - 1]?.id,
+              nextPage: curr[curr.length - 1]?.id
             }),
             {
               results: [] as IRedditResult[],
-              nextPage: undefined,
+              nextPage: undefined
             } as IRedditQuery
           )
         )
       )
-    );
+    )
   }
 
   /**
@@ -99,7 +99,7 @@ export class RedditService {
    * @param name The name of the subreddit.
    */
   public setSubRedditName(name: string): void {
-    this._subRedditName$.next(name);
+    this._subRedditName$.next(name)
   }
 
   /**
@@ -107,11 +107,11 @@ export class RedditService {
    * @param filter The name of the filter {@see RedditFilter} for options.
    */
   public setSubRedditFilter(filter: RedditFilter): void {
-    this._subRedditFilter$.next(filter);
+    this._subRedditFilter$.next(filter)
 
     /** On each filter change reset the page back to default value
      * to prevent lingering pages. */
-    this.setSubRedditPage(RedditService.DEFAULT_PAGE);
+    this.setSubRedditPage(RedditService.DEFAULT_PAGE)
   }
 
   /**
@@ -121,7 +121,7 @@ export class RedditService {
    * @param page The name of the page to fetch content after.
    */
   public setSubRedditPage(page: string): void {
-    this._subRedditPage$.next(`${RedditService.DEFAULT_PAGE}${page}`);
+    this._subRedditPage$.next(`${RedditService.DEFAULT_PAGE}${page}`)
   }
 
   /**
@@ -131,8 +131,8 @@ export class RedditService {
    * @param filter The name of the sub filter to display, {@see RedditSubFilter} for options.
    */
   public setSubRedditSubFilter(filter: RedditSubFilter): void {
-    this._subRedditSubFilter$.next(filter);
-    this.setSubRedditPage(RedditService.DEFAULT_PAGE);
+    this._subRedditSubFilter$.next(filter)
+    this.setSubRedditPage(RedditService.DEFAULT_PAGE)
   }
 
   /**
@@ -142,7 +142,7 @@ export class RedditService {
    * @param enabled The safe mode flag, {@see SafeMode} for options.
    */
   public setSafeMode(enabled: SafeMode): void {
-    this._safeMode$.next(enabled);
+    this._safeMode$.next(enabled)
   }
 
   /**
@@ -150,7 +150,7 @@ export class RedditService {
    * @returns An observable that can translate the currently set filter option.
    */
   public getSubRedditFilter(): Observable<RedditFilter> {
-    return this._subRedditFilter$.asObservable();
+    return this._subRedditFilter$.asObservable()
   }
 
   /**
@@ -158,7 +158,7 @@ export class RedditService {
    * @returns An observable that can translate the currently set sub filter option.
    */
   public getSubRedditSubFilter(): Observable<RedditSubFilter> {
-    return this._subRedditSubFilter$.asObservable();
+    return this._subRedditSubFilter$.asObservable()
   }
 
   /**
@@ -166,7 +166,7 @@ export class RedditService {
    * @returns An observable that contains the currently set name.
    */
   public getSubRedditName(): Observable<string> {
-    return this._subRedditName$.asObservable();
+    return this._subRedditName$.asObservable()
   }
 
   /**
@@ -174,7 +174,7 @@ export class RedditService {
    * @returns An observable that can contains the currently set page.
    */
   public getSubRedditPage(): Observable<string> {
-    return this._subRedditPage$.asObservable();
+    return this._subRedditPage$.asObservable()
   }
 
   /**
@@ -182,7 +182,7 @@ export class RedditService {
    * @returns An observable that can translate the safe mode option.
    */
   public getSafeMode() {
-    return this._safeMode$.asObservable();
+    return this._safeMode$.asObservable()
   }
 
   /**
@@ -190,7 +190,7 @@ export class RedditService {
    * @returns An observable that contains the filtered content from the Reddit API.
    */
   public getQuery(): Observable<IRedditQuery> {
-    return this._query$;
+    return this._query$
   }
 
   /**
@@ -202,32 +202,32 @@ export class RedditService {
     filter,
     page,
     subFilter,
-    safeMode,
+    safeMode
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
     const path = new URL(
       `${window.location.origin}${RedditService.API_BASE}/${name}/${filter}/.json`
-    );
+    )
     path.searchParams.append(
       RedditRequestParameters.LIMIT,
       RedditService.MAX_CONTENT_FETCH.toString()
-    );
+    )
 
     if (page) {
-      path.searchParams.append(RedditRequestParameters.AFTER, page);
+      path.searchParams.append(RedditRequestParameters.AFTER, page)
     }
 
     if (subFilter) {
       path.searchParams.append(
         RedditRequestParameters.SORT,
         RedditRequestParameters.TOP
-      );
-      path.searchParams.append(RedditRequestParameters.T, subFilter);
+      )
+      path.searchParams.append(RedditRequestParameters.T, subFilter)
     }
 
     return this.http.get<IRedditResultNatural>(path.toString()).pipe(
-      map((result) =>
+      map(result =>
         result.data.children
-          .map((item) => item.data)
+          .map(item => item.data)
           .filter(
             (item: IRedditResult) =>
               // Filters inappropriate content from the results if safe mode is enabled (default).
@@ -240,6 +240,6 @@ export class RedditService {
                 item.post_hint === RedditPostHint.RICH_VIDEO)
           )
       )
-    );
+    )
   }
 }

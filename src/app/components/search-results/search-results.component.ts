@@ -1,20 +1,17 @@
-import {
-  CdkVirtualScrollViewport,
-  ScrollingModule,
-} from '@angular/cdk/scrolling';
-import { CommonModule } from '@angular/common';
+import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling'
+import {CommonModule} from '@angular/common'
 import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
-  ViewChild,
-} from '@angular/core';
-import { Observable } from 'rxjs';
-import { RedditService } from 'src/services/reddit/reddit.service';
-import { IRedditQuery, IRedditResult } from '../../models/reddit.model';
-import { MediaComponent } from '../media/media.component';
-import { SubFilterComponent } from '../sub-filter/sub-filter.component';
-import { LoaderService } from 'src/services/loader/loader.service';
+  ViewChild
+} from '@angular/core'
+import {Observable} from 'rxjs'
+import {LoaderService} from 'src/services/loader/loader.service'
+import {RedditService} from 'src/services/reddit/reddit.service'
+import {IRedditQuery} from '../../models/reddit.model'
+import {MediaComponent} from '../media/media.component'
+import {SubFilterComponent} from '../sub-filter/sub-filter.component'
 
 /**
  * Displays the search result for the specified Reddit page.
@@ -25,29 +22,29 @@ import { LoaderService } from 'src/services/loader/loader.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MediaComponent, CommonModule, ScrollingModule, SubFilterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './search-results.component.html',
+  templateUrl: './search-results.component.html'
 })
 export class SearchResultsComponent {
   /**
    * Determines the distance from the bottom before new content is requested.
    */
-  private static readonly FETCH_MINIMUM = 3;
+  private static readonly FETCH_MINIMUM = 3
 
   /**
    * Used to keep track of the current viewport scroll depth.
    */
   @ViewChild(CdkVirtualScrollViewport)
-  public viewPort?: CdkVirtualScrollViewport;
+  public viewPort?: CdkVirtualScrollViewport
 
   /**
    * Observable used to display post content from Reddit.
    */
-  protected readonly query$: Observable<IRedditQuery>;
+  protected readonly query$: Observable<IRedditQuery>
 
   /**
    * Observable used to inform loading state.
    */
-  protected readonly loading$: Observable<boolean>;
+  protected readonly loading$: Observable<boolean>
 
   /**
    * @inheritdoc
@@ -57,8 +54,8 @@ export class SearchResultsComponent {
     private readonly redditService: RedditService,
     private readonly loaderService: LoaderService
   ) {
-    this.query$ = this.redditService.getQuery();
-    this.loading$ = this.loaderService.getLoading();
+    this.query$ = this.redditService.getQuery()
+    this.loading$ = this.loaderService.getLoading()
   }
 
   /**
@@ -69,17 +66,17 @@ export class SearchResultsComponent {
    */
   public onScroll(nextPage?: string): void {
     if (this.viewPort && nextPage) {
-      const end = this.viewPort.getRenderedRange().end;
-      const total = this.viewPort.getDataLength();
+      const end = this.viewPort.getRenderedRange().end
+      const total = this.viewPort.getDataLength()
 
       // If we're close to the bottom, fetch the next page.
       if (end == total - SearchResultsComponent.FETCH_MINIMUM) {
-        this.redditService.setSubRedditPage(nextPage);
+        this.redditService.setSubRedditPage(nextPage)
       }
     }
   }
 
   public scrollToTop() {
-    this.viewPort?.scrollToIndex(0);
+    this.viewPort?.scrollToIndex(0)
   }
 }

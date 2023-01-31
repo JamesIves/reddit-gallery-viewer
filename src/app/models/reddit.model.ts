@@ -5,7 +5,7 @@ export enum RedditFilter {
   HOT = 'hot',
   NEW = 'new',
   TOP = 'top',
-  RISING = 'rising',
+  RISING = 'rising'
 }
 
 /**
@@ -17,7 +17,7 @@ export enum RedditSubFilter {
   WEEK = 'week',
   MONTH = 'month',
   YEAR = 'year',
-  ALL = 'all',
+  ALL = 'all'
 }
 
 /**
@@ -28,7 +28,7 @@ export enum RedditRequestParameters {
   AFTER = 'after',
   SORT = 'sort',
   TOP = 'top',
-  T = 't',
+  T = 't'
 }
 
 /**
@@ -38,7 +38,7 @@ export enum RedditRequestParameters {
 export enum RedditPostHint {
   LINK = 'link',
   IMAGE = 'image',
-  RICH_VIDEO = 'rich:video',
+  RICH_VIDEO = 'rich:video'
 }
 
 /**
@@ -46,66 +46,66 @@ export enum RedditPostHint {
  */
 export enum SafeMode {
   ENABLED = 'enabled',
-  DISABLED = 'disabled',
+  DISABLED = 'disabled'
 }
 
 /**
  * Contains query results from the paginated API.
  */
 export interface IRedditQuery {
-  results: IRedditResult[];
-  nextPage?: string;
+  results: IRedditResult[]
+  nextPage?: string
 }
 
 /**
  * Contains Reddit API request options.
  */
 export interface IRedditRequestOptions {
-  name: string;
-  filter: RedditFilter;
-  page?: string;
-  subFilter: RedditSubFilter;
-  safeMode: SafeMode;
+  name: string
+  filter: RedditFilter
+  page?: string
+  subFilter: RedditSubFilter
+  safeMode: SafeMode
 }
 
 /**
  * Describes the content API response from Reddit.
  */
 export interface IRedditResult {
-  author: string;
-  url: string;
-  title: string;
-  id: string;
-  over_18: boolean;
+  author: string
+  url: string
+  title: string
+  id: string
+  over_18: boolean
   secure_media: {
     oembed: {
-      html: string;
-    };
-  };
+      html: string
+    }
+  }
   secure_media_embed: {
-    media_domain_url: string;
-    content: string;
-  };
+    media_domain_url: string
+    content: string
+  }
   preview?: {
     reddit_video_preview?: {
-      fallback_url: string;
-    };
+      fallback_url: string
+    }
     images: {
       source: {
-        url: string;
-        width: number;
-        height: number;
-      };
-    }[];
-  };
-  post_hint: RedditPostHint;
-  subreddit: string;
+        url: string
+        width: number
+        height: number
+      }
+    }[]
+  }
+  post_hint: RedditPostHint
+  subreddit: string
 }
 
 export interface IRedditResultNatural {
   data: {
     children: {
-      data: IRedditResult;
-    }[];
-  };
+      data: IRedditResult
+    }[]
+  }
 }

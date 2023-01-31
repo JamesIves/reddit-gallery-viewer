@@ -1,11 +1,11 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core'
 
 /**
  * Determines if the content rendered is an image or not.
  * Used to determine which HTML element to render based on
  * the preview.
  */
-@Pipe({ name: 'isImage', standalone: true })
+@Pipe({name: 'isImage', standalone: true})
 export class IsImagePipe implements PipeTransform {
   transform(value: string): boolean {
     return (
@@ -13,6 +13,6 @@ export class IsImagePipe implements PipeTransform {
       value.endsWith('jpg') ||
       value.endsWith('jpeg') ||
       value.endsWith('gif')
-    );
+    )
   }
 }

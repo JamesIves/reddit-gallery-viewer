@@ -1,8 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { IRedditResult, RedditPostHint } from 'src/app/models/reddit.model';
-import { TrustResourcePipe } from 'src/app/pipes/trust-resource/trust-resource.pipe';
-import { SafeHtmlPipe } from 'src/app/pipes/safe-html/safe-html.pipe';
+import {ChangeDetectionStrategy, Component, Input} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
+import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
+import {SafeHtmlPipe} from 'src/app/pipes/safe-html/safe-html.pipe'
 
 /**
  * Displays image/video content along with any additional details
@@ -13,7 +13,7 @@ import { SafeHtmlPipe } from 'src/app/pipes/safe-html/safe-html.pipe';
   standalone: true,
   imports: [CommonModule, TrustResourcePipe, SafeHtmlPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './media.component.html',
+  templateUrl: './media.component.html'
 })
 export class MediaComponent {
   /**
@@ -23,12 +23,12 @@ export class MediaComponent {
    * each specific bit of content. For example if it's rich:video we need to
    * use an iframe, whereas for images we need to use an img element.
    */
-  protected readonly redditPostHint = RedditPostHint;
+  protected readonly redditPostHint = RedditPostHint
 
   /**
    * The content object from Reddit.
    * For more details {@see IRedditResult}.
    */
   @Input()
-  public content?: IRedditResult;
+  public content?: IRedditResult
 }

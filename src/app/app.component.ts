@@ -1,10 +1,10 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { FilterComponent } from './components/filter/filter.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { SafeModeComponent } from './components/safe-mode/safe-mode.component';
-import { SearchResultsComponent } from './components/search-results/search-results.component';
-import { SearchComponent } from './components/search/search.component';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {RouterOutlet} from '@angular/router'
+import {FilterComponent} from './components/filter/filter.component'
+import {NavbarComponent} from './components/navbar/navbar.component'
+import {SafeModeComponent} from './components/safe-mode/safe-mode.component'
+import {SearchResultsComponent} from './components/search-results/search-results.component'
+import {SearchComponent} from './components/search/search.component'
 
 @Component({
   selector: 'app-root',
@@ -14,12 +14,12 @@ import { SearchComponent } from './components/search/search.component';
     SearchComponent,
     SearchResultsComponent,
     FilterComponent,
-    SafeModeComponent,
+    SafeModeComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html',
-  standalone: true,
+  standalone: true
 })
 export class AppComponent {
-  title = 'reddit-gallery-viewer';
+  title = 'reddit-gallery-viewer'
 }

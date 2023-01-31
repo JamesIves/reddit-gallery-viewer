@@ -1,12 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,ts}"],
+  content: ['./src/**/*.{html,ts}'],
   theme: {
     extend: {
       fontFamily: {
-        fugaz: ["Fugaz One", "cursive"],
-      },
-    },
+        fugaz: ['Fugaz One', 'cursive']
+      }
+    }
   },
-  plugins: [],
-};
+  plugins: []
+}

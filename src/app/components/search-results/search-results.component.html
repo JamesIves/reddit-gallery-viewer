@@ -4,7 +4,7 @@
   <app-sub-filter></app-sub-filter>
 
   <ng-container
-    *ngIf="{ query: query$ | async, loading: loading$ | async } as data"
+    *ngIf="{query: query$ | async, loading: loading$ | async} as data"
   >
     <ul *ngIf="data.query">
       <!-- Leverages virtual scroll to keep performance under control with large amounts of images.

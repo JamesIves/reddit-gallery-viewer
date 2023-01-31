@@ -1,16 +1,16 @@
-import { Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import {Pipe, PipeTransform} from '@angular/core'
+import {DomSanitizer, SafeResourceUrl} from '@angular/platform-browser'
 
 /**
  * Bypasses security in order to trust the resource url.
  * This is primarily used to embed gifv resources on the page
  * as they are essentially iframes in disguise.
  */
-@Pipe({ name: 'safeHtml', standalone: true })
+@Pipe({name: 'safeHtml', standalone: true})
 export class SafeHtmlPipe implements PipeTransform {
   public constructor(private readonly sanitizer: DomSanitizer) {}
 
   public transform(src: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustHtml(src);
+    return this.sanitizer.bypassSecurityTrustHtml(src)
   }
 }

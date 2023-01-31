@@ -1,13 +1,8 @@
-import { Injectable } from '@angular/core';
-import {
-  HttpInterceptor,
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-} from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { finalize } from 'rxjs/operators';
-import { LoaderService } from './loader.service';
+import {Injectable} from '@angular/core'
+import {HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http'
+import {Observable} from 'rxjs'
+import {finalize} from 'rxjs/operators'
+import {LoaderService} from './loader.service'
 
 /**
  * The Loader Interceptor observes incoming/outgoing requests
@@ -15,30 +10,30 @@ import { LoaderService } from './loader.service';
  * the loading stare.
  */
 @Injectable({
-  providedIn: 'root',
+  providedIn: 'root'
 })
 export class LoaderInterceptorService {
-  private activeRequests: number = 0;
+  private activeRequests = 0
 
   constructor(private readonly loaderService: LoaderService) {}
 
   intercept(
-    request: HttpRequest<any>,
+    request: HttpRequest<unknown>,
     next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  ): Observable<HttpEvent<unknown>> {
     if (this.activeRequests === 0) {
-      this.loaderService.start();
+      this.loaderService.start()
     }
 
-    this.activeRequests++;
+    this.activeRequests++
 
     return next.handle(request).pipe(
       finalize(() => {
-        this.activeRequests--;
+        this.activeRequests--
         if (this.activeRequests === 0) {
-          this.loaderService.stop();
+          this.loaderService.stop()
         }
       })
-    );
+    )
   }
 }

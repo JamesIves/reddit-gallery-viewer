@@ -1,7 +1,7 @@
-import { CommonModule } from '@angular/common';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { RedditService } from 'src/services/reddit/reddit.service';
+import {CommonModule} from '@angular/common'
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {FormBuilder, ReactiveFormsModule} from '@angular/forms'
+import {RedditService} from 'src/services/reddit/reddit.service'
 
 /**
  * Search form used to determine which page on Reddit to display.
@@ -11,7 +11,7 @@ import { RedditService } from 'src/services/reddit/reddit.service';
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule],
-  standalone: true,
+  standalone: true
 })
 export class SearchComponent {
   public constructor(
@@ -23,15 +23,15 @@ export class SearchComponent {
    * Contains all of the search form data points.
    */
   public searchForm = this.formBuilder.group({
-    term: '',
-  });
+    term: ''
+  })
 
   /**
    * Handles submission of the search field.
    */
   public onSubmit(): void {
     if (this.searchForm.value.term) {
-      this.redditService.setSubRedditName(this.searchForm.value.term);
+      this.redditService.setSubRedditName(this.searchForm.value.term)
     }
   }
 }

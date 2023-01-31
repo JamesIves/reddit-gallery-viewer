@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RedditFilter, RedditSubFilter } from 'src/app/models/reddit.model';
-import { RedditService } from 'src/services/reddit/reddit.service';
-import { Observable } from 'rxjs';
-import { LoaderService } from 'src/services/loader/loader.service';
+import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {CommonModule} from '@angular/common'
+import {RedditFilter} from 'src/app/models/reddit.model'
+import {RedditService} from 'src/services/reddit/reddit.service'
+import {Observable} from 'rxjs'
+import {LoaderService} from 'src/services/loader/loader.service'
 
 /**
  * Displays a series of filtering options used to display which content
@@ -14,30 +14,30 @@ import { LoaderService } from 'src/services/loader/loader.service';
   standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './filter.component.html',
+  templateUrl: './filter.component.html'
 })
 export class FilterComponent {
   /**
    * @inheritdoc
    */
-  protected readonly redditFilter = RedditFilter;
+  protected readonly redditFilter = RedditFilter
 
   /**
    * Observable used to display the current loading state.
    */
-  protected readonly loading$: Observable<boolean>;
+  protected readonly loading$: Observable<boolean>
 
   /**
    * Observable used to indicate the currently active filter.
    */
-  public readonly activeFilter: Observable<RedditFilter>;
+  public readonly activeFilter: Observable<RedditFilter>
 
   public constructor(
     private readonly redditService: RedditService,
     private readonly loaderService: LoaderService
   ) {
-    this.activeFilter = this.redditService.getSubRedditFilter();
-    this.loading$ = this.loaderService.getLoading();
+    this.activeFilter = this.redditService.getSubRedditFilter()
+    this.loading$ = this.loaderService.getLoading()
   }
 
   /**
@@ -45,6 +45,6 @@ export class FilterComponent {
    * @param filter The filter option, {@see RedditFilter} for choices.
    */
   public toggleFilter(filter: RedditFilter): void {
-    this.redditService.setSubRedditFilter(filter);
+    this.redditService.setSubRedditFilter(filter)
   }
 }
