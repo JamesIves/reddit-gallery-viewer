@@ -222,22 +222,24 @@ export class RedditService {
       path.searchParams.append(RedditRequestParameters.T, subFilter)
     }
 
-    return this.http.get<IRedditResultNatural>(path.toString()).pipe(
-      map(result =>
-        result.data.children
-          .map(item => item.data)
-          .filter(
-            (item: IRedditResult) =>
-              // Filters inappropriate content from the results if safe mode is enabled (default).
-              ((safeMode === SafeMode.ENABLED && !item.over_18) ||
-                safeMode === SafeMode.DISABLED) &&
-              item.post_hint &&
-              ((item.post_hint === RedditPostHint.LINK &&
-                item.secure_media_embed) ||
-                item.post_hint === RedditPostHint.IMAGE ||
-                item.post_hint === RedditPostHint.RICH_VIDEO)
-          )
+    return this.http
+      .jsop<IRedditResultNatural>(path.toString(), 'callback')
+      .pipe(
+        map(result =>
+          result.data.children
+            .map(item => item.data)
+            .filter(
+              (item: IRedditResult) =>
+                // Filters inappropriate content from the results if safe mode is enabled (default).
+                ((safeMode === SafeMode.ENABLED && !item.over_18) ||
+                  safeMode === SafeMode.DISABLED) &&
+                item.post_hint &&
+                ((item.post_hint === RedditPostHint.LINK &&
+                  item.secure_media_embed) ||
+                  item.post_hint === RedditPostHint.IMAGE ||
+                  item.post_hint === RedditPostHint.RICH_VIDEO)
+            )
+        )
       )
-    )
   }
 }
