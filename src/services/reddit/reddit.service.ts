@@ -204,9 +204,7 @@ export class RedditService {
     subFilter,
     safeMode
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
-    const path = new URL(
-      `${window.location.origin}${RedditService.API_BASE}/${name}/${filter}/.json`
-    )
+    const path = new URL(`${RedditService.API_BASE}/${name}/${filter}/.json`)
     path.searchParams.append(
       RedditRequestParameters.LIMIT,
       RedditService.MAX_CONTENT_FETCH.toString()
