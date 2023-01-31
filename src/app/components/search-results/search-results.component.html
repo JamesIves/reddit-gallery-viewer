@@ -11,13 +11,13 @@
       Docs: https://material.angular.io/cdk/scrolling -->
       <cdk-virtual-scroll-viewport
         scrollWindow
-        itemSize="1232"
+        itemSize="1264"
         (scrolledIndexChange)="onScroll(data.query.nextPage)"
         class="search-results__viewport"
       >
         <li
           *cdkVirtualFor="let result of data.query.results"
-          class="pb-[32px] h-[1200px] block"
+          class="h-[1264px] block"
         >
           <app-media [content]="result"></app-media>
         </li>
@@ -27,7 +27,7 @@
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 512 512"
-          class="mx-auto h-12 w-12 text-gray-400"
+          class="mx-auto h-12 w-12 text-slate-400"
           aria-hidden="true"
         >
           <path
@@ -35,8 +35,8 @@
           />
         </svg>
 
-        <h3 class="mt-2 text-sm font-medium text-gray-900">Nothing Found</h3>
-        <p class="mt-1 text-sm text-gray-500">
+        <h3 class="mt-2 text-sm font-medium text-slate-900">Nothing Found</h3>
+        <p class="mt-1 text-sm text-slate-500">
           This might be because either the subreddit you've searched for does
           not exist, or that there's no gallery content to show. Alternatively
           it could be because the content of this subreddit is age flagged.
@@ -67,5 +67,27 @@
       </svg>
       <span class="sr-only">Loading...</span>
     </div>
+
+    <button
+      type="button"
+      (click)="scrollToTop()"
+      class="inline-block p-3 bg-rose-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out bottom-5 right-5 fixed"
+      id="btn-back-to-top"
+    >
+      <svg
+        aria-hidden="true"
+        focusable="false"
+        data-prefix="fas"
+        class="w-4 h-4"
+        role="img"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 448 512"
+      >
+        <path
+          fill="currentColor"
+          d="M34.9 289.5l-22.2-22.2c-9.4-9.4-9.4-24.6 0-33.9L207 39c9.4-9.4 24.6-9.4 33.9 0l194.3 194.3c9.4 9.4 9.4 24.6 0 33.9L413 289.4c-9.5 9.5-25 9.3-34.3-.4L264 168.6V456c0 13.3-10.7 24-24 24h-32c-13.3 0-24-10.7-24-24V168.6L69.2 289.1c-9.3 9.8-24.8 10-34.3.4z"
+        ></path>
+      </svg>
+    </button>
   </ng-container>
 </div>

@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { RedditService } from 'src/services/reddit/reddit.service';
-import { IRedditQuery } from '../../models/reddit.model';
+import { IRedditQuery, IRedditResult } from '../../models/reddit.model';
 import { MediaComponent } from '../media/media.component';
 import { SubFilterComponent } from '../sub-filter/sub-filter.component';
 import { LoaderService } from 'src/services/loader/loader.service';
@@ -77,5 +77,9 @@ export class SearchResultsComponent {
         this.redditService.setSubRedditPage(nextPage);
       }
     }
+  }
+
+  public scrollToTop() {
+    this.viewPort?.scrollToIndex(0);
   }
 }

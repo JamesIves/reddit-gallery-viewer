@@ -36,4 +36,14 @@
     *ngIf="content.post_hint === redditPostHint.RICH_VIDEO"
     [src]="content.secure_media_embed.media_domain_url | trustResource"
   ></iframe>
+
+  <div class="text-sm mb-2 text-slate-900 font-bold truncate overflow-hidden">
+    {{ content.title }} ~
+    <a
+      class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
+      rel="noopener noreferrer"
+      href="https://reddit.com/u/{{ content.author }}"
+      >u/{{ content.author }}</a
+    >
+  </div>
 </div>

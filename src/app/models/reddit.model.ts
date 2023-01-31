@@ -74,6 +74,7 @@ export interface IRedditRequestOptions {
 export interface IRedditResult {
   author: string;
   url: string;
+  title: string;
   id: string;
   over_18: boolean;
   secure_media: {
