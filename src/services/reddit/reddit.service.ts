@@ -21,7 +21,7 @@ import {
   providedIn: 'root'
 })
 export class RedditService {
-  private static readonly API_BASE = '/r'
+  private static readonly API_BASE = 'https://reddit.com/r'
   private static readonly MAX_CONTENT_FETCH = 24
   private static readonly DEFAULT_SUBREDDIT = 'cats'
   private static readonly DEFAULT_PAGE = 't3_'
