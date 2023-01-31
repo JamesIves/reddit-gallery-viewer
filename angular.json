@@ -42,7 +42,7 @@
                 }
               ],
               "outputHashing": "all",
-              "baseHref": "/reddit-gallery-viewer/"
+              "baseHref": "https://jives.dev/reddit-gallery-viewer/"
             },
             "development": {
               "buildOptimizer": false,
