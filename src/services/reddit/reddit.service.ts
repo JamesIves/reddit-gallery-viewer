@@ -223,7 +223,7 @@ export class RedditService {
     }
 
     return this.http
-      .jsop<IRedditResultNatural>(path.toString(), 'callback')
+      .jsonp<IRedditResultNatural>(path.toString(), 'callback')
       .pipe(
         map(result =>
           result.data.children
