@@ -1,4 +1,7 @@
+import {ChangeDetectionStrategy} from '@angular/core'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {RedditPostHint} from 'src/app/models/reddit.model'
+import {findEl} from 'src/app/util/spec'
 
 import {MediaComponent} from './media.component'
 
@@ -9,7 +12,15 @@ describe('MediaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MediaComponent]
-    }).compileComponents()
+    })
+      .overrideComponent(MediaComponent, {
+        set: {
+          // Override change detection under test to make it easier to test @Input mods
+          changeDetection: ChangeDetectionStrategy.Default
+        }
+      })
+
+      .compileComponents()
 
     fixture = TestBed.createComponent(MediaComponent)
     component = fixture.componentInstance
@@ -20,9 +31,94 @@ describe('MediaComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('renders iframe content', () => {})
+  it('renders image content', () => {
+    component.content = {
+      id: '1337',
+      over_18: false,
+      title: 'Cool image',
+      subreddit: 'cats',
+      post_hint: RedditPostHint.IMAGE,
+      author: 'not a real author',
+      url: 'https://jamesiv.es/logo.gif',
+      preview: {
+        images: [
+          {
+            source: {
+              url: 'https://jamesiv.es/logo.gif',
+              width: 1337,
+              height: 1337
+            }
+          }
+        ]
+      }
+    }
 
-  it('renders image content', () => {})
+    fixture.detectChanges()
 
-  it('renders video content', () => {})
+    expect(findEl(fixture, 'media-image')).toBeTruthy()
+  })
+
+  it('renders video content', () => {
+    component.content = {
+      id: '1337',
+      over_18: false,
+      title: 'Cool image',
+      subreddit: 'cats',
+      post_hint: RedditPostHint.LINK,
+      author: 'not a real author',
+      url: 'https://jamesiv.es/logo.gif',
+      preview: {
+        images: [
+          {
+            source: {
+              url: 'https://jamesiv.es/logo.gif',
+              width: 1337,
+              height: 1337
+            }
+          }
+        ],
+        reddit_video_preview: {
+          fallback_url: 'https://jamesiv.es/logo.gif'
+        }
+      }
+    }
+
+    fixture.detectChanges()
+
+    expect(findEl(fixture, 'media-video')).toBeTruthy()
+  })
+
+  it('renders iframe content', () => {
+    component.content = {
+      id: '1337',
+      over_18: false,
+      title: 'Cool image',
+      subreddit: 'cats',
+      post_hint: RedditPostHint.RICH_VIDEO,
+      author: 'not a real author',
+      secure_media_embed: {
+        media_domain_url: 'https://jamesiv.es',
+        content: 'https://jamesiv.es'
+      },
+      url: 'https://jamesiv.es/logo.gif',
+      preview: {
+        images: [
+          {
+            source: {
+              url: 'https://jamesiv.es/logo.gif',
+              width: 1337,
+              height: 1337
+            }
+          }
+        ],
+        reddit_video_preview: {
+          fallback_url: 'https://jamesiv.es/logo.gif'
+        }
+      }
+    }
+
+    fixture.detectChanges()
+
+    expect(findEl(fixture, 'media-iframe')).toBeTruthy()
+  })
 })

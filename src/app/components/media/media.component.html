@@ -1,6 +1,7 @@
 <div *ngIf="content" class="pb-[32px] h-[1200px] block overflow-hidden">
   <img
     class="h-full w-full object-cover"
+    data-testid="media-image"
     *ngIf="
       content.preview &&
       content.preview.images.length &&
@@ -15,6 +16,7 @@
       content.preview.reddit_video_preview &&
       content.post_hint === redditPostHint.LINK
     "
+    data-testid="media-video"
     class="w-full h-full object-cover"
     autoplay
     loop
@@ -33,7 +35,11 @@
 
   <iframe
     class="w-full h-full"
-    *ngIf="content.post_hint === redditPostHint.RICH_VIDEO"
+    data-testid="media-iframe"
+    *ngIf="
+      content.post_hint === redditPostHint.RICH_VIDEO &&
+      content.secure_media_embed
+    "
     [src]="content.secure_media_embed.media_domain_url | trustResource"
   ></iframe>
 

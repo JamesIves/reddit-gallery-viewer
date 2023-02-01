@@ -1,4 +1,6 @@
+import {HttpClientModule} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {RedditService} from 'src/services/reddit/reddit.service'
 
 import {SubFilterComponent} from './sub-filter.component'
 
@@ -8,7 +10,8 @@ describe('SubFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubFilterComponent]
+      imports: [SubFilterComponent, HttpClientModule],
+      providers: [RedditService]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SubFilterComponent)

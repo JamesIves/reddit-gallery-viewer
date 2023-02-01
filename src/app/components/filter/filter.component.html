@@ -6,8 +6,9 @@
     >
       <button
         (click)="toggleFilter(redditFilter.HOT)"
+        data-testid="filter-hot"
         [ngClass]="{
-          'text-gray-900': filter === redditFilter.HOT,
+          'text-gray-900 active': filter === redditFilter.HOT,
           'text-white hover:text-gray-700': filter !== redditFilter.HOT
         }"
         class="transition-all font-fugaz uppercase font-bold text-lg dynamic-text-shadow rounded-tl-lg group relative min-w-0 flex-1 overflow-hidden bg-slate-300 py-4 px-4 text-center hover:bg-slate-400 focus:z-10"
@@ -26,8 +27,9 @@
 
       <button
         (click)="toggleFilter(redditFilter.NEW)"
+        data-testid="filter-new"
         [ngClass]="{
-          'text-gray-900': filter === redditFilter.NEW,
+          'text-gray-900 active': filter === redditFilter.NEW,
           'text-white hover:text-gray-700': filter !== redditFilter.NEW
         }"
         class="transition-all font-fugaz uppercase font-bold text-lg dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-300 py-4 px-4 text-center hover:bg-slate-400 focus:z-10"
@@ -45,8 +47,9 @@
 
       <button
         (click)="toggleFilter(redditFilter.TOP)"
+        data-testid="filter-top"
         [ngClass]="{
-          'text-gray-900': filter === redditFilter.TOP,
+          'text-gray-900 active': filter === redditFilter.TOP,
           'text-white hover:text-gray-700': filter !== redditFilter.TOP
         }"
         class="transition-all font-fugaz uppercase font-bold text-lg dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-300 py-4 px-4 text-center hover:bg-slate-400 focus:z-10"
@@ -64,8 +67,9 @@
 
       <button
         (click)="toggleFilter(redditFilter.RISING)"
+        data-testid="filter-rising"
         [ngClass]="{
-          'text-gray-900': filter === redditFilter.RISING,
+          'text-gray-900 active': filter === redditFilter.RISING,
           'text-white hover:text-gray-700': filter !== redditFilter.RISING
         }"
         class="transition-all font-fugaz uppercase font-bold text-lg dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden rounded-tr-lg bg-slate-300 py-4 px-4 text-center hover:bg-slate-400 focus:z-10"

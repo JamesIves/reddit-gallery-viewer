@@ -77,12 +77,12 @@ export interface IRedditResult {
   title: string
   id: string
   over_18: boolean
-  secure_media: {
+  secure_media?: {
     oembed: {
       html: string
     }
   }
-  secure_media_embed: {
+  secure_media_embed?: {
     media_domain_url: string
     content: string
   }

@@ -1,4 +1,5 @@
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {findEl} from 'src/app/util/spec'
 
 import {NavbarComponent} from './navbar.component'
 
@@ -20,5 +21,7 @@ describe('NavbarComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('renders a link', () => {})
+  it('renders a link', () => {
+    expect(findEl(fixture, 'navbar-link')).toBeTruthy()
+  })
 })

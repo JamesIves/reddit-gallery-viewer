@@ -14,7 +14,7 @@
         formControlName="term"
         id="term"
         class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        placeholder="cats"
+        [placeholder]="subRedditName$ | async"
       />
     </div>
   </div>

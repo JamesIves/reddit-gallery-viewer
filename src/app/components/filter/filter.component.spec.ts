@@ -1,5 +1,7 @@
+import {HttpClientModule} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
-
+import {click, findEl} from 'src/app/util/spec'
+import {RedditService} from 'src/services/reddit/reddit.service'
 import {FilterComponent} from './filter.component'
 
 describe('FilterComponent', () => {
@@ -8,7 +10,8 @@ describe('FilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FilterComponent]
+      imports: [FilterComponent, HttpClientModule],
+      providers: [RedditService]
     }).compileComponents()
 
     fixture = TestBed.createComponent(FilterComponent)
@@ -20,11 +23,93 @@ describe('FilterComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('toggles to the hot filter when clicked', () => {})
+  it('toggles to the hot filter when clicked', () => {
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
+    ).toBeFalsy()
 
-  it('toggles to the new filter when clicked', () => {})
+    click(fixture, 'filter-new')
+    fixture.detectChanges()
 
-  it('toggles to the top filter when clicked', () => {})
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
+      findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
+    ).toBeTruthy()
 
-  it('toggles to the rising filter when clicked', () => {})
+    click(fixture, 'filter-hot')
+    fixture.detectChanges()
+
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+  })
+
+  it('toggles to the new filter when clicked', () => {
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+
+    click(fixture, 'filter-new')
+    fixture.detectChanges()
+
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
+      findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+  })
+
+  it('toggles to the top filter when clicked', () => {
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-top').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+
+    click(fixture, 'filter-top')
+    fixture.detectChanges()
+
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
+      findEl(fixture, 'filter-top').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+  })
+
+  it('toggles to the rising filter when clicked', () => {
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-rising').nativeElement.classList.contains(
+        'active'
+      )
+    ).toBeFalsy()
+
+    click(fixture, 'filter-rising')
+    fixture.detectChanges()
+
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
+      findEl(fixture, 'filter-rising').nativeElement.classList.contains(
+        'active'
+      )
+    ).toBeTruthy()
+  })
 })

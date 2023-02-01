@@ -1,4 +1,6 @@
+import {HttpClientModule} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {RedditService} from 'src/services/reddit/reddit.service'
 
 import {SearchResultsComponent} from './search-results.component'
 
@@ -8,7 +10,8 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchResultsComponent]
+      imports: [SearchResultsComponent, HttpClientModule],
+      providers: [RedditService]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SearchResultsComponent)

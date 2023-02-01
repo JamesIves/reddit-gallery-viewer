@@ -1,6 +1,7 @@
 import {CommonModule} from '@angular/common'
 import {ChangeDetectionStrategy, Component} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms'
+import {Observable} from 'rxjs'
 import {RedditService} from 'src/services/reddit/reddit.service'
 
 /**
@@ -14,10 +15,14 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   standalone: true
 })
 export class SearchComponent {
+  public readonly subRedditName$: Observable<string>
+
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly redditService: RedditService
-  ) {}
+  ) {
+    this.subRedditName$ = this.redditService.getSubRedditName()
+  }
 
   /**
    * Contains all of the search form data points.
