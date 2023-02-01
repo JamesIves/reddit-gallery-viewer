@@ -17,10 +17,25 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   templateUrl: './safe-mode.component.html'
 })
 export class SafeModeComponent {
+  /**
+   * @inheritdoc
+   */
   protected readonly safeModeSetting = SafeMode
+
+  /**
+   * Observable that emits if safe mode is enabled/disabled.
+   */
   protected readonly safeMode$: Observable<SafeMode>
+
+  /**
+   * Determines if the safe mode alert dialog should be shown or not.
+   */
   public showAlert = false
 
+  /**
+   * @inheritdoc
+   * @param redditService The injected reddit service.
+   */
   public constructor(private readonly redditService: RedditService) {
     this.safeMode$ = this.redditService.getSafeMode()
   }
@@ -37,6 +52,9 @@ export class SafeModeComponent {
     }
   }
 
+  /**
+   * Toggles the safe mode alert on|off.
+   */
   public toggleAlert() {
     this.showAlert = !this.showAlert
   }
