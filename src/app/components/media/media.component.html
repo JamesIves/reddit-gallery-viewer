@@ -1,31 +1,32 @@
 <div *ngIf="content" class="pb-[32px] h-[1200px] block overflow-hidden">
-  <img
-    class="h-full w-full object-cover"
-    data-testid="media-image"
-    *ngIf="
-      content.preview &&
-      content.preview.images.length &&
-      content.post_hint === redditPostHint.IMAGE
-    "
-    [src]="content.url"
-  />
+  <div class="bg-slate-900 w-full h-full rounded-lg p-4">
+    <img
+      class="h-full w-full object-contain"
+      data-testid="media-image"
+      *ngIf="
+        content.preview &&
+        content.preview.images.length &&
+        content.post_hint === redditPostHint.IMAGE
+      "
+      [src]="content.url"
+    />
 
-  <video
-    *ngIf="
-      content.preview &&
-      content.preview.reddit_video_preview &&
-      content.post_hint === redditPostHint.LINK
-    "
-    data-testid="media-video"
-    class="w-full h-full object-cover"
-    autoplay
-    loop
-    muted
-  >
-    <source [src]="content.preview.reddit_video_preview.fallback_url" />
-  </video>
+    <video
+      *ngIf="
+        content.preview &&
+        content.preview.reddit_video_preview &&
+        content.post_hint === redditPostHint.LINK
+      "
+      data-testid="media-video"
+      class="w-auto h-full object-contain"
+      autoplay
+      loop
+      muted
+    >
+      <source [src]="content.preview.reddit_video_preview.fallback_url" />
+    </video>
 
-  <!-- <div
+    <!-- <div
     *ngIf="
       content.post_hint === redditPostHint.LINK && content.secure_media_embed
     "
@@ -33,15 +34,16 @@
     [innerHtml]="content.secure_media_embed.content | safeHtml"
   ></div> -->
 
-  <iframe
-    class="w-full h-full"
-    data-testid="media-iframe"
-    *ngIf="
-      content.post_hint === redditPostHint.RICH_VIDEO &&
-      content.secure_media_embed
-    "
-    [src]="content.secure_media_embed.media_domain_url | trustResource"
-  ></iframe>
+    <iframe
+      class="w-full h-full"
+      data-testid="media-iframe"
+      *ngIf="
+        content.post_hint === redditPostHint.RICH_VIDEO &&
+        content.secure_media_embed
+      "
+      [src]="content.secure_media_embed.media_domain_url | trustResource"
+    ></iframe>
+  </div>
 
   <div class="text-sm mb-2 text-slate-900 font-bold truncate overflow-hidden">
     {{ content.title }} ~
