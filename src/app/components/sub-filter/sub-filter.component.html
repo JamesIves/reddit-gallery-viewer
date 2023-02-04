@@ -5,15 +5,15 @@
   "
 >
   <label
-    for="location"
+    for="subfilter"
     class="block sr-only text-sm font-medium text-gray-700 mb-1"
     >Sub Filter</label
   >
   <select
-    id="location"
+    id="subfilter"
     *ngIf="activeSubFilter$ | async as subFilter"
     (change)="toggleSubFilter($event)"
-    name="location"
+    name="subfilter"
     class="bg-slate-300 hover:bg-slate-400 transition-all font-bold text-lg block w-full rounded-md border-gray-300 py-4 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
   >
     <option
