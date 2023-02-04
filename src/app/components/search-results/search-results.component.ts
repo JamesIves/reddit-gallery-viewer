@@ -4,9 +4,11 @@ import {
   ChangeDetectionStrategy,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
+  OnInit,
   ViewChild
 } from '@angular/core'
-import {Observable} from 'rxjs'
+import {debounceTime, fromEvent, Observable, Subscription} from 'rxjs'
+import {BreakPoint, ViewPortSize} from 'src/app/models/viewport.enum'
 import {LoaderService} from 'src/services/loader/loader.service'
 import {RedditService} from 'src/services/reddit/reddit.service'
 import {IRedditQuery} from '../../models/reddit.model'
@@ -24,11 +26,26 @@ import {SubFilterComponent} from '../sub-filter/sub-filter.component'
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './search-results.component.html'
 })
-export class SearchResultsComponent {
+export class SearchResultsComponent implements OnInit {
   /**
    * Determines the distance from the bottom before new content is requested.
    */
   private static readonly FETCH_MINIMUM = 3
+
+  /**
+   * The size of the items at the small breakpoint.
+   */
+  private readonly SM_SIZE = 450
+
+  /**
+   * The size of the items at the large breakpoint.
+   */
+  private readonly LG_SIZE = 1264
+
+  /**
+   * The size of items at the medium breakpoint.
+   */
+  private readonly MD_SIZE = 600
 
   /**
    * Used to keep track of the current viewport scroll depth.
@@ -47,6 +64,26 @@ export class SearchResultsComponent {
   protected readonly loading$: Observable<boolean>
 
   /**
+   * Observable that tracks resize events.
+   */
+  protected resizeObservable$?: Observable<Event>
+
+  /**
+   * Subscription which is used to inform resizeObservable.
+   */
+  protected resizeSubscription$?: Subscription
+
+  /**
+   * The current viewport breakpoint size.
+   */
+  private viewPortSize: ViewPortSize = ViewPortSize.LG
+
+  /**
+   * The size of the item.
+   */
+  public itemSize = this.LG_SIZE
+
+  /**
    * @inheritdoc
    * @param redditService The Reddit service used to handle data from the Reddit API.
    */
@@ -56,6 +93,50 @@ export class SearchResultsComponent {
   ) {
     this.query$ = this.redditService.getQuery()
     this.loading$ = this.loaderService.getLoading()
+  }
+
+  /**
+   * @inheritdoc
+   * Registers a subscription that tracks resize events to ensure
+   * things are appropriately sized and optimized per breakpoint.
+   * As we use a fixed height for performance reasons, we want to make sure
+   * that not too much vertical space is taken up on mobile devices.
+   */
+  public ngOnInit(): void {
+    this.determineItemSize()
+
+    this.resizeObservable$ = fromEvent(window, 'resize')
+    this.resizeSubscription$ = this.resizeObservable$
+      .pipe(debounceTime(1000))
+      .subscribe(() => {
+        this.determineItemSize()
+      })
+  }
+
+  /**
+   * Keeps track of the current item size and updates it
+   * based on existing viewport size & breakpoint markers.
+   */
+  public determineItemSize() {
+    if (
+      window.innerWidth <= BreakPoint.MD &&
+      this.viewPortSize !== ViewPortSize.MD
+    ) {
+      this.itemSize = this.MD_SIZE
+      this.viewPortSize = ViewPortSize.MD
+    } else if (
+      window.innerHeight <= BreakPoint.SM &&
+      this.viewPortSize !== ViewPortSize.SM
+    ) {
+      this.itemSize = this.SM_SIZE
+      this.viewPortSize = ViewPortSize.SM
+    } else if (this.viewPortSize !== ViewPortSize.LG) {
+      this.itemSize = this.LG_SIZE
+      this.viewPortSize = ViewPortSize.LG
+    }
+
+    // Used to re-render the scrolling viewport.
+    this.viewPort?.checkViewportSize()
   }
 
   /**

@@ -31,4 +31,7 @@ export class MediaComponent {
    */
   @Input()
   public content?: IRedditResult
+
+  @Input()
+  public size?: number
 }

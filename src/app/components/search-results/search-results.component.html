@@ -11,15 +11,15 @@
       Docs: https://material.angular.io/cdk/scrolling -->
       <cdk-virtual-scroll-viewport
         scrollWindow
-        itemSize="1264"
+        [itemSize]="itemSize"
         (scrolledIndexChange)="onScroll(data.query.nextPage)"
         class="search-results__viewport"
       >
         <li
           *cdkVirtualFor="let result of data.query.results"
-          class="h-[1264px] block"
+          class="h-[{{ itemSize }}px] block"
         >
-          <app-media [content]="result"></app-media>
+          <app-media [content]="result" [size]="itemSize"></app-media>
         </li>
       </cdk-virtual-scroll-viewport>
 
@@ -91,3 +91,7 @@
     </button>
   </ng-container>
 </div>
+
+<!-- This is a bit of a hack to ensure that Tailwind registers
+  all of the CSS classes we need at different breakpoints. -->
+<div class="sr-only h-[450px] h-[600px] h-[1264px]"></div>
