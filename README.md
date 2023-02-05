@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <img src="https://github.com/JamesIves/github-pages-deploy-action/raw/dev/.github/assets/screenshot.png" alt="">
+  <img src="https://github.com/JamesIves/reddit-gallery-viewer/raw/main/.github/assets/screenshot.png" alt="">
 </p>
 
 ## Getting Started ✈️
