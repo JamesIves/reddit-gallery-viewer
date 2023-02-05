@@ -41,6 +41,12 @@
                   "maximumError": "4kb"
                 }
               ],
+              "buildOptimizer": true,
+              "optimization": true,
+              "vendorChunk": false,
+              "extractLicenses": true,
+              "sourceMap": false,
+              "namedChunks": true,
               "outputHashing": "all",
               "baseHref": "https://jives.dev/reddit-gallery-viewer/"
             },
