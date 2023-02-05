@@ -63,8 +63,7 @@
         },
         "serve": {
           "options": {
-            "browserTarget": "reddit-gallery-viewer:build",
-            "proxyConfig": "./proxy.conf.json"
+            "browserTarget": "reddit-gallery-viewer:build"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
