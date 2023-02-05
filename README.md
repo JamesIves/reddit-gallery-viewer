@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  Shows a never-ending stream of images from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the [Reddit API](https://www.reddit.com/dev/api/).
+  Shows a never-ending stream of images from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
 </p>
 
 <p align="center">
