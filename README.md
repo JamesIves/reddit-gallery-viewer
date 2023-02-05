@@ -1,7 +1,5 @@
 <p align="center">
-  <a href="https://github.com/marketplace/actions/deploy-to-github-pages">
-    <img alt="GitHub Pages Deploy Action Logo" width="200px" src="https://github.com/JamesIves/github-pages-deploy-action/raw/dev/.github/assets/icon.png">
-  </a>
+    <img alt="Reddit Logo" width="200px" src="https://www.redditinc.com/assets/images/site/reddit-logo.png">
 </p>
 
 <h1 align="center">
