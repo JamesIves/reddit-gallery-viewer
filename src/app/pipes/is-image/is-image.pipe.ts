@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core'
  */
 @Pipe({name: 'isImage', standalone: true})
 export class IsImagePipe implements PipeTransform {
-  transform(value: string): boolean {
+  public transform(value: string): boolean {
     return (
       value.endsWith('png') ||
       value.endsWith('jpg') ||

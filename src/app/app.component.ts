@@ -6,6 +6,9 @@ import {SafeModeComponent} from './components/safe-mode/safe-mode.component'
 import {SearchResultsComponent} from './components/search-results/search-results.component'
 import {SearchComponent} from './components/search/search.component'
 
+/**
+ * The primary application access point.
+ */
 @Component({
   selector: 'app-root',
   imports: [

@@ -32,6 +32,11 @@ export class FilterComponent {
    */
   public readonly activeFilter: Observable<RedditFilter>
 
+  /**
+   * @inheritdoc
+   * @param redditService The injected Reddit service.
+   * @param loaderService The injected Loader service.
+   */
   public constructor(
     private readonly redditService: RedditService,
     private readonly loaderService: LoaderService

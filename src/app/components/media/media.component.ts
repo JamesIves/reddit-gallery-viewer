@@ -32,6 +32,10 @@ export class MediaComponent {
   @Input()
   public content?: IRedditResult
 
+  /**
+   * The inherited content row size. This is used to ensure that
+   * media items take up as much as space as their parent container.
+   */
   @Input()
   public size?: number
 }

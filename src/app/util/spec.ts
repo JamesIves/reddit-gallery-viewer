@@ -3,10 +3,6 @@ import {ComponentFixture} from '@angular/core/testing'
 import {By} from '@angular/platform-browser'
 
 /**
- * Spec helpers for working with the DOM
- */
-
-/**
  * Returns a selector for the `data-testid` attribute with the given attribute value.
  *
  * @param testId Test id set by `data-testid`

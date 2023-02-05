@@ -46,6 +46,17 @@ export class RedditService {
    */
   private readonly _query$: Observable<IRedditQuery>
 
+  /**
+   * On construction the _query$ observable is bound, which
+   * checks for any changes to either name, filter, subfilter, safemode or page.
+   * If page changes, we append the last emission to the current one,
+   * and return a combined array, resulting in an infinite scroll.
+   * If the others are changed, we assume that a user has requested
+   * an updated set of content, and instead return only that emission.
+   * This machinery is what powers the majority of the application,
+   * and as a result _query$ can be leveraged in a template with the
+   * combination of the async pipe to fetch the most up to date content.
+   */
   public constructor(private readonly http: HttpClient) {
     this._query$ = combineLatest([
       this.getSubRedditName(),

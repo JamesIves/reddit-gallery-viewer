@@ -33,25 +33,31 @@ export class SearchResultsComponent implements OnInit {
   private static readonly FETCH_MINIMUM = 3
 
   /**
-   * The size of the items at the small breakpoint.
-   */
-  private readonly SM_SIZE = 450
-
-  /**
-   * The size of the items at the large breakpoint.
-   */
-  private readonly LG_SIZE = 1264
-
-  /**
-   * The size of items at the medium breakpoint.
-   */
-  private readonly MD_SIZE = 600
-
-  /**
    * Used to keep track of the current viewport scroll depth.
    */
   @ViewChild(CdkVirtualScrollViewport)
   public viewPort?: CdkVirtualScrollViewport
+
+  /**
+   * This is a pre-determined, hardcoded value that defines
+   * how much space each item in the virtual scroller takes up
+   * at the Small breakpoint.
+   */
+  private readonly SM_SIZE = 450
+
+  /**
+   * This is a pre-determined, hardcoded value that defines
+   * how much space each item in the virtual scroller takes up
+   * at the Medium breakpoint.
+   */
+  private readonly MD_SIZE = 600
+
+  /**
+   * This is a pre-determined, hardcoded value that defines
+   * how much space each item in the virtual scroller takes up
+   * at the Large breakpoint.
+   */
+  private readonly LG_SIZE = 1264
 
   /**
    * Observable used to display post content from Reddit.
@@ -160,6 +166,9 @@ export class SearchResultsComponent implements OnInit {
     }
   }
 
+  /**
+   * Handles the interaction with the scroll to top button.
+   */
   public scrollToTop() {
     this.viewPort?.scrollToIndex(0)
   }

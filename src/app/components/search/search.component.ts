@@ -15,8 +15,17 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   standalone: true
 })
 export class SearchComponent {
+  /**
+   * An observable containing the selected sub reddit name.
+   * Used to push the current Reddit page back to the input placeholder.
+   */
   public readonly subRedditName$: Observable<string>
 
+  /**
+   * @inheritdoc
+   * @param formBuilder Injected form builder from Angular.
+   * @param redditService Injected Reddit service.
+   */
   public constructor(
     private readonly formBuilder: FormBuilder,
     private readonly redditService: RedditService

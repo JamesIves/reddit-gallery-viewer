@@ -76,6 +76,11 @@ export interface IRedditResult {
   url: string
   title: string
   id: string
+  /**
+   * Content that is considered over_18 is usually NSFW.
+   * This flag is used in the RedditService to filter our content
+   * from the stream if safe mode is enabled.
+   */
   over_18: boolean
   secure_media?: {
     oembed: {

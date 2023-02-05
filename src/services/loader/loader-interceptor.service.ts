@@ -15,9 +15,14 @@ import {LoaderService} from './loader.service'
 export class LoaderInterceptorService {
   private activeRequests = 0
 
-  constructor(private readonly loaderService: LoaderService) {}
+  public constructor(private readonly loaderService: LoaderService) {}
 
-  intercept(
+  /**
+   * Intercepts any incoming/outgoing requests and tallies them
+   * within activeRequests. This is then used to inform the loader service
+   * when to show loading indicators such as spinners, bars, etc.
+   */
+  public intercept(
     request: HttpRequest<unknown>,
     next: HttpHandler
   ): Observable<HttpEvent<unknown>> {

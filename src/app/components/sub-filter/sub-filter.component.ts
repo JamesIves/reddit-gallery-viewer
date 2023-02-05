@@ -4,6 +4,11 @@ import {RedditService} from 'src/services/reddit/reddit.service'
 import {Observable} from 'rxjs'
 import {RedditFilter, RedditSubFilter} from 'src/app/models/reddit.model'
 
+/**
+ * Displays a select list of sub filters that show when applicable
+ * primary filters are displayed. For example this is used to render
+ * TOP items by time frame, such as All Time, Month, Year, etc.
+ */
 @Component({
   selector: 'app-sub-filter',
   standalone: true,
@@ -32,6 +37,10 @@ export class SubFilterComponent {
    */
   protected readonly redditSubFilter = RedditSubFilter
 
+  /**
+   * @inheritdoc
+   * @param redditService The injected Reddit service.
+   */
   public constructor(private readonly redditService: RedditService) {
     this.activeFilter$ = this.redditService.getSubRedditFilter()
     this.activeSubFilter$ = this.redditService.getSubRedditSubFilter()

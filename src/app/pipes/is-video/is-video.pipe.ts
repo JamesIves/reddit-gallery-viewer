@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core'
  */
 @Pipe({name: 'isVideo', standalone: true})
 export class IsVideoPipe implements PipeTransform {
-  transform(value: string): boolean {
+  public transform(value: string): boolean {
     return (
       value.endsWith('mp4') || value.endsWith('mov') || value.endsWith('webm')
     )

@@ -7,7 +7,7 @@ import {Pipe, PipeTransform} from '@angular/core'
  */
 @Pipe({name: 'isEmbed', standalone: true})
 export class IsEmbedPipe implements PipeTransform {
-  transform(value: string): boolean {
+  public transform(value: string): boolean {
     return value.endsWith('gifv')
   }
 }
