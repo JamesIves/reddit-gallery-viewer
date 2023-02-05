@@ -26,7 +26,7 @@ jobs:
           git config user.name "${{ secrets.GIT_NAME }}"
 
       - run: npm ci
-      - run: npm build:prod
+      - run: npm run build:prod
       - run: git stash
       - run: npm version ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }} 📣"
       - run: git push
