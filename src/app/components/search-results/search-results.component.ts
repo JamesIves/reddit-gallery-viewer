@@ -119,24 +119,27 @@ export class SearchResultsComponent implements OnInit {
    */
   public determineItemSize() {
     if (
-      window.innerWidth <= BreakPoint.MD &&
+      window.innerWidth < BreakPoint.MD &&
       this.viewPortSize !== ViewPortSize.MD
     ) {
       this.itemSize = this.MD_SIZE
       this.viewPortSize = ViewPortSize.MD
+      this.viewPort?.checkViewportSize()
     } else if (
-      window.innerHeight <= BreakPoint.SM &&
+      window.innerHeight < BreakPoint.SM &&
       this.viewPortSize !== ViewPortSize.SM
     ) {
       this.itemSize = this.SM_SIZE
       this.viewPortSize = ViewPortSize.SM
-    } else if (this.viewPortSize !== ViewPortSize.LG) {
+      this.viewPort?.checkViewportSize()
+    } else if (
+      window.innerWidth > BreakPoint.MD &&
+      this.viewPortSize !== ViewPortSize.LG
+    ) {
       this.itemSize = this.LG_SIZE
       this.viewPortSize = ViewPortSize.LG
+      this.viewPort?.checkViewportSize()
     }
-
-    // Used to re-render the scrolling viewport.
-    this.viewPort?.checkViewportSize()
   }
 
   /**
