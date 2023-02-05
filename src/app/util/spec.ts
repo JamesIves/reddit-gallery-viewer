@@ -130,7 +130,7 @@ export function expectContent<T>(
 export function dispatchFakeEvent(
   element: EventTarget,
   type: string,
-  bubbles: boolean = false
+  bubbles = false
 ): void {
   const event = document.createEvent('Event')
   event.initEvent(type, bubbles, false)
@@ -204,8 +204,11 @@ export function checkField<T>(
  */
 export function makeClickEvent(target: EventTarget): Partial<MouseEvent> {
   return {
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     preventDefault(): void {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     stopPropagation(): void {},
+    // eslint-disable-next-line @typescript-eslint/no-empty-function
     stopImmediatePropagation(): void {},
     type: 'click',
     target,

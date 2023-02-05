@@ -1,4 +1,8 @@
-<form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+<form
+  data-testid="search-form"
+  [formGroup]="searchForm"
+  (ngSubmit)="onSubmit()"
+>
   <div>
     <label for="term" class="block text-sm font-medium text-gray-700 sr-only"
       >Search</label
@@ -11,6 +15,7 @@
       <input
         type="text"
         name="term"
+        data-testid="search-term"
         formControlName="term"
         id="term"
         class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
@@ -19,5 +24,7 @@
     </div>
   </div>
 
-  <button class="button sr-only" type="submit">Search</button>
+  <button data-testid="search-button" class="button sr-only" type="submit">
+    Search
+  </button>
 </form>

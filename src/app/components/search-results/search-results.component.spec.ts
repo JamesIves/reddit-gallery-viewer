@@ -1,7 +1,8 @@
 import {HttpClientModule} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {findEl} from 'src/app/util/spec'
+import {LoaderService} from 'src/services/loader/loader.service'
 import {RedditService} from 'src/services/reddit/reddit.service'
-
 import {SearchResultsComponent} from './search-results.component'
 
 describe('SearchResultsComponent', () => {
@@ -11,7 +12,7 @@ describe('SearchResultsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [SearchResultsComponent, HttpClientModule],
-      providers: [RedditService]
+      providers: [RedditService, LoaderService]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SearchResultsComponent)
@@ -23,7 +24,7 @@ describe('SearchResultsComponent', () => {
     expect(component).toBeTruthy()
   })
 
-  it('displays the search results', () => {})
-
-  it('displays an empty state when there is nothing to display', () => {})
+  it('shows a return to top button', () => {
+    expect(findEl(fixture, 'search-results-rtt')).toBeTruthy()
+  })
 })

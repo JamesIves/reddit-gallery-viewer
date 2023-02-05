@@ -26,14 +26,33 @@ export class RedditService {
   private static readonly DEFAULT_SUBREDDIT = 'cats'
   private static readonly DEFAULT_PAGE = 't3_'
 
+  /**
+   * BehaviorSubject which houses the current safe mode setting.
+   */
   private readonly _safeMode$ = new BehaviorSubject<SafeMode>(SafeMode.ENABLED)
+
+  /**
+   * BehaviorSubject which houses the current subreddit name.
+   */
   private readonly _subRedditName$ = new BehaviorSubject(
     RedditService.DEFAULT_SUBREDDIT
   )
+
+  /**
+   * BehaviorSubject which houses the current page.
+   */
   private readonly _subRedditPage$ = new BehaviorSubject(
     RedditService.DEFAULT_PAGE
   )
+
+  /**
+   * BehaviorSubject which houses the currently set filter.
+   */
   private readonly _subRedditFilter$ = new BehaviorSubject(RedditFilter.HOT)
+
+  /**
+   * BehaviorSubject which houses the currently set sub filter.
+   */
   private readonly _subRedditSubFilter$ = new BehaviorSubject<RedditSubFilter>(
     RedditSubFilter.ALL
   )
@@ -221,6 +240,7 @@ export class RedditService {
       RedditService.MAX_CONTENT_FETCH.toString()
     )
 
+    // If page is provided it gets appended to the query to ensure we're not re-fetching the same content.
     if (page) {
       path.searchParams.append(RedditRequestParameters.AFTER, page)
     }

@@ -14,41 +14,48 @@
     *ngIf="activeSubFilter$ | async as subFilter"
     (change)="toggleSubFilter($event)"
     name="subfilter"
+    data-testid="subfilter"
     class="bg-slate-300 hover:bg-slate-400 transition-all font-bold text-lg block w-full rounded-md border-gray-300 py-4 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
   >
     <option
       [selected]="subFilter === redditSubFilter.ALL"
       [value]="redditSubFilter.ALL"
+      data-testid="subfilter-all"
     >
       All Time
     </option>
     <option
       [selected]="subFilter === redditSubFilter.HOUR"
       [value]="redditSubFilter.HOUR"
+      data-testid="subfilter-hour"
     >
       Past Hour
     </option>
     <option
       [selected]="subFilter === redditSubFilter.DAY"
       [value]="redditSubFilter.DAY"
+      data-testid="subfilter-day"
     >
       Past Day
     </option>
     <option
       [selected]="subFilter === redditSubFilter.WEEK"
       [value]="redditSubFilter.WEEK"
+      data-testid="subfilter-week"
     >
       Past Week
     </option>
     <option
       [selected]="subFilter === redditSubFilter.MONTH"
       [value]="redditSubFilter.MONTH"
+      data-testid="subfilter-month"
     >
       Past Month
     </option>
     <option
       [selected]="subFilter === redditSubFilter.YEAR"
       [value]="redditSubFilter.YEAR"
+      data-testid="subfilter-year"
     >
       Past Year
     </option>
