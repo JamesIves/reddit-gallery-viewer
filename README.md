@@ -1,5 +1,5 @@
 <p align="center">
-    <img alt="Reddit Logo" width="200px" src="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+    <img alt="Reddit Logo" width="150px" src="https://www.redditinc.com/assets/images/site/reddit-logo.png">
 </p>
 
 <h1 align="center">
