@@ -10,6 +10,10 @@ jobs:
       - name: Checkout 🛎️
         uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'v18.13.0'
+
       - name: Install and Build 🔧
         run: |
           npm ci

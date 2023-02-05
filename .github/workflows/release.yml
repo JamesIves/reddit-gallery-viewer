@@ -1,0 +1,32 @@
+name: publish-to-npm
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'The updated registry version number.'
+        required: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: dev
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 'v18.13.0'
+          registry-url: 'https://registry.npmjs.org'
+          scope: '@jamesives'
+
+      - name: Configure Git
+        run: |
+          git config user.email "${{ secrets.GIT_EMAIL }}"
+          git config user.name "${{ secrets.GIT_NAME }}"
+
+      - run: npm ci
+      - run: npm build:prod
+      - run: git stash
+      - run: npm version ${{ github.event.inputs.version }} -m "Release ${{ github.event.inputs.version }} 📣"
+      - run: git push
