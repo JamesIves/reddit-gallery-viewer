@@ -3,6 +3,7 @@
     <img
       class="h-full w-full object-contain"
       data-testid="media-image"
+      [alt]="content.title"
       *ngIf="
         content.preview &&
         content.preview.images.length &&
