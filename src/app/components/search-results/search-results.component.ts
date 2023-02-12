@@ -160,7 +160,7 @@ export class SearchResultsComponent implements OnInit {
       const total = this.viewPort.getDataLength()
 
       // If we're close to the bottom, fetch the next page.
-      if (end == total - SearchResultsComponent.FETCH_MINIMUM) {
+      if (end >= total - SearchResultsComponent.FETCH_MINIMUM) {
         this.redditService.setSubRedditPage(nextPage)
       }
     }
