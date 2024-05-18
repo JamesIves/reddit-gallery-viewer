@@ -27,7 +27,7 @@ export class RedditService {
   private static readonly DEFAULT_PAGE = 't3_'
 
   /**
-   * BehaviorSubject which houses the current safe mode setting.
+   * BehaviorSubject which houses the current safe mode settings.
    */
   private readonly _safeMode$ = new BehaviorSubject<SafeMode>(SafeMode.ENABLED)
 
