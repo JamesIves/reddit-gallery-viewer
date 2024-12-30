@@ -1,14 +1,6 @@
-<p align="center">
-    <img alt="Reddit Logo" width="150px" src="https://www.redditinc.com/assets/images/site/reddit-logo.png">
-</p>
+# Reddit Gallery Viewer
 
-<h1 align="center">
-  Reddit Gallery Viewer
-</h1>
-
-<p align="center">
-  Shows a never-ending stream of images from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
-</p>
+Shows a never-ending stream of images from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
 
 <p align="center">
   <img src="https://github.com/JamesIves/reddit-gallery-viewer/raw/main/.github/assets/screenshot.png" alt="">
