@@ -18,6 +18,6 @@ You can run the application locally by running `npm install` followed by `npm st
 
 ### Tests and Linting
 
-You can run the linting and testing scripts by running `npm run lint` and `npm run test`. You can also format the project directly using Prettier by running `npm run lint:format`.
+You can run the linting and testing scripts by running `npm run lint` and `npm run test`. You can also format the project directly using Prettier by running `npm run lint:fix`.
 
 ![Screenshot of Application](./.github/docs/screenshot.png)
