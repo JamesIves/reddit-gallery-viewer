@@ -63,15 +63,15 @@
         },
         "serve": {
           "options": {
-            "browserTarget": "reddit-gallery-viewer:build"
+            "buildTarget": "reddit-gallery-viewer:build"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "reddit-gallery-viewer:build:production"
+              "buildTarget": "reddit-gallery-viewer:build:production"
             },
             "development": {
-              "browserTarget": "reddit-gallery-viewer:build:development"
+              "buildTarget": "reddit-gallery-viewer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +79,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "reddit-gallery-viewer:build"
+            "buildTarget": "reddit-gallery-viewer:build"
           }
         },
         "test": {
