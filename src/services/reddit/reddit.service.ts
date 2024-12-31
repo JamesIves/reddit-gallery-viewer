@@ -90,6 +90,7 @@ export class RedditService {
               name,
               filter,
               page,
+
               subFilter,
               safeMode
             }).pipe(
@@ -110,10 +111,17 @@ export class RedditService {
            * This is used for infinite scrolling pagination.
            */
           scan(
-            (acc, curr) => ({
-              results: curr.length ? acc.results.concat(curr) : acc.results,
-              nextPage: curr[curr.length - 1]?.id
-            }),
+            (acc, curr) => {
+              const newResults = curr.filter(
+                item =>
+                  !acc.results.some(existingItem => existingItem.id === item.id)
+              )
+
+              return {
+                results: acc.results.concat(newResults),
+                nextPage: curr[curr.length - 1]?.id
+              }
+            },
             {
               results: [] as IRedditResult[],
               nextPage: undefined
