@@ -1,7 +1,7 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
   <div class="bg-slate-200 w-full h-full rounded-lg p-4">
     <img
-      class="h-full w-full object-contain"
+      class="h-full w-full object-contain bg-slate-950"
       data-testid="media-image"
       [alt]="content.title"
       *ngIf="
@@ -9,7 +9,8 @@
         content.preview.images.length &&
         content.post_hint === redditPostHint.IMAGE
       "
-      [src]="content.url"
+      [src]="imageSrc"
+      (error)="onImageError()"
     />
 
     <video
@@ -19,7 +20,7 @@
         content.post_hint === redditPostHint.LINK
       "
       data-testid="media-video"
-      class="w-auto h-full object-contain mx-auto"
+      class="w-auto h-full object-contain mx-auto bg-slate-950"
       autoplay
       loop
       muted
@@ -28,7 +29,7 @@
     </video>
 
     <iframe
-      class="w-full h-full"
+      class="w-full h-full bg-slate-950"
       data-testid="media-iframe"
       *ngIf="
         content.post_hint === redditPostHint.RICH_VIDEO &&

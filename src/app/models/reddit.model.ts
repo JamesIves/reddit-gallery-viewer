@@ -76,6 +76,7 @@ export interface IRedditResult {
   url: string
   title: string
   id: string
+  thumbnail?: string
   /**
    * Content that is considered over_18 is usually NSFW.
    * This flag is used in the RedditService to filter our content

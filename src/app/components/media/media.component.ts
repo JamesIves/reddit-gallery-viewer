@@ -1,4 +1,10 @@
-import {ChangeDetectionStrategy, Component, Input} from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges
+} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
@@ -13,7 +19,7 @@ import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pip
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './media.component.html'
 })
-export class MediaComponent {
+export class MediaComponent implements OnChanges {
   /**
    * @inheritdoc
    *
@@ -31,9 +37,34 @@ export class MediaComponent {
   public content?: IRedditResult
 
   /**
+   * The image source to display.
+   */
+  public imageSrc?: string
+
+  /**
    * The inherited content row size. This is used to ensure that
    * media items take up as much as space as their parent container.
    */
   @Input()
   public size?: number
+
+  /**
+   * Whenever contetn changes, we need to update the image source.
+   * This is done to ensure that the image source is always up to date
+   * with the latest content, and so we can track for any errors.
+   */
+  public ngOnChanges(changes: SimpleChanges) {
+    if (changes && changes['content']) {
+      this.imageSrc = this.content?.url
+    }
+  }
+
+  /**
+   * If the image fails to load, we can use the thumbnail as a fallback if it exists.
+   */
+  onImageError() {
+    if (this.content?.thumbnail) {
+      this.imageSrc = this.content.thumbnail
+    }
+  }
 }
