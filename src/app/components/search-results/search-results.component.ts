@@ -2,6 +2,7 @@ import {CdkVirtualScrollViewport, ScrollingModule} from '@angular/cdk/scrolling'
 import {CommonModule} from '@angular/common'
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   OnInit,
@@ -94,7 +95,8 @@ export class SearchResultsComponent implements OnInit {
    */
   public constructor(
     private readonly redditService: RedditService,
-    private readonly loaderService: LoaderService
+    private readonly loaderService: LoaderService,
+    private readonly cdr: ChangeDetectorRef
   ) {
     this.query$ = this.redditService.getQuery()
     this.loading$ = this.loaderService.getLoading()
@@ -112,7 +114,7 @@ export class SearchResultsComponent implements OnInit {
 
     this.resizeObservable$ = fromEvent(window, 'resize')
     this.resizeSubscription$ = this.resizeObservable$
-      .pipe(debounceTime(1000))
+      .pipe(debounceTime(100))
       .subscribe(() => {
         this.determineItemSize()
       })
@@ -145,6 +147,8 @@ export class SearchResultsComponent implements OnInit {
       this.viewPortSize = ViewPortSize.LG
       this.viewPort?.checkViewportSize()
     }
+
+    this.cdr.detectChanges()
   }
 
   /**
