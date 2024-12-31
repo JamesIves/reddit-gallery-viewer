@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import {TestBed} from '@angular/core/testing'
 import {RouterTestingModule} from '@angular/router/testing'
 import {RedditService} from 'src/services/reddit/reddit.service'
@@ -7,9 +7,9 @@ import {AppComponent} from './app.component'
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent, RouterTestingModule, HttpClientModule],
-      providers: [RedditService]
-    }).compileComponents()
+    imports: [AppComponent, RouterTestingModule],
+    providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
+}).compileComponents()
   })
 
   it('should create the app', () => {

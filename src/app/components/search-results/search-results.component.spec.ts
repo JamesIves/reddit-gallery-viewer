@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http'
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {findEl} from 'src/app/util/spec'
 import {LoaderService} from 'src/services/loader/loader.service'
@@ -11,9 +11,9 @@ describe('SearchResultsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchResultsComponent, HttpClientModule],
-      providers: [RedditService, LoaderService]
-    }).compileComponents()
+    imports: [SearchResultsComponent],
+    providers: [RedditService, LoaderService, provideHttpClient(withInterceptorsFromDi())]
+}).compileComponents()
 
     fixture = TestBed.createComponent(SearchResultsComponent)
     component = fixture.componentInstance

@@ -4,7 +4,7 @@ import {AppComponent} from './app/app.component'
 import {environment} from './environments/environment'
 
 import {importProvidersFrom} from '@angular/core'
-import {HttpClientModule, HTTP_INTERCEPTORS} from '@angular/common/http'
+import { HTTP_INTERCEPTORS } from '@angular/common/http'
 import {LoaderInterceptorService} from './services/loader/loader-interceptor.service'
 
 if (environment.production) {
