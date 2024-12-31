@@ -11,7 +11,6 @@ import {RedditFilter, RedditSubFilter} from 'src/app/models/reddit.model'
  */
 @Component({
   selector: 'app-sub-filter',
-  standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './sub-filter.component.html'

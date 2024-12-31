@@ -27,14 +27,6 @@
       <source [src]="content.preview.reddit_video_preview.fallback_url" />
     </video>
 
-    <!-- <div
-    *ngIf="
-      content.post_hint === redditPostHint.LINK && content.secure_media_embed
-    "
-    class="w-full h-full object-cover"
-    [innerHtml]="content.secure_media_embed.content | safeHtml"
-  ></div> -->
-
     <iframe
       class="w-full h-full"
       data-testid="media-iframe"
@@ -50,12 +42,14 @@
     <a
       class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
       rel="noopener noreferrer"
+      target="_blank"
       [href]="content.url"
       >Source </a
     >,
     <a
       class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
       rel="noopener noreferrer"
+      target="_blank"
       href="https://reddit.com/u/{{ content.author }}"
       >u/{{ content.author }}</a
     >

@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http'
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {FormsModule} from '@angular/forms'
 import {findEl, setFieldValue} from 'src/app/util/spec'
@@ -11,8 +11,8 @@ describe('SearchComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchComponent, HttpClientModule, FormsModule],
-      providers: [RedditService]
+      imports: [SearchComponent, FormsModule],
+      providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SearchComponent)

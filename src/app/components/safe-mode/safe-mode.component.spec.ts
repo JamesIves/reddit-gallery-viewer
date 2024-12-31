@@ -1,4 +1,4 @@
-import {HttpClientModule} from '@angular/common/http'
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {click, findEl} from 'src/app/util/spec'
 import {RedditService} from 'src/services/reddit/reddit.service'
@@ -11,8 +11,8 @@ describe('SafeModeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SafeModeComponent, HttpClientModule],
-      providers: [RedditService]
+      imports: [SafeModeComponent],
+      providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
     }).compileComponents()
 
     fixture = TestBed.createComponent(SafeModeComponent)

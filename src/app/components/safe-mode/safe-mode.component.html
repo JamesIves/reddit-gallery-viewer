@@ -31,7 +31,7 @@
       <span
         class="text-sm font-bold text-white dynamic-text-shadow"
         id="availability-label"
-        >Show Inappropriate Content</span
+        >Disable Safe Mode</span
       >
     </span>
   </div>
@@ -91,9 +91,11 @@
               </h2>
               <div class="mt-2">
                 <p class="text-sm text-gray-500">
-                  Certain subreddits have content that is not appropriate for
+                  Some Reddit forums have content that is not appropriate for
                   all ages. Disabling safe mode will make it so anything that
-                  has been flagged as 18+ on Reddit no longer gets filtered out.
+                  has been flagged as potentially inappropriate will be
+                  displayed. Due to the nature of Reddit, this could include
+                  adult content, violence, or other mature themes.
                 </p>
               </div>
             </div>
@@ -105,7 +107,7 @@
               (click)="toggleSafeMode(safeModeSetting.DISABLED)"
               class="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
             >
-              Show Me Everything
+              Understood
             </button>
             <button
               type="button"

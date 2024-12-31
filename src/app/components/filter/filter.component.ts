@@ -11,7 +11,6 @@ import {LoaderService} from 'src/services/loader/loader.service'
  */
 @Component({
   selector: 'app-filter',
-  standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './filter.component.html'

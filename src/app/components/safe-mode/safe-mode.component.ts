@@ -11,7 +11,6 @@ import {RedditService} from 'src/services/reddit/reddit.service'
  */
 @Component({
   selector: 'app-safe-mode',
-  standalone: true,
   imports: [CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './safe-mode.component.html'

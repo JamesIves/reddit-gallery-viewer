@@ -11,8 +11,7 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   selector: 'app-search',
   templateUrl: './search.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [CommonModule, ReactiveFormsModule],
-  standalone: true
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class SearchComponent {
   /**

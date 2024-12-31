@@ -1,15 +1,27 @@
 <div class="min-h-full">
-  <div class="bg-top-gradiant py-16 sm:py-32">
+  <div class="bg-top relative py-16 sm:py-32 w-full">
+    <div class="circles">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
     <header class="py-10 flex items-center h-96">
       <div
         class="mx-auto text-center flex flex-col items-center justify-center max-w-7xl px-4 sm:px-6 lg:px-8"
       >
         <app-navbar></app-navbar>
-        <h1 class="dynamic-text-shadow font-fugaz text-white uppercase">
-          Reddit Gallery
+        <h1 class="text-white relative headline" data-shadow="reddit gallery">
+          reddit gallery
         </h1>
         <p
-          class="text-white dynamic-text-shadow uppercase font-fugaz font-bold max-w-2xl pt-2 pb-8 text-lg"
+          class="text-white dynamic-text-shadow font-bold max-w-2xl pt-4 pb-8 text-lg"
         >
           Shows a never-ending stream of images from the Reddit API.
         </p>
@@ -20,7 +32,7 @@
   </div>
 
   <main class="-mt-32">
-    <div class="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-8 relative">
+    <div class="mx-auto max-w-7xl pb-12 relative">
       <app-filter></app-filter>
       <div class="rounded-b-lg bg-slate-100 px-5 py-6 shadow sm:px-6">
         <app-search-results></app-search-results>

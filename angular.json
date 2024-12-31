@@ -15,17 +15,19 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/reddit-gallery-viewer",
+            "outputPath": {
+              "base": "dist/reddit-gallery-viewer"
+            },
             "index": "src/index.html",
-            "main": "src/main.ts",
             "polyfills": ["zone.js"],
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [],
+            "browser": "src/main.ts"
           },
           "configurations": {
             "production": {
@@ -41,9 +43,7 @@
                   "maximumError": "4kb"
                 }
               ],
-              "buildOptimizer": true,
               "optimization": true,
-              "vendorChunk": false,
               "extractLicenses": true,
               "sourceMap": false,
               "namedChunks": true,
@@ -51,9 +51,7 @@
               "baseHref": "https://jives.dev/reddit-gallery-viewer/"
             },
             "development": {
-              "buildOptimizer": false,
               "optimization": false,
-              "vendorChunk": true,
               "extractLicenses": false,
               "sourceMap": true,
               "namedChunks": true
@@ -63,15 +61,15 @@
         },
         "serve": {
           "options": {
-            "browserTarget": "reddit-gallery-viewer:build"
+            "buildTarget": "reddit-gallery-viewer:build"
           },
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "reddit-gallery-viewer:build:production"
+              "buildTarget": "reddit-gallery-viewer:build:production"
             },
             "development": {
-              "browserTarget": "reddit-gallery-viewer:build:development"
+              "buildTarget": "reddit-gallery-viewer:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -79,7 +77,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "reddit-gallery-viewer:build"
+            "buildTarget": "reddit-gallery-viewer:build"
           }
         },
         "test": {

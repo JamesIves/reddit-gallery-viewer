@@ -20,8 +20,7 @@ import {SearchComponent} from './components/search/search.component'
     SafeModeComponent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html',
-  standalone: true
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'reddit-gallery-viewer'

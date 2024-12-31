@@ -20,7 +20,6 @@ import {SubFilterComponent} from '../sub-filter/sub-filter.component'
  */
 @Component({
   selector: 'app-search-results',
-  standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [MediaComponent, CommonModule, ScrollingModule, SubFilterComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
