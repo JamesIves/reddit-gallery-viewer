@@ -9,11 +9,10 @@ import {SafeHtmlPipe} from 'src/app/pipes/safe-html/safe-html.pipe'
  * such as thumbnails/titles/etc.
  */
 @Component({
-  selector: 'app-media',
-  standalone: true,
-  imports: [CommonModule, TrustResourcePipe, SafeHtmlPipe],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './media.component.html'
+    selector: 'app-media',
+    imports: [CommonModule, TrustResourcePipe, SafeHtmlPipe],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './media.component.html'
 })
 export class MediaComponent {
   /**

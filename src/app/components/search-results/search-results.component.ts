@@ -19,12 +19,11 @@ import {SubFilterComponent} from '../sub-filter/sub-filter.component'
  * Displays the search result for the specified Reddit page.
  */
 @Component({
-  selector: 'app-search-results',
-  standalone: true,
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [MediaComponent, CommonModule, ScrollingModule, SubFilterComponent],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  templateUrl: './search-results.component.html'
+    selector: 'app-search-results',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    imports: [MediaComponent, CommonModule, ScrollingModule, SubFilterComponent],
+    schemas: [CUSTOM_ELEMENTS_SCHEMA],
+    templateUrl: './search-results.component.html'
 })
 export class SearchResultsComponent implements OnInit {
   /**

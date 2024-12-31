@@ -10,18 +10,17 @@ import {SearchComponent} from './components/search/search.component'
  * The primary application access point.
  */
 @Component({
-  selector: 'app-root',
-  imports: [
-    RouterOutlet,
-    NavbarComponent,
-    SearchComponent,
-    SearchResultsComponent,
-    FilterComponent,
-    SafeModeComponent
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  templateUrl: './app.component.html',
-  standalone: true
+    selector: 'app-root',
+    imports: [
+        RouterOutlet,
+        NavbarComponent,
+        SearchComponent,
+        SearchResultsComponent,
+        FilterComponent,
+        SafeModeComponent
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    templateUrl: './app.component.html'
 })
 export class AppComponent {
   title = 'reddit-gallery-viewer'
