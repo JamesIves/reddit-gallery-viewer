@@ -1,5 +1,5 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
-  <div class="bg-slate-200 w-full h-full rounded-lg p-4">
+  <div class="bg-slate-200 w-full h-full rounded-lg p-4 pb-7">
     <img
       class="h-full w-full object-contain bg-slate-950"
       data-testid="media-image"
@@ -37,23 +37,23 @@
       "
       [src]="content.secure_media_embed.media_domain_url | trustResource"
     ></iframe>
-  </div>
 
-  <div class="text-sm mb-2 text-slate-600 font-bold truncate overflow-hidden">
-    <a
-      class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
-      rel="noopener noreferrer"
-      target="_blank"
-      [href]="content.url"
-      >Source </a
-    >,
-    <a
-      class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
-      rel="noopener noreferrer"
-      target="_blank"
-      href="https://reddit.com/u/{{ content.author }}"
-      >u/{{ content.author }}</a
-    >
-    - {{ content.title }}
+    <div class="text-sm text-slate-600 font-bold truncate overflow-hidden">
+      <a
+        class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
+        rel="noopener noreferrer"
+        target="_blank"
+        [href]="content.url"
+        >Source </a
+      >,
+      <a
+        class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
+        rel="noopener noreferrer"
+        target="_blank"
+        href="https://reddit.com/u/{{ content.author }}"
+        >u/{{ content.author }}</a
+      >
+      - {{ content.title }}
+    </div>
   </div>
 </div>
