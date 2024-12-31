@@ -1,0 +1,26 @@
+name: Bug Report 🐝
+description: Found an issue? Report it here!
+title: 'bug 🐝: '
+labels: ['bug 🐝', 'triage ⚠️']
+assignees:
+  - JamesIves
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this bug report.
+        Please provide as much detail as possible to help us fix the issue.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what you see and what you expected to see.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs
+      description: Please copy and paste any associated logs. This will be automatically formatted into code, so no need for backticks.
+      render: shell

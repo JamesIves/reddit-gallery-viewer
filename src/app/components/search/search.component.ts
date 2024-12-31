@@ -8,10 +8,10 @@ import {RedditService} from 'src/services/reddit/reddit.service'
  * Search form used to determine which page on Reddit to display.
  */
 @Component({
-    selector: 'app-search',
-    templateUrl: './search.component.html',
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    imports: [CommonModule, ReactiveFormsModule]
+  selector: 'app-search',
+  templateUrl: './search.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [CommonModule, ReactiveFormsModule]
 })
 export class SearchComponent {
   /**

@@ -10,10 +10,10 @@ import {RedditFilter, RedditSubFilter} from 'src/app/models/reddit.model'
  * TOP items by time frame, such as All Time, Month, Year, etc.
  */
 @Component({
-    selector: 'app-sub-filter',
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './sub-filter.component.html'
+  selector: 'app-sub-filter',
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './sub-filter.component.html'
 })
 export class SubFilterComponent {
   /**

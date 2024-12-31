@@ -10,10 +10,10 @@ import {RedditService} from 'src/services/reddit/reddit.service'
  * query$ data stream.
  */
 @Component({
-    selector: 'app-safe-mode',
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './safe-mode.component.html'
+  selector: 'app-safe-mode',
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './safe-mode.component.html'
 })
 export class SafeModeComponent {
   /**

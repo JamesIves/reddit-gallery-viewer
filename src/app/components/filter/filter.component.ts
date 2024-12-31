@@ -10,10 +10,10 @@ import {LoaderService} from 'src/services/loader/loader.service'
  * within a specific page to display.
  */
 @Component({
-    selector: 'app-filter',
-    imports: [CommonModule],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './filter.component.html'
+  selector: 'app-filter',
+  imports: [CommonModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './filter.component.html'
 })
 export class FilterComponent {
   /**

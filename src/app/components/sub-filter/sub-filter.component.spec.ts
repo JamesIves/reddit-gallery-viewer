@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http'
 import {ChangeDetectionStrategy} from '@angular/core'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {RedditSubFilter} from 'src/app/models/reddit.model'
@@ -12,9 +12,9 @@ describe('SubFilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [SubFilterComponent],
-    providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
-})
+      imports: [SubFilterComponent],
+      providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
+    })
       .overrideComponent(SubFilterComponent, {
         set: {
           changeDetection: ChangeDetectionStrategy.Default

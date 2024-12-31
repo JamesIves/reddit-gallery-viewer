@@ -17,8 +17,8 @@
     "build:prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "lint": "ng lint",
-    "lint:format": "prettier --write ."
+    "lint": "ng lint && prettier --check .",
+    "lint:fix": "prettier --write ."
   },
   "private": true,
   "dependencies": {

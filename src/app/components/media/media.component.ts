@@ -8,10 +8,10 @@ import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pip
  * such as thumbnails/titles/etc.
  */
 @Component({
-    selector: 'app-media',
-    imports: [CommonModule, TrustResourcePipe],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    templateUrl: './media.component.html'
+  selector: 'app-media',
+  imports: [CommonModule, TrustResourcePipe],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './media.component.html'
 })
 export class MediaComponent {
   /**

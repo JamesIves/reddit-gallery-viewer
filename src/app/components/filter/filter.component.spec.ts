@@ -1,4 +1,4 @@
-import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http'
+import {provideHttpClient, withInterceptorsFromDi} from '@angular/common/http'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
 import {click, findEl} from 'src/app/util/spec'
 import {RedditService} from 'src/services/reddit/reddit.service'
@@ -10,9 +10,9 @@ describe('FilterComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-    imports: [FilterComponent],
-    providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
-}).compileComponents()
+      imports: [FilterComponent],
+      providers: [RedditService, provideHttpClient(withInterceptorsFromDi())]
+    }).compileComponents()
 
     fixture = TestBed.createComponent(FilterComponent)
     component = fixture.componentInstance
