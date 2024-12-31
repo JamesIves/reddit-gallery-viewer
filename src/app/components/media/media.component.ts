@@ -2,7 +2,6 @@ import {ChangeDetectionStrategy, Component, Input} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
-import {SafeHtmlPipe} from 'src/app/pipes/safe-html/safe-html.pipe'
 
 /**
  * Displays image/video content along with any additional details
@@ -10,7 +9,7 @@ import {SafeHtmlPipe} from 'src/app/pipes/safe-html/safe-html.pipe'
  */
 @Component({
     selector: 'app-media',
-    imports: [CommonModule, TrustResourcePipe, SafeHtmlPipe],
+    imports: [CommonModule, TrustResourcePipe],
     changeDetection: ChangeDetectionStrategy.OnPush,
     templateUrl: './media.component.html'
 })
