@@ -6,7 +6,7 @@
   <ng-container
     *ngIf="{query: query$ | async, loading: loading$ | async} as data"
   >
-    <ul *ngIf="data.query">
+    <div *ngIf="data.query">
       <!-- Leverages virtual scroll to keep performance under control with large amounts of images.
       Docs: https://material.angular.io/cdk/scrolling -->
       <cdk-virtual-scroll-viewport
@@ -16,12 +16,14 @@
         (scrolledIndexChange)="onScroll(data.query.nextPage)"
         class="search-results__viewport"
       >
-        <li
-          *cdkVirtualFor="let result of data.query.results"
-          class="h-[{{ itemSize }}px] block"
-        >
-          <app-media [content]="result" [size]="itemSize"></app-media>
-        </li>
+        <ul>
+          <li
+            *cdkVirtualFor="let result of data.query.results"
+            class="h-[{{ itemSize }}px] block"
+          >
+            <app-media [content]="result" [size]="itemSize"></app-media>
+          </li>
+        </ul>
       </cdk-virtual-scroll-viewport>
 
       <div
@@ -48,7 +50,7 @@
           you need to disable safe mode.
         </p>
       </div>
-    </ul>
+    </div>
 
     <div
       class="flex justify-center items-center"
