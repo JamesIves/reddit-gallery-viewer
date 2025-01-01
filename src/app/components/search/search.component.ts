@@ -41,6 +41,8 @@ export class SearchComponent {
 
   /**
    * Handles submission of the search field.
+   * The input is trimmed to remove any leading or trailing white space
+   * as this can lead to a frustrating user experience.
    */
   public onSubmit(event: Event): void {
     if (this.searchForm.value.term) {
@@ -48,7 +50,7 @@ export class SearchComponent {
     }
 
     /**
-     * Closes the keyboard on mobile devices.
+     * Closes the keyboard on mobile devices after submission.
      */
     event.preventDefault()
     const inputElement = (event.target as HTMLFormElement).querySelector(
