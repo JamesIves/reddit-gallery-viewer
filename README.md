@@ -2,7 +2,7 @@
 
 <img align="right" width="112" height="auto"  src="./.github/docs/icon.webp" alt="Icon">
 
-Shows a never-ending stream of images from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
+Shows a never-ending stream of media from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
 This was primarily created as a demo to showcase the usage of virtual scrolling combined with API driven content.
 
 Special thank you to all the past and present [GitHub Sponsors](https://github.com/sponsors/JamesIves) 💖.

@@ -1,8 +1,6 @@
 <div
-  class="py-2"
-  [ngClass]="
-    (activeFilter$ | async) === redditFilter.TOP ? 'visible' : 'invisible'
-  "
+  class="py-4"
+  [ngClass]="(activeFilter$ | async) === redditFilter.TOP ? 'block' : 'hidden'"
 >
   <label
     for="subfilter"
@@ -15,7 +13,7 @@
     (change)="toggleSubFilter($event)"
     name="subfilter"
     data-testid="subfilter"
-    class="bg-slate-600 hover:bg-slate-700 text-white transition-all font-bold text-sm md:text-lg sm:text-base block w-full rounded-md border-gray-300 py-4 pl-3 pr-10 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+    class="bg-slate-600 hover:bg-slate-700 text-white transition-all font-bold text-sm md:text-lg sm:text-base block w-full rounded-md border-gray-300 py-4 pl-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
   >
     <option
       [selected]="subFilter === redditSubFilter.ALL"

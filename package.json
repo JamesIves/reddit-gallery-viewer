@@ -1,7 +1,7 @@
 {
   "name": "@jamesives/reddit-gallery-viewer",
   "author": "James Ives <iam@jamesiv.es> (https://jamesiv.es)",
-  "description": "Shows a never-ending stream of images from your favourite Reddit board using the API.",
+  "description": "Shows a never-ending stream of media from your favourite Reddit board using the API.",
   "version": "0.0.0",
   "license": "MIT",
   "keywords": [

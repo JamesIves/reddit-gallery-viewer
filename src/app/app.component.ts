@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core'
 import {RouterOutlet} from '@angular/router'
 import {FilterComponent} from './components/filter/filter.component'
 import {NavbarComponent} from './components/navbar/navbar.component'
@@ -22,6 +22,37 @@ import {SearchComponent} from './components/search/search.component'
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './app.component.html'
 })
-export class AppComponent {
-  title = 'reddit-gallery-viewer'
+export class AppComponent implements OnInit {
+  public readonly title = 'reddit-gallery-viewer'
+
+  /**
+   * Highlight where users can find more information.
+   */
+  public ngOnInit() {
+    console.log(
+      `%c    ▄█  ▄█   ▄█    █▄     ▄████████    ▄████████ 
+%c   ███ ███  ███    ███   ███    ███   ███    ███ 
+%c   ███ ███▌ ███    ███   ███    █▀    ███    █▀  
+%c   ███ ███▌ ███    ███  ▄███▄▄▄       ███        
+%c   ███ ███▌ ███    ███ ▀▀███▀▀▀     ▀███████████ 
+%c   ███ ███  ███    ███   ███    █▄           ███ 
+%c   ███ ███  ███    ███   ███    ███    ▄█    ███ 
+%c█▄ ▄███ █▀    ▀██████▀    ██████████  ▄████████▀  
+%c▀▀▀▀▀▀  
+
+%cGitHub: https://github.com/JamesIves/reddit-gallery-viewer
+Website: https://jives.dev
+      `,
+      'color: #e4fa56',
+      'color: #e4fa56',
+      'color: #e4fa56',
+      'color: #a2db47',
+      'color: #a2db47',
+      'color: #a2db47',
+      'color: #52ad3e',
+      'color: #52ad3e',
+      'color: #52ad3e',
+      'color: #f98973'
+    )
+  }
 }

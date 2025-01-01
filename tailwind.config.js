@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        fugaz: ['Fugaz One', 'cursive']
+        righteous: ['Righteous', 'cursive']
       }
     }
   },

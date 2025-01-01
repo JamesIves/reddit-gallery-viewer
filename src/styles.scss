@@ -2,27 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  @apply bg-indigo-200;
-}
-
-h1 {
-  font-size: 5rem;
-  font-weight: 900;
-  line-height: 1.1;
-  max-inline-size: 15ch;
-}
-
-@media (max-width: 640px) {
-  h1 {
-    font-size: 3rem;
-  }
-}
-
-h2 {
-  text-align: end;
-}
-
 iframe,
 img,
 video {
@@ -33,99 +12,110 @@ video {
   background: hsla(230, 40%, 50%, 1);
 }
 
-.circles {
-  height: 100%;
-  left: 0;
-  overflow: hidden;
-  position: absolute;
-  top: 0;
-  width: 100%;
+.bg-circles {
+  @apply h-full left-0 overflow-hidden absolute top-0 w-full;
 }
 
-.circles div {
+.bg-circles div {
+  @apply bg-white/20 bottom-[-150px] block h-5 list-none absolute w-5;
   animation: animate 25s linear infinite;
-  background: rgba(255, 255, 255, 0.2);
-  bottom: -150px;
-  display: block;
-  height: 20px;
-  list-style: none;
-  position: absolute;
-  width: 20px;
 }
 
-.circles div:nth-child(1) {
+.bg-circles div:nth-child(1) {
   animation-delay: 0s;
-  height: 80px;
-  left: 25%;
-  width: 80px;
+  @apply h-20 left-[25%] w-20;
 }
 
-.circles div:nth-child(2) {
+.bg-circles div:nth-child(2) {
   animation-delay: 2s;
   animation-duration: 12s;
-  height: 20px;
-  left: 10%;
-  width: 20px;
+  @apply h-5 left-[10%] w-5;
 }
 
-.circles div:nth-child(3) {
+.bg-circles div:nth-child(3) {
   animation-delay: 4s;
-  height: 20px;
-  left: 70%;
-  width: 20px;
+  @apply h-5 left-[70%] w-5;
 }
 
-.circles div:nth-child(4) {
+.bg-circles div:nth-child(4) {
   animation-delay: 0s;
   animation-duration: 18s;
-  height: 60px;
-  left: 40%;
-  width: 60px;
+  @apply h-16 left-[40%] w-16;
 }
 
-.circles div:nth-child(5) {
+.bg-circles div:nth-child(5) {
   animation-delay: 0s;
-  height: 20px;
-  left: 65%;
-  width: 20px;
+  @apply h-5 left-[65%] w-5;
 }
 
-.circles div:nth-child(6) {
+.bg-circles div:nth-child(6) {
   animation-delay: 3s;
-  height: 110px;
-  left: 75%;
-  width: 110px;
+  @apply h-28 left-[75%] w-28;
 }
 
-.circles div:nth-child(7) {
+.bg-circles div:nth-child(7) {
   animation-delay: 7s;
-  height: 150px;
-  left: 35%;
-  width: 150px;
+  @apply h-40 left-[35%] w-40;
 }
 
-.circles div:nth-child(8) {
+.bg-circles div:nth-child(8) {
   animation-delay: 15s;
   animation-duration: 45s;
-  height: 25px;
-  left: 50%;
-  width: 25px;
+  @apply h-6 left-[50%] w-6;
 }
 
-.circles div:nth-child(9) {
+.bg-circles div:nth-child(9) {
   animation-delay: 2s;
   animation-duration: 35s;
-  height: 15px;
-  left: 20%;
-  width: 15px;
+  @apply h-4 left-[20%] w-4;
 }
 
-.circles div:nth-child(10) {
+.bg-circles div:nth-child(10) {
   animation-delay: 0s;
   animation-duration: 11s;
-  height: 150px;
-  left: 85%;
-  width: 150px;
+  @apply h-40 left-[85%] w-40;
+}
+
+.indeterminate-progress-bar {
+  .indeterminate-progress-bar__progress {
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-name: indeterminate-progress-bar;
+  }
+}
+
+.cdk-virtual-scroll-content-wrapper {
+  max-width: 100%;
+}
+
+.headline {
+  @apply text-white relative font-righteous inline-block text-[clamp(3rem,10vw,9rem)] shadow-[0.03em_0.03em_0_hsla(230,40%,50%,1)];
+  z-index: 1;
+}
+
+.headline:after {
+  @apply absolute top-[0.06em] left-[0.06em] w-full h-full text-transparent z-[-1];
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shard 60s linear infinite;
+  background-image: linear-gradient(
+    45deg,
+    transparent 45%,
+    hsla(48, 20%, 90%, 1) 45%,
+    hsla(48, 20%, 90%, 1) 55%,
+    transparent 0
+  );
+  background-size: 0.05em 0.05em;
+  content: attr(data-shadow);
+}
+
+@keyframes shard {
+  0% {
+    background-position: 0 0;
+  }
+  0% {
+    background-position: 100% -100%;
+  }
 }
 
 @keyframes animate {
@@ -142,65 +132,11 @@ video {
   }
 }
 
-.indeterminate-progress-bar {
-  .indeterminate-progress-bar__progress {
-    animation-duration: 2s;
-    animation-iteration-count: infinite;
-    animation-name: indeterminate-progress-bar;
-  }
-}
-
 @keyframes indeterminate-progress-bar {
   from {
     left: -50%;
   }
   to {
     left: 100%;
-  }
-}
-
-.cdk-virtual-scroll-content-wrapper {
-  max-width: 100%;
-}
-
-.headline {
-  color: white;
-  display: inline-block;
-  font-family: 'Righteous', serif;
-  font-size: clamp(3rem, 10vw, 9rem);
-  position: relative;
-  text-shadow: 0.03em 0.03em 0 hsla(230, 40%, 50%, 1);
-  z-index: 1;
-}
-
-.headline:after {
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: shad-anim 60s linear infinite;
-  background-image: linear-gradient(
-    45deg,
-    transparent 45%,
-    hsla(48, 20%, 90%, 1) 45%,
-    hsla(48, 20%, 90%, 1) 55%,
-    transparent 0
-  );
-  background-size: 0.05em 0.05em;
-  content: attr(data-shadow);
-  height: 100%;
-  left: 0.06em;
-  position: absolute;
-  text-shadow: none;
-  top: 0.06em;
-  width: 100%;
-  z-index: -1;
-  z-index: -1;
-}
-
-@keyframes shad-anim {
-  0% {
-    background-position: 0 0;
-  }
-  0% {
-    background-position: 100% -100%;
   }
 }
