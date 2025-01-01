@@ -1,7 +1,7 @@
 import {HttpClient} from '@angular/common/http'
 import {Injectable} from '@angular/core'
 import {BehaviorSubject, combineLatest, map, Observable, of} from 'rxjs'
-import {catchError, mergeMap, scan, switchMap} from 'rxjs/operators'
+import {catchError, mergeMap, scan, startWith, switchMap} from 'rxjs/operators'
 import {
   RedditFilter,
   IRedditQuery,
@@ -90,7 +90,6 @@ export class RedditService {
               name,
               filter,
               page,
-
               subFilter,
               safeMode
             }).pipe(
@@ -126,7 +125,8 @@ export class RedditService {
               results: [] as IRedditResult[],
               nextPage: undefined
             } as IRedditQuery
-          )
+          ),
+          startWith({results: [], nextPage: undefined} as IRedditQuery)
         )
       )
     )
