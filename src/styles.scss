@@ -140,3 +140,13 @@ video {
     left: 100%;
   }
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .bg-circles div {
+    animation: none;
+  }
+
+  .headline:after {
+    animation: none;
+  }
+}
