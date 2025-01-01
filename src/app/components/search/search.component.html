@@ -1,7 +1,7 @@
 <form
   data-testid="search-form"
   [formGroup]="searchForm"
-  (ngSubmit)="onSubmit()"
+  (ngSubmit)="onSubmit($event)"
   class="relative z-10"
 >
   <div>

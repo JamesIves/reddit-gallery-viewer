@@ -42,9 +42,21 @@ export class SearchComponent {
   /**
    * Handles submission of the search field.
    */
-  public onSubmit(): void {
+  public onSubmit(event: Event): void {
     if (this.searchForm.value.term) {
-      this.redditService.setSubRedditName(this.searchForm.value.term)
+      this.redditService.setSubRedditName(this.searchForm.value.term.trim())
+    }
+
+    /**
+     * Closes the keyboard on mobile devices.
+     */
+    event.preventDefault()
+    const inputElement = (event.target as HTMLFormElement).querySelector(
+      'input[name="term"]'
+    ) as HTMLInputElement
+
+    if (inputElement) {
+      inputElement.blur()
     }
   }
 }
