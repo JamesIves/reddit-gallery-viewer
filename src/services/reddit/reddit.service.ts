@@ -261,6 +261,8 @@ export class RedditService {
       path.searchParams.append(RedditRequestParameters.T, subFilter)
     }
 
+    console.log('Making HTTP request to:', path.toString())
+
     return this.http.get<IRedditResultNatural>(path.toString()).pipe(
       map(result =>
         result.data.children

@@ -9,12 +9,17 @@ import {LoaderService} from './loader.service'
  * and uses the spy to inform the {@see LoaderService} when to toggle
  * the loading stare.
  */
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class LoaderInterceptorService {
+  /**
+   * The current number of active requests.
+   */
   private activeRequests = 0
 
+  /**
+   *
+   * @param loaderService The injected loader service.
+   */
   public constructor(private readonly loaderService: LoaderService) {}
 
   /**
