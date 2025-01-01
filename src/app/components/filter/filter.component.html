@@ -8,10 +8,10 @@
         (click)="toggleFilter(redditFilter.HOT)"
         data-testid="filter-hot"
         [ngClass]="{
-          'text-gray-900 active': filter === redditFilter.HOT,
+          'active text-gray-900': filter === redditFilter.HOT,
           'text-white hover:text-gray-700': filter !== redditFilter.HOT
         }"
-        class="transition-all font-bold text-sm md:text-lg sm:text-base dynamic-text-shadow rounded-tl-lg group relative min-w-0 flex-1 overflow-hidden bg-slate-600 py-4 px-4 text-center hover:bg-slate-700 focus:z-10"
+        class="dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden rounded-tl-lg bg-slate-600 px-4 py-4 text-center text-sm font-bold transition-all hover:bg-slate-700 focus:z-10 sm:text-base md:text-lg"
         aria-current="page"
       >
         <span class="text-white">Hot 🔥</span>
@@ -21,7 +21,7 @@
             'bg-rose-500': filter === redditFilter.HOT,
             'bg-transparent': filter !== redditFilter.HOT
           }"
-          class="bg-rose-500 absolute inset-x-0 bottom-0 h-2"
+          class="absolute inset-x-0 bottom-0 h-2 bg-rose-500"
         ></span>
       </button>
 
@@ -29,10 +29,10 @@
         (click)="toggleFilter(redditFilter.NEW)"
         data-testid="filter-new"
         [ngClass]="{
-          'text-gray-900 active': filter === redditFilter.NEW,
+          'active text-gray-900': filter === redditFilter.NEW,
           'text-white hover:text-gray-700': filter !== redditFilter.NEW
         }"
-        class="transition-all font-bold text-sm md:text-lg sm:text-base dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-600 py-4 px-4 text-center hover:bg-slate-700 focus:z-10"
+        class="dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-600 px-4 py-4 text-center text-sm font-bold transition-all hover:bg-slate-700 focus:z-10 sm:text-base md:text-lg"
       >
         <span class="text-white">New ✨</span>
         <span
@@ -49,10 +49,10 @@
         (click)="toggleFilter(redditFilter.TOP)"
         data-testid="filter-top"
         [ngClass]="{
-          'text-gray-900 active': filter === redditFilter.TOP,
+          'active text-gray-900': filter === redditFilter.TOP,
           'text-white hover:text-gray-700': filter !== redditFilter.TOP
         }"
-        class="transition-all font-bold text-sm md:text-lg sm:text-base dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-600 py-4 px-4 text-center hover:bg-slate-700 focus:z-10"
+        class="dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden bg-slate-600 px-4 py-4 text-center text-sm font-bold transition-all hover:bg-slate-700 focus:z-10 sm:text-base md:text-lg"
       >
         <span class="text-white">Top 🥇</span>
         <span
@@ -69,10 +69,10 @@
         (click)="toggleFilter(redditFilter.RISING)"
         data-testid="filter-rising"
         [ngClass]="{
-          'text-gray-900 active': filter === redditFilter.RISING,
+          'active text-gray-900': filter === redditFilter.RISING,
           'text-white hover:text-gray-700': filter !== redditFilter.RISING
         }"
-        class="transition-all font-bold text-sm md:text-lg sm:text-base dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden rounded-tr-lg bg-slate-600 py-4 px-4 text-center hover:bg-slate-700 focus:z-10"
+        class="dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden rounded-tr-lg bg-slate-600 px-4 py-4 text-center text-sm font-bold transition-all hover:bg-slate-700 focus:z-10 sm:text-base md:text-lg"
       >
         <span class="text-white">Rising 📈</span>
         <span
@@ -81,7 +81,7 @@
             'bg-transparent': filter !== redditFilter.RISING
           }"
           aria-hidden="true"
-          class="bg-transparent absolute inset-x-0 bottom-0 h-2"
+          class="absolute inset-x-0 bottom-0 h-2 bg-transparent"
         ></span>
       </button>
     </nav>
@@ -90,10 +90,10 @@
 <div class="bg-slate-50">
   <div
     [ngClass]="(loading$ | async) ? 'visible' : 'invisible'"
-    class="indeterminate-progress-bar bg-slate-50 h-2 relative overflow-hidden"
+    class="indeterminate-progress-bar relative h-2 overflow-hidden bg-slate-50"
   >
     <div
-      class="indeterminate-progress-bar__progress bg-indigo-700 rounded-lg absolute bottom-0 top-0 w-[50%]"
+      class="indeterminate-progress-bar__progress absolute bottom-0 top-0 w-[50%] rounded-lg bg-indigo-700"
     ></div>
   </div>
 </div>

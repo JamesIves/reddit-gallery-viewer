@@ -1,5 +1,5 @@
 <div class="min-h-full">
-  <div class="bg-top relative py-16 sm:py-32 w-full">
+  <div class="relative w-full bg-top py-16 sm:py-32">
     <div class="bg-circles">
       <div></div>
       <div></div>
@@ -12,31 +12,31 @@
       <div></div>
       <div></div>
     </div>
-    <header class="py-10 flex items-center h-96">
+    <header class="flex h-96 items-center py-10">
       <div
-        class="mx-auto text-center flex flex-col items-center justify-center max-w-7xl px-4 sm:px-6 lg:px-8"
+        class="mx-auto flex max-w-7xl flex-col items-center justify-center px-4 text-center sm:px-6 lg:px-8"
       >
         <app-navbar></app-navbar>
         <h1
-          class="text-white relative headline font-bold"
+          class="headline relative font-bold text-white"
           data-shadow="reddit gallery"
         >
           reddit gallery
         </h1>
         <p
-          class="text-white dynamic-text-shadow font-bold max-w-2xl py-8 text-sm md:text-lg sm:text-base"
+          class="dynamic-text-shadow max-w-2xl py-8 text-sm font-bold text-white sm:text-base md:text-lg"
         >
           Shows a never-ending stream of media from the Reddit API.
         </p>
 
         <app-search></app-search>
-        <app-safe-mode class="py-8 mb-14"></app-safe-mode>
+        <app-safe-mode class="mb-14 py-8"></app-safe-mode>
       </div>
     </header>
   </div>
 
   <main class="-mt-32">
-    <div class="mx-auto max-w-7xl pb-12 relative">
+    <div class="relative mx-auto max-w-7xl pb-12">
       <app-filter></app-filter>
       <div class="rounded-b-lg bg-slate-100 px-5 py-6 shadow sm:px-6">
         <app-search-results></app-search-results>
@@ -44,10 +44,10 @@
       </div>
     </div>
   </main>
-  <footer class="block text-xs text-center font-medium px-4">
+  <footer class="block px-4 text-center text-xs font-medium">
     This application is in no way affiliated with
     <a
-      class="underline text-blue-700 hover:text-blue-500 transition-colors"
+      class="text-blue-700 underline transition-colors hover:text-blue-500"
       rel="noopener noreferrer"
       href="https://www.reddit.com/"
       target="_blank"
@@ -55,7 +55,7 @@
     >. The content displayed is sourced from Reddit's public API and is subject
     to
     <a
-      class="underline text-blue-700 hover:text-blue-500 transition-colors"
+      class="text-blue-700 underline transition-colors hover:text-blue-500"
       rel="noopener noreferrer"
       href="https://redditinc.com/policies/user-agreement"
       target="_blank"

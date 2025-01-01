@@ -4,7 +4,7 @@
 >
   <label
     for="subfilter"
-    class="block sr-only text-sm font-medium text-white mb-1"
+    class="sr-only mb-1 block text-sm font-medium text-white"
     >Sub Filter</label
   >
   <select
@@ -13,7 +13,7 @@
     (change)="toggleSubFilter($event)"
     name="subfilter"
     data-testid="subfilter"
-    class="bg-slate-600 hover:bg-slate-700 text-white transition-all font-bold text-sm md:text-lg sm:text-base block w-full rounded-md border-gray-300 py-4 pl-3 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500"
+    class="block w-full rounded-md border-gray-300 bg-slate-600 py-4 pl-3 text-sm font-bold text-white transition-all hover:bg-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-base md:text-lg"
   >
     <option
       [selected]="subFilter === redditSubFilter.ALL"

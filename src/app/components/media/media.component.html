@@ -1,7 +1,7 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
-  <div class="bg-slate-200 w-full h-full rounded-lg p-4 pb-7">
+  <div class="h-full w-full rounded-lg bg-slate-200 p-4 pb-7">
     <img
-      class="h-full w-full object-contain bg-slate-950"
+      class="h-full w-full bg-slate-950 object-contain"
       data-testid="media-image"
       [alt]="content.title"
       *ngIf="
@@ -20,7 +20,7 @@
         content.post_hint === redditPostHint.LINK
       "
       data-testid="media-video"
-      class="w-auto h-full object-contain mx-auto bg-slate-950"
+      class="mx-auto h-full w-auto bg-slate-950 object-contain"
       autoplay
       loop
       muted
@@ -29,7 +29,7 @@
     </video>
 
     <iframe
-      class="w-full h-full bg-slate-950"
+      class="h-full w-full bg-slate-950"
       data-testid="media-iframe"
       *ngIf="
         content.post_hint === redditPostHint.RICH_VIDEO &&
@@ -38,16 +38,16 @@
       [src]="content.secure_media_embed.media_domain_url | trustResource"
     ></iframe>
 
-    <div class="text-sm text-slate-600 font-bold truncate overflow-hidden">
+    <div class="overflow-hidden truncate text-sm font-bold text-slate-600">
       <a
-        class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
+        class="inline-block text-blue-700 transition-colors hover:text-blue-500"
         rel="noopener noreferrer"
         target="_blank"
         [href]="content.url"
         >Source </a
       >,
       <a
-        class="inline-block text-blue-700 hover:text-blue-500 transition-colors"
+        class="inline-block text-blue-700 transition-colors hover:text-blue-500"
         rel="noopener noreferrer"
         target="_blank"
         href="https://reddit.com/u/{{ content.author }}"

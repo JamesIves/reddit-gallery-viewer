@@ -13,67 +13,67 @@ video {
 }
 
 .bg-circles {
-  @apply h-full left-0 overflow-hidden absolute top-0 w-full;
+  @apply absolute left-0 top-0 h-full w-full overflow-hidden;
 }
 
 .bg-circles div {
-  @apply bg-white/20 bottom-[-150px] block h-5 list-none absolute w-5;
+  @apply absolute bottom-[-150px] block h-5 w-5 list-none bg-white/20;
   animation: animate 25s linear infinite;
 }
 
 .bg-circles div:nth-child(1) {
   animation-delay: 0s;
-  @apply h-20 left-[25%] w-20;
+  @apply left-[25%] h-20 w-20;
 }
 
 .bg-circles div:nth-child(2) {
   animation-delay: 2s;
   animation-duration: 12s;
-  @apply h-5 left-[10%] w-5;
+  @apply left-[10%] h-5 w-5;
 }
 
 .bg-circles div:nth-child(3) {
   animation-delay: 4s;
-  @apply h-5 left-[70%] w-5;
+  @apply left-[70%] h-5 w-5;
 }
 
 .bg-circles div:nth-child(4) {
   animation-delay: 0s;
   animation-duration: 18s;
-  @apply h-16 left-[40%] w-16;
+  @apply left-[40%] h-16 w-16;
 }
 
 .bg-circles div:nth-child(5) {
   animation-delay: 0s;
-  @apply h-5 left-[65%] w-5;
+  @apply left-[65%] h-5 w-5;
 }
 
 .bg-circles div:nth-child(6) {
   animation-delay: 3s;
-  @apply h-28 left-[75%] w-28;
+  @apply left-[75%] h-28 w-28;
 }
 
 .bg-circles div:nth-child(7) {
   animation-delay: 7s;
-  @apply h-40 left-[35%] w-40;
+  @apply left-[35%] h-40 w-40;
 }
 
 .bg-circles div:nth-child(8) {
   animation-delay: 15s;
   animation-duration: 45s;
-  @apply h-6 left-[50%] w-6;
+  @apply left-[50%] h-6 w-6;
 }
 
 .bg-circles div:nth-child(9) {
   animation-delay: 2s;
   animation-duration: 35s;
-  @apply h-4 left-[20%] w-4;
+  @apply left-[20%] h-4 w-4;
 }
 
 .bg-circles div:nth-child(10) {
   animation-delay: 0s;
   animation-duration: 11s;
-  @apply h-40 left-[85%] w-40;
+  @apply left-[85%] h-40 w-40;
 }
 
 .indeterminate-progress-bar {
@@ -89,12 +89,12 @@ video {
 }
 
 .headline {
-  @apply text-white relative font-righteous inline-block text-[clamp(3rem,10vw,9rem)] shadow-[0.03em_0.03em_0_hsla(230,40%,50%,1)];
+  @apply relative inline-block font-righteous text-[clamp(3rem,10vw,9rem)] text-white shadow-[0.03em_0.03em_0_hsla(230,40%,50%,1)];
   z-index: 1;
 }
 
 .headline:after {
-  @apply absolute top-[0.06em] left-[0.06em] w-full h-full text-transparent z-[-1];
+  @apply absolute left-[0.06em] top-[0.06em] z-[-1] h-full w-full text-transparent;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   animation: shard 60s linear infinite;

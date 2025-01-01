@@ -1,5 +1,5 @@
 <div
-  class="search-results x-auto mx-auto max-w-7xl sm:px-6 lg:px-8 h-full w-full min-h-screen"
+  class="search-results x-auto mx-auto h-full min-h-screen w-full max-w-7xl sm:px-6 lg:px-8"
 >
   <app-sub-filter></app-sub-filter>
 
@@ -54,13 +54,13 @@
     </div>
 
     <div
-      class="flex justify-center items-center"
+      class="flex items-center justify-center"
       role="status"
       *ngIf="data.loading"
     >
       <svg
         aria-hidden="true"
-        class="w-12 h-12 mr-2 text-slate-200 animate-spin fill-rose-600"
+        class="mr-2 h-12 w-12 animate-spin fill-rose-600 text-slate-200"
         viewBox="0 0 100 101"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
@@ -81,7 +81,7 @@
       data-testid="search-results-rtt"
       type="button"
       (click)="scrollToTop()"
-      class="inline-block p-3 bg-rose-600 text-white font-medium text-xs leading-tight uppercase rounded-full shadow-md hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg transition duration-150 ease-in-out bottom-5 right-5 fixed"
+      class="fixed bottom-5 right-5 inline-block rounded-full bg-rose-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-rose-700 hover:shadow-lg focus:bg-rose-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-rose-800 active:shadow-lg"
       id="btn-back-to-top"
       title="Return to Top"
     >
@@ -89,7 +89,7 @@
         aria-hidden="true"
         focusable="false"
         data-prefix="fas"
-        class="w-4 h-4"
+        class="h-4 w-4"
         role="img"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 448 512"
@@ -105,4 +105,4 @@
 
 <!-- This is a bit of a hack to ensure that Tailwind registers
   all of the CSS classes we need at different breakpoints. -->
-<div class="sr-only h-[450px] h-[600px] h-[1264px]"></div>
+<div class="sr-only h-[1264px] h-[450px] h-[600px]"></div>
