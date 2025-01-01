@@ -40,9 +40,21 @@ export class SearchComponent {
   })
 
   /**
+   * Prevents the space key from being entered into the search field.
+   */
+  public preventSpace(event: KeyboardEvent) {
+    if (
+      event.key === ' ' &&
+      !event.metaKey &&
+      !event.ctrlKey &&
+      !event.altKey
+    ) {
+      event.preventDefault()
+    }
+  }
+
+  /**
    * Handles submission of the search field.
-   * The input is trimmed to remove any leading or trailing white space
-   * as this can lead to a frustrating user experience.
    */
   public onSubmit(event: Event): void {
     if (this.searchForm.value.term) {
@@ -50,7 +62,8 @@ export class SearchComponent {
     }
 
     /**
-     * Closes the keyboard on mobile devices after submission.
+     * Closes the keyboard on mobile devices after submission of the search form.
+     * This is necessary because the keyboard does not close automatically on mobile devices.
      */
     event.preventDefault()
     const inputElement = (event.target as HTMLFormElement).querySelector(
