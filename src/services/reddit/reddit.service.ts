@@ -127,9 +127,9 @@ export class RedditService {
             } as IRedditQuery
           ),
           /**
-           * On each new page request we start with an empty array to prevent
-           * lingering content from previous pages. It also gives instant feedback
-           * to the user that new content is being fetched by clearing the list.
+           * Whenever a user requests a fresh set of content (ie changing the filter, subfilter, subreddit, etc)
+           * we start with an empty array to prevent lingering content from previous pages.
+           * It also gives instant feedback to the user that new content is being fetched by clearing the list.
            */
           startWith({results: [], nextPage: undefined} as IRedditQuery)
         )
