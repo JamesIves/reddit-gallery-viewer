@@ -28,7 +28,7 @@
 
       <div
         data-testid="search-results-empty"
-        *ngIf="!data.query.results.length"
+        *ngIf="!data.query.results.length && !data.loading"
         class="text-center"
       >
         <svg
