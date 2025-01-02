@@ -39,6 +39,7 @@ describe('MediaComponent', () => {
       num_comments: 1337,
       subreddit: 'cats',
       post_hint: RedditPostHint.IMAGE,
+      permalink: '/r/cats/1337',
       author: 'not a real author',
       url: 'https://jamesiv.es/logo.gif',
       preview: {
@@ -69,6 +70,7 @@ describe('MediaComponent', () => {
       post_hint: RedditPostHint.LINK,
       author: 'not a real author',
       url: 'https://jamesiv.es/logo.gif',
+      permalink: '/r/cats/1337',
       preview: {
         images: [
           {
@@ -99,6 +101,7 @@ describe('MediaComponent', () => {
       subreddit: 'cats',
       post_hint: RedditPostHint.RICH_VIDEO,
       author: 'not a real author',
+      permalink: '/r/cats/1337',
       secure_media_embed: {
         media_domain_url: 'https://jamesiv.es',
         content: 'https://jamesiv.es'
