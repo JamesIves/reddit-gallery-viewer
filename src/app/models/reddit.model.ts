@@ -106,6 +106,7 @@ export interface IRedditResult {
   }
   post_hint: RedditPostHint
   subreddit: string
+  num_comments: number
 }
 
 export interface IRedditResultNatural {

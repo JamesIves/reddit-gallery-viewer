@@ -1,5 +1,5 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
-  <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-7 sm:p-4 sm:pb-7">
+  <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-9 sm:p-4 sm:pb-9">
     <img
       class="h-full w-full bg-slate-950 object-contain"
       data-testid="media-image"
@@ -38,22 +38,56 @@
       [src]="content.secure_media_embed.media_domain_url | trustResource"
     ></iframe>
 
-    <div class="overflow-hidden truncate text-sm font-bold text-slate-600">
-      <a
-        class="inline-block text-indigo-700 transition-colors hover:text-indigo-500"
-        rel="noopener noreferrer"
-        target="_blank"
-        [href]="content.url"
-        >Source </a
-      >,
-      <a
-        class="inline-block text-indigo-700 transition-colors hover:text-indigo-500"
-        rel="noopener noreferrer"
-        target="_blank"
-        href="https://reddit.com/u/{{ content.author }}"
-        >u/{{ content.author }}</a
+    <div
+      class="mt-1 inline-flex w-full max-w-full items-center justify-between gap-x-1 overflow-hidden truncate"
+    >
+      <div
+        class="max-w-full overflow-hidden truncate text-xs font-medium text-slate-900"
       >
-      - {{ content.title }}
+        {{ content.title }}
+      </div>
+      <div class="flex items-center gap-x-1">
+        <a
+          href="https://www.reddit.com/user/{{ content.author }}"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+        >
+          <svg
+            class="me-1.5 h-2.5 w-2.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"
+            />
+          </svg>
+          /u/{{ content.author }}
+        </a>
+
+        <a
+          [href]="content.url"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+        >
+          <svg
+            class="me-1.5 h-2.5 w-2.5"
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
+            <path
+              d="M10 0a10 10 0 1 0 10 10A10.011 10.011 0 0 0 10 0Zm3.982 13.982a1 1 0 0 1-1.414 0l-3.274-3.274A1.012 1.012 0 0 1 9 10V6a1 1 0 0 1 2 0v3.586l2.982 2.982a1 1 0 0 1 0 1.414Z"
+            />
+          </svg>
+          {{ content.num_comments | number }}
+          {{ content.num_comments === 1 ? 'Comment' : 'Comments' }}
+        </a>
+      </div>
     </div>
   </div>
 </div>

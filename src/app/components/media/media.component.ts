@@ -5,7 +5,7 @@ import {
   OnChanges,
   SimpleChanges
 } from '@angular/core'
-import {CommonModule} from '@angular/common'
+import {CommonModule, DecimalPipe} from '@angular/common'
 import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
 
@@ -15,7 +15,7 @@ import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pip
  */
 @Component({
   selector: 'app-media',
-  imports: [CommonModule, TrustResourcePipe],
+  imports: [CommonModule, TrustResourcePipe, DecimalPipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './media.component.html'
 })
