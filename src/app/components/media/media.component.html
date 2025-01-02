@@ -1,5 +1,5 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
-  <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-12 sm:p-4 sm:pb-12">
+  <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-14 sm:p-4 sm:pb-14">
     <img
       class="h-full w-full bg-slate-950 object-contain"
       data-testid="media-image"
@@ -39,11 +39,11 @@
     ></iframe>
 
     <div
-      class="mb-1 max-w-full overflow-hidden truncate text-xs font-medium text-slate-900"
+      class="my-1 max-w-full overflow-hidden truncate text-xs font-medium text-slate-900"
     >
       {{ content.title }}
     </div>
-    <div class="flex items-center gap-x-1">
+    <div class="flex items-center gap-x-1 overflow-hidden truncate">
       <a
         href="https://www.reddit.com/user/{{ content.author }}"
         target="_blank"
@@ -89,35 +89,6 @@
 
         {{ content.num_comments | number }}
         {{ content.num_comments === 1 ? 'Comment' : 'Comments' }}
-      </a>
-
-      <a
-        [href]="content.url"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          class="me-1.5 h-2.5 w-2.5"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path
-            d="M12 6h-6a2 2 0 0 0 -2 2v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-6"
-          />
-          <path d="M11 13l9 -9" />
-          <path d="M15 4h5v5" />
-        </svg>
-
-        Open
       </a>
     </div>
   </div>
