@@ -142,8 +142,8 @@ export class RedditService {
    * @param name The name of the subreddit.
    */
   public setSubRedditName(name: string): void {
-    this._subRedditName$.next(name)
     this.setSubRedditPage(RedditService.DEFAULT_PAGE)
+    this._subRedditName$.next(name)
   }
 
   /**
@@ -151,11 +151,11 @@ export class RedditService {
    * @param filter The name of the filter {@see RedditFilter} for options.
    */
   public setSubRedditFilter(filter: RedditFilter): void {
-    this._subRedditFilter$.next(filter)
-
     /** On each filter change reset the page back to default value
      * to prevent lingering pages. */
     this.setSubRedditPage(RedditService.DEFAULT_PAGE)
+
+    this._subRedditFilter$.next(filter)
   }
 
   /**
@@ -175,8 +175,8 @@ export class RedditService {
    * @param filter The name of the sub filter to display, {@see RedditSubFilter} for options.
    */
   public setSubRedditSubFilter(filter: RedditSubFilter): void {
-    this._subRedditSubFilter$.next(filter)
     this.setSubRedditPage(RedditService.DEFAULT_PAGE)
+    this._subRedditSubFilter$.next(filter)
   }
 
   /**
