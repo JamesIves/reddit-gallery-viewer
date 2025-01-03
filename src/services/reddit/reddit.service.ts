@@ -143,6 +143,7 @@ export class RedditService {
    */
   public setSubRedditName(name: string): void {
     this._subRedditName$.next(name)
+    this.setSubRedditPage(RedditService.DEFAULT_PAGE)
   }
 
   /**
