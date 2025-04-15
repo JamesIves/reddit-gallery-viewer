@@ -5,7 +5,8 @@ export enum RedditFilter {
   HOT = 'hot',
   NEW = 'new',
   TOP = 'top',
-  RISING = 'rising'
+  RISING = 'rising',
+  ALL = 'all'
 }
 
 /**

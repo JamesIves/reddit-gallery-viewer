@@ -84,6 +84,26 @@
           class="absolute inset-x-0 bottom-0 h-2 bg-transparent"
         ></span>
       </button>
+
+      <button
+        (click)="toggleFilter(redditFilter.ALL)"
+        data-testid="filter-rising"
+        [ngClass]="{
+          'active text-gray-900': filter === redditFilter.ALL,
+          'text-white hover:text-gray-700': filter !== redditFilter.ALL
+        }"
+        class="dynamic-text-shadow group relative min-w-0 flex-1 overflow-hidden rounded-tr-lg bg-slate-600 px-4 py-4 text-center text-sm font-bold transition-all hover:bg-slate-700 focus:z-10 sm:text-base md:text-lg"
+      >
+        <span class="text-white">All 🚰</span>
+        <span
+          [ngClass]="{
+            'bg-rose-500': filter === redditFilter.ALL,
+            'bg-transparent': filter !== redditFilter.ALL
+          }"
+          aria-hidden="true"
+          class="absolute inset-x-0 bottom-0 h-2 bg-transparent"
+        ></span>
+      </button>
     </nav>
   </div>
 </div>
