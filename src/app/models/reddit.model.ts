@@ -42,6 +42,14 @@ export enum RedditPostHint {
 }
 
 /**
+ * Contains the different page types from the Reddit API.
+ */
+export enum RedditPageType {
+  SUBREDDIT = 'r',
+  USER = 'user'
+}
+
+/**
  * Contains safe mode enable|disabled options.
  */
 export enum SafeMode {
@@ -66,6 +74,7 @@ export interface IRedditRequestOptions {
   page?: string
   subFilter: RedditSubFilter
   safeMode: SafeMode
+  pageType: RedditPageType
 }
 
 /**

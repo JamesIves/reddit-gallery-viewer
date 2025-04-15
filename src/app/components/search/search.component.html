@@ -8,11 +8,24 @@
     <label for="term" class="sr-only block text-sm font-medium text-gray-700"
       >Search</label
     >
-    <div class="mt-1 flex rounded-md shadow-sm">
-      <span
+    <div
+      class="mt-1 flex rounded-md shadow-sm"
+      *ngIf="subRedditPageType$ | async as activePageType"
+    >
+      <button
+        (click)="
+          togglePageType(
+            activePageType === redditPageType.SUBREDDIT
+              ? redditPageType.USER
+              : redditPageType.SUBREDDIT
+          )
+        "
+        aria-label="Toggle page type"
         class="inline-flex items-center rounded-l-md border border-r-0 border-gray-300 bg-gray-50 px-3 text-gray-500 sm:text-sm"
-        >/r/</span
+        type="button"
       >
+        /{{ activePageType === redditPageType.USER ? 'u' : activePageType }}/
+      </button>
       <input
         type="text"
         name="term"

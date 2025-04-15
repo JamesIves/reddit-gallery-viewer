@@ -2,6 +2,7 @@ import {CommonModule} from '@angular/common'
 import {ChangeDetectionStrategy, Component} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms'
 import {Observable} from 'rxjs'
+import {RedditPageType} from 'src/app/models/reddit.model'
 import {RedditService} from 'src/services/reddit/reddit.service'
 
 /**
@@ -15,10 +16,21 @@ import {RedditService} from 'src/services/reddit/reddit.service'
 })
 export class SearchComponent {
   /**
+   * @inheritdoc
+   */
+  protected readonly redditPageType = RedditPageType
+
+  /**
    * An observable containing the selected sub reddit name.
    * Used to push the current Reddit page back to the input placeholder.
    */
   public readonly subRedditName$: Observable<string>
+
+  /**
+   * An observable containing the selected sub reddit page type.
+   * Used to push the current Reddit page type back to the input placeholder.
+   */
+  public readonly subRedditPageType$: Observable<string>
 
   /**
    * @inheritdoc
@@ -30,6 +42,7 @@ export class SearchComponent {
     private readonly redditService: RedditService
   ) {
     this.subRedditName$ = this.redditService.getSubRedditName()
+    this.subRedditPageType$ = this.redditService.getSubRedditPageType()
   }
 
   /**
@@ -73,5 +86,12 @@ export class SearchComponent {
     if (inputElement) {
       inputElement.blur()
     }
+  }
+
+  /**
+   * Toggles the content type subreddit and user content.
+   */
+  public togglePageType(pageType: RedditPageType) {
+    this.redditService.setSubRedditPageType(pageType)
   }
 }

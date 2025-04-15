@@ -11,7 +11,8 @@ import {
   SafeMode,
   IRedditResultNatural,
   RedditRequestParameters,
-  RedditPostHint
+  RedditPostHint,
+  RedditPageType
 } from 'src/app/models/reddit.model'
 
 /**
@@ -21,7 +22,7 @@ import {
   providedIn: 'root'
 })
 export class RedditService {
-  private static readonly API_BASE = 'https://www.reddit.com/r'
+  private static readonly API_BASE = 'https://www.reddit.com'
   private static readonly MAX_CONTENT_FETCH = 24
   private static readonly DEFAULT_SUBREDDIT = 'cats'
   private static readonly DEFAULT_PAGE = 't3_'
@@ -58,6 +59,14 @@ export class RedditService {
   )
 
   /**
+   * BehaviorSubject which houses the currently set page type.
+   * This can be used to query for specific page types such as subreddit or user pages.
+   */
+  private readonly _subRedditPageType$ = new BehaviorSubject<RedditPageType>(
+    RedditPageType.SUBREDDIT
+  )
+
+  /**
    * The query$ observable is the main mechanism of the app.
    * This observable will watch for changes to the other values such as page/name etc
    * and re-fetch data based on input changes. This observable can be subscribed to
@@ -81,9 +90,10 @@ export class RedditService {
       this.getSubRedditName(),
       this.getSubRedditFilter(),
       this.getSubRedditSubFilter(),
-      this.getSafeMode()
+      this.getSafeMode(),
+      this.getSubRedditPageType()
     ]).pipe(
-      switchMap(([name, filter, subFilter, safeMode]) =>
+      switchMap(([name, filter, subFilter, safeMode, pageType]) =>
         this.getSubRedditPage().pipe(
           mergeMap(page =>
             this.getSubRedditContent({
@@ -91,7 +101,8 @@ export class RedditService {
               filter,
               page,
               subFilter,
-              safeMode
+              safeMode,
+              pageType
             }).pipe(
               catchError(() => {
                 /**
@@ -190,11 +201,28 @@ export class RedditService {
   }
 
   /**
+   * Sets the sub reddit page type. This is used to determine which
+   * page type to display, such as subreddit or user.
+   * @param type The type of page to display, {@see RedditSubFilter} for options.
+   */
+  public setSubRedditPageType(type: RedditPageType): void {
+    this._subRedditPageType$.next(type)
+  }
+
+  /**
    * Gets the sub reddit filter option as an observable.
    * @returns An observable that can translate the currently set filter option.
    */
   public getSubRedditFilter(): Observable<RedditFilter> {
     return this._subRedditFilter$.asObservable()
+  }
+
+  /**
+   * Gets the sub reddit page type option as an observable.
+   * @returns An observable that can translate the currently set page type option.
+   */
+  public getSubRedditPageType(): Observable<RedditPageType> {
+    return this._subRedditPageType$.asObservable()
   }
 
   /**
@@ -246,9 +274,12 @@ export class RedditService {
     filter,
     page,
     subFilter,
-    safeMode
+    safeMode,
+    pageType
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
-    const path = new URL(`${RedditService.API_BASE}/${name}/${filter}/.json`)
+    const path = new URL(
+      `${RedditService.API_BASE}/${pageType}/${name}/${filter}/.json`
+    )
     path.searchParams.append(
       RedditRequestParameters.LIMIT,
       RedditService.MAX_CONTENT_FETCH.toString()
