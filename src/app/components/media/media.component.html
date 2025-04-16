@@ -4,7 +4,6 @@
       class="h-full w-full bg-slate-950 object-contain"
       data-testid="media-image"
       [alt]="content.title"
-      loading="lazy"
       *ngIf="
         content.preview &&
         content.preview.images.length &&
@@ -38,8 +37,6 @@
         content.secure_media_embed
       "
       [src]="content.secure_media_embed.media_domain_url | trustResource"
-      sandbox="allow-scripts allow-same-origin"
-      loading="lazy"
     ></iframe>
 
     <div
