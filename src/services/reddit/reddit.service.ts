@@ -278,7 +278,7 @@ export class RedditService {
     pageType
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
     const path = new URL(
-      `${RedditService.API_BASE}/${pageType}/${name}/${filter !== RedditFilter.ALL ? filter : ''}/.json`
+      `${RedditService.API_BASE}/${pageType}/${name}${filter !== RedditFilter.ALL ? `/${filter}` : ''}.json`
     )
     path.searchParams.append(
       RedditRequestParameters.LIMIT,
@@ -316,7 +316,7 @@ export class RedditService {
                 item.post_hint === RedditPostHint.IMAGE ||
                 item.post_hint === RedditPostHint.RICH_VIDEO) &&
               (pageType !== RedditPageType.USER ||
-                item.subreddit_type === RedditPageType.USER)
+                item.author.toLowerCase() === name.toLowerCase())
           )
       )
     )
