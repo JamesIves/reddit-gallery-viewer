@@ -90,10 +90,9 @@ export class RedditService {
       this.getSubRedditName(),
       this.getSubRedditFilter(),
       this.getSubRedditSubFilter(),
-      this.getSafeMode(),
-      this.getRedditPageType()
+      this.getSafeMode()
     ]).pipe(
-      switchMap(([name, filter, subFilter, safeMode, pageType]) =>
+      switchMap(([name, filter, subFilter, safeMode]) =>
         this.getSubRedditPage().pipe(
           mergeMap(page =>
             this.getSubRedditContent({
@@ -101,8 +100,7 @@ export class RedditService {
               filter,
               page,
               subFilter,
-              safeMode,
-              pageType
+              safeMode
             }).pipe(
               catchError(() => {
                 /**
@@ -206,8 +204,6 @@ export class RedditService {
    * @param type The type of page to display, {@see RedditSubFilter} for options.
    */
   public setRedditPageType(type: RedditPageType): void {
-    this.setSubRedditPage(RedditService.DEFAULT_PAGE)
-
     this._redditPageType$.next(type)
   }
 
@@ -276,9 +272,9 @@ export class RedditService {
     filter,
     page,
     subFilter,
-    safeMode,
-    pageType
+    safeMode
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
+    const pageType = this._redditPageType$.getValue()
     const path = new URL(
       `${RedditService.API_BASE}/${pageType}/${name}${filter !== RedditFilter.ALL ? `/${filter}` : ''}.json`
     )
