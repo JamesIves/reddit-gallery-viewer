@@ -88,6 +88,7 @@ export interface IRedditResult {
   id: string
   subreddit_type: 'user' | 'public'
   thumbnail?: string
+  created_utc?: number
   /**
    * Content that is considered over_18 is usually NSFW.
    * This flag is used in the RedditService to filter our content

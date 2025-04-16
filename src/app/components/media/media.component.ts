@@ -8,6 +8,7 @@ import {
 import {CommonModule, DecimalPipe} from '@angular/common'
 import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
+import {RelativeTimePipe} from 'src/app/pipes/relative-time/relative-time.pipe'
 
 /**
  * Displays image/video content along with any additional details
@@ -15,7 +16,7 @@ import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pip
  */
 @Component({
   selector: 'app-media',
-  imports: [CommonModule, TrustResourcePipe, DecimalPipe],
+  imports: [CommonModule, TrustResourcePipe, DecimalPipe, RelativeTimePipe],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './media.component.html'
 })

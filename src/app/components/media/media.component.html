@@ -88,8 +88,26 @@
         </svg>
 
         {{ content.num_comments | number }}
-        {{ content.num_comments === 1 ? 'Comment' : 'Comments' }}
       </a>
+
+      <span
+        *ngIf="content.created_utc"
+        class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+      >
+        <svg
+          width="24"
+          height="24"
+          fill="currentColor"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 512 512"
+          class="me-1.5 h-2.5 w-2.5"
+        >
+          <path
+            d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
+          />
+        </svg>
+        {{ content.created_utc | relativeTime }}
+      </span>
     </div>
   </div>
 </div>
