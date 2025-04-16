@@ -206,6 +206,8 @@ export class RedditService {
    * @param type The type of page to display, {@see RedditSubFilter} for options.
    */
   public setRedditPageType(type: RedditPageType): void {
+    this.setSubRedditPage(RedditService.DEFAULT_PAGE)
+
     this._redditPageType$.next(type)
   }
 
