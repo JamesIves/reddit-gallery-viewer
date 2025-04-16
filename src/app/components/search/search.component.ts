@@ -96,9 +96,12 @@ export class SearchComponent {
   }
 
   /**
-   * Clears the search term.
+   * Clears the search term and resets the subreddit name back to the default.
+   * This is used to reset the search field when the user clicks on the clear button.
    */
   public clearSearch(): void {
     this.searchForm.get('term')?.setValue('')
+
+    this.redditService.setSubRedditName('')
   }
 }
