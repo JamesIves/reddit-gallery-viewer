@@ -10,7 +10,7 @@
     >
     <div
       class="mt-1 flex rounded-md shadow-sm"
-      *ngIf="subRedditPageType$ | async as activePageType"
+      *ngIf="redditPageType$ | async as activePageType"
     >
       <button
         (click)="
@@ -26,20 +26,31 @@
       >
         /{{ activePageType === redditPageType.USER ? 'u' : activePageType }}/
       </button>
-      <input
-        type="text"
-        name="term"
-        data-testid="search-term"
-        formControlName="term"
-        id="term"
-        class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-        [placeholder]="subRedditName$ | async"
-        (keydown)="preventSpace($event)"
-        autocomplete="off"
-        autocorrect="off"
-        autocapitalize="none"
-        spellcheck="false"
-      />
+      <div class="relative">
+        <input
+          type="text"
+          name="term"
+          data-testid="search-term"
+          formControlName="term"
+          id="term"
+          class="block w-full min-w-0 flex-1 rounded-none rounded-r-md border-gray-300 px-3 py-2 pr-10 focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          [placeholder]="subRedditName$ | async"
+          (keydown)="preventSpace($event)"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="none"
+          spellcheck="false"
+        />
+        <button
+          *ngIf="searchForm.get('term')?.value"
+          type="button"
+          aria-label="Clear search"
+          class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 transition-colors hover:text-gray-600"
+          (click)="clearSearch()"
+        >
+          ✕
+        </button>
+      </div>
     </div>
   </div>
 

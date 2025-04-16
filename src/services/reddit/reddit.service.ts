@@ -62,7 +62,7 @@ export class RedditService {
    * BehaviorSubject which houses the currently set page type.
    * This can be used to query for specific page types such as subreddit or user pages.
    */
-  private readonly _subRedditPageType$ = new BehaviorSubject<RedditPageType>(
+  private readonly _redditPageType$ = new BehaviorSubject<RedditPageType>(
     RedditPageType.SUBREDDIT
   )
 
@@ -91,7 +91,7 @@ export class RedditService {
       this.getSubRedditFilter(),
       this.getSubRedditSubFilter(),
       this.getSafeMode(),
-      this.getSubRedditPageType()
+      this.getRedditPageType()
     ]).pipe(
       switchMap(([name, filter, subFilter, safeMode, pageType]) =>
         this.getSubRedditPage().pipe(
@@ -205,8 +205,8 @@ export class RedditService {
    * page type to display, such as subreddit or user.
    * @param type The type of page to display, {@see RedditSubFilter} for options.
    */
-  public setSubRedditPageType(type: RedditPageType): void {
-    this._subRedditPageType$.next(type)
+  public setRedditPageType(type: RedditPageType): void {
+    this._redditPageType$.next(type)
   }
 
   /**
@@ -221,8 +221,8 @@ export class RedditService {
    * Gets the sub reddit page type option as an observable.
    * @returns An observable that can translate the currently set page type option.
    */
-  public getSubRedditPageType(): Observable<RedditPageType> {
-    return this._subRedditPageType$.asObservable()
+  public getRedditPageType(): Observable<RedditPageType> {
+    return this._redditPageType$.asObservable()
   }
 
   /**
@@ -314,7 +314,9 @@ export class RedditService {
                 item.secure_media_embed &&
                 item.secure_media_embed.media_domain_url) ||
                 item.post_hint === RedditPostHint.IMAGE ||
-                item.post_hint === RedditPostHint.RICH_VIDEO)
+                item.post_hint === RedditPostHint.RICH_VIDEO) &&
+              (pageType !== RedditPageType.USER ||
+                item.subreddit_type === RedditPageType.USER)
           )
       )
     )

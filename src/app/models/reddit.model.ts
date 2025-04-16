@@ -86,6 +86,7 @@ export interface IRedditResult {
   url: string
   title: string
   id: string
+  subreddit_type: RedditPageType
   thumbnail?: string
   /**
    * Content that is considered over_18 is usually NSFW.

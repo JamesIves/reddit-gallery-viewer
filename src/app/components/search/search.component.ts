@@ -30,7 +30,7 @@ export class SearchComponent {
    * An observable containing the selected sub reddit page type.
    * Used to push the current Reddit page type back to the input placeholder.
    */
-  public readonly subRedditPageType$: Observable<string>
+  public readonly redditPageType$: Observable<string>
 
   /**
    * @inheritdoc
@@ -42,7 +42,7 @@ export class SearchComponent {
     private readonly redditService: RedditService
   ) {
     this.subRedditName$ = this.redditService.getSubRedditName()
-    this.subRedditPageType$ = this.redditService.getSubRedditPageType()
+    this.redditPageType$ = this.redditService.getRedditPageType()
   }
 
   /**
@@ -92,6 +92,13 @@ export class SearchComponent {
    * Toggles the content type subreddit and user content.
    */
   public togglePageType(pageType: RedditPageType) {
-    this.redditService.setSubRedditPageType(pageType)
+    this.redditService.setRedditPageType(pageType)
+  }
+
+  /**
+   * Clears the search term.
+   */
+  public clearSearch(): void {
+    this.searchForm.get('term')?.setValue('')
   }
 }
