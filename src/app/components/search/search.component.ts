@@ -6,7 +6,8 @@ import {RedditPageType} from 'src/app/models/reddit.model'
 import {RedditService} from 'src/services/reddit/reddit.service'
 
 /**
- * Search form used to determine which page on Reddit to display.
+ * Component for the search input field.
+ * Allows users to search for subreddits or users.
  */
 @Component({
   selector: 'app-search',
@@ -16,26 +17,26 @@ import {RedditService} from 'src/services/reddit/reddit.service'
 })
 export class SearchComponent {
   /**
-   * @inheritdoc
+   * Enum for Reddit page types (e.g., SUBREDDIT or USER).
    */
   protected readonly redditPageType = RedditPageType
 
   /**
-   * An observable containing the selected sub reddit name.
-   * Used to push the current Reddit page back to the input placeholder.
+   * Observable containing the current subreddit name.
+   * Used to dynamically update the input placeholder.
    */
   public readonly subRedditName$: Observable<string>
 
   /**
-   * An observable containing the selected sub reddit page type.
-   * Used to push the current Reddit page type back to the input placeholder.
+   * Observable containing the current Reddit page type.
+   * Used to toggle between subreddit and user searches.
    */
   public readonly redditPageType$: Observable<string>
 
   /**
-   * @inheritdoc
-   * @param formBuilder Injected form builder from Angular.
-   * @param redditService Injected Reddit service.
+   * Constructor for the SearchComponent.
+   * @param formBuilder The Angular FormBuilder service for creating forms.
+   * @param redditService The RedditService for managing subreddit and page type state.
    */
   public constructor(
     private readonly formBuilder: FormBuilder,
@@ -46,14 +47,16 @@ export class SearchComponent {
   }
 
   /**
-   * Contains all of the search form data points.
+   * Reactive form for managing the search input and page type.
    */
   public searchForm = this.formBuilder.group({
-    term: ''
+    term: '', // The search term input
+    pageType: RedditPageType.SUBREDDIT // Default page type is SUBREDDIT
   })
 
   /**
-   * Prevents the space key from being entered into the search field.
+   * Prevents spaces from being entered into the search input.
+   * @param event The keyboard event triggered by the user.
    */
   public preventSpace(event: KeyboardEvent) {
     if (
@@ -67,17 +70,19 @@ export class SearchComponent {
   }
 
   /**
-   * Handles submission of the search field.
+   * Handles the form submission event.
+   * Updates the subreddit name and page type in the RedditService.
+   * @param event The form submission event.
    */
   public onSubmit(event: Event): void {
+    if (this.searchForm.value.pageType) {
+      this.redditService.setRedditPageType(this.searchForm.value.pageType)
+    }
+
     if (this.searchForm.value.term) {
       this.redditService.setSubRedditName(this.searchForm.value.term.trim())
     }
 
-    /**
-     * Closes the keyboard on mobile devices after submission of the search form.
-     * This is necessary because the keyboard does not close automatically on mobile devices.
-     */
     event.preventDefault()
     const inputElement = (event.target as HTMLFormElement).querySelector(
       'input[name="term"]'
@@ -89,19 +94,22 @@ export class SearchComponent {
   }
 
   /**
-   * Toggles the content type subreddit and user content.
+   * Toggles the current page type between SUBREDDIT and USER.
+   * Updates the pageType value in the reactive form.
    */
-  public togglePageType(pageType: RedditPageType) {
-    this.redditService.setRedditPageType(pageType)
+  public togglePageType(): void {
+    const currentPageType = this.searchForm.get('pageType')?.value
+    const newPageType =
+      currentPageType === RedditPageType.SUBREDDIT
+        ? RedditPageType.USER
+        : RedditPageType.SUBREDDIT
+    this.searchForm.get('pageType')?.setValue(newPageType)
   }
 
   /**
-   * Clears the search term and resets the subreddit name back to the default.
-   * This is used to reset the search field when the user clicks on the clear button.
+   * Clears the search input field.
    */
   public clearSearch(): void {
     this.searchForm.get('term')?.setValue('')
-
-    this.redditService.setSubRedditName('')
   }
 }
