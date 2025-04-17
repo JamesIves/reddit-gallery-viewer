@@ -25,36 +25,36 @@ describe('FilterComponent', () => {
 
   it('toggles to the hot filter when clicked', () => {
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
-    ).toBeTruthy()
-    expect(
       findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
-    ).toBeFalsy()
-
-    click(fixture, 'filter-hot')
-    fixture.detectChanges()
-
+    ).toBeTruthy()
     expect(
       findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
     ).toBeFalsy()
-    expect(
-      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
-    ).toBeTruthy()
 
     click(fixture, 'filter-all')
     fixture.detectChanges()
 
     expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
       findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
     ).toBeTruthy()
+
+    click(fixture, 'filter-hot')
+    fixture.detectChanges()
+
     expect(
       findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
     ).toBeFalsy()
   })
 
   it('toggles to the new filter when clicked', () => {
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeTruthy()
     expect(
       findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
@@ -64,7 +64,7 @@ describe('FilterComponent', () => {
     fixture.detectChanges()
 
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeFalsy()
     expect(
       findEl(fixture, 'filter-new').nativeElement.classList.contains('active')
@@ -73,7 +73,7 @@ describe('FilterComponent', () => {
 
   it('toggles to the top filter when clicked', () => {
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeTruthy()
     expect(
       findEl(fixture, 'filter-top').nativeElement.classList.contains('active')
@@ -83,7 +83,7 @@ describe('FilterComponent', () => {
     fixture.detectChanges()
 
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeFalsy()
     expect(
       findEl(fixture, 'filter-top').nativeElement.classList.contains('active')
@@ -92,7 +92,7 @@ describe('FilterComponent', () => {
 
   it('toggles to the rising filter when clicked', () => {
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeTruthy()
     expect(
       findEl(fixture, 'filter-rising').nativeElement.classList.contains(
@@ -104,12 +104,31 @@ describe('FilterComponent', () => {
     fixture.detectChanges()
 
     expect(
-      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
     ).toBeFalsy()
     expect(
       findEl(fixture, 'filter-rising').nativeElement.classList.contains(
         'active'
       )
+    ).toBeTruthy()
+  })
+
+  it('toggles to the all filter when clicked', () => {
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeTruthy()
+    expect(
+      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+
+    click(fixture, 'filter-all')
+    fixture.detectChanges()
+
+    expect(
+      findEl(fixture, 'filter-hot').nativeElement.classList.contains('active')
+    ).toBeFalsy()
+    expect(
+      findEl(fixture, 'filter-all').nativeElement.classList.contains('active')
     ).toBeTruthy()
   })
 })

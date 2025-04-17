@@ -1,9 +1,10 @@
 import {ChangeDetectionStrategy} from '@angular/core'
 import {ComponentFixture, TestBed} from '@angular/core/testing'
+import {HttpClientTestingModule} from '@angular/common/http/testing'
+import {ClipboardModule} from '@angular/cdk/clipboard'
 import {RedditPostHint} from 'src/app/models/reddit.model'
-import {findEl} from 'src/app/util/spec'
-
 import {MediaComponent} from './media.component'
+import {findEl} from 'src/app/util/spec'
 
 describe('MediaComponent', () => {
   let component: MediaComponent
@@ -11,15 +12,17 @@ describe('MediaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MediaComponent]
+      imports: [
+        MediaComponent,
+        HttpClientTestingModule, // Mock HttpClient
+        ClipboardModule // Mock Clipboard
+      ]
     })
       .overrideComponent(MediaComponent, {
         set: {
-          // Override change detection under test to make it easier to test @Input mods
           changeDetection: ChangeDetectionStrategy.Default
         }
       })
-
       .compileComponents()
 
     fixture = TestBed.createComponent(MediaComponent)
@@ -65,7 +68,7 @@ describe('MediaComponent', () => {
     component.content = {
       id: '1337',
       over_18: false,
-      title: 'Cool image',
+      title: 'Cool video',
       num_comments: 1337,
       subreddit: 'cats',
       subreddit_type: 'public',
@@ -98,7 +101,7 @@ describe('MediaComponent', () => {
     component.content = {
       id: '1337',
       over_18: false,
-      title: 'Cool image',
+      title: 'Cool iframe',
       num_comments: 1337,
       subreddit: 'cats',
       subreddit_type: 'public',
