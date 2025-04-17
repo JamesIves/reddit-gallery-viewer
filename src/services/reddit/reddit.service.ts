@@ -49,7 +49,7 @@ export class RedditService {
   /**
    * BehaviorSubject which houses the currently set filter.
    */
-  private readonly _subRedditFilter$ = new BehaviorSubject(RedditFilter.ALL)
+  private readonly _subRedditFilter$ = new BehaviorSubject(RedditFilter.HOT)
 
   /**
    * BehaviorSubject which houses the currently set sub filter.

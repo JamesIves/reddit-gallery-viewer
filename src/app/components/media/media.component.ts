@@ -6,9 +6,16 @@ import {
   SimpleChanges
 } from '@angular/core'
 import {CommonModule, DecimalPipe} from '@angular/common'
-import {IRedditResult, RedditPostHint} from 'src/app/models/reddit.model'
+import {
+  IRedditResult,
+  RedditPageType,
+  RedditPostHint
+} from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
 import {RelativeTimePipe} from 'src/app/pipes/relative-time/relative-time.pipe'
+import {Clipboard} from '@angular/cdk/clipboard'
+import {RedditService} from 'src/services/reddit/reddit.service'
+import {Observable} from 'rxjs'
 
 /**
  * Displays image/video content along with any additional details
@@ -23,12 +30,34 @@ import {RelativeTimePipe} from 'src/app/pipes/relative-time/relative-time.pipe'
 export class MediaComponent implements OnChanges {
   /**
    * @inheritdoc
+   */
+  protected readonly redditPageType = RedditPageType
+
+  /**
+   * @inheritdoc
    *
    * Used to check against the post hint so the client knows how to render
    * each specific bit of content. For example if it's rich:video we need to
    * use an iframe, whereas for images we need to use an img element.
    */
   protected readonly redditPostHint = RedditPostHint
+
+  /**
+   * An observable containing the selected sub reddit page type.
+   * Used to push the current Reddit page type back to the input placeholder.
+   */
+  public readonly redditPageType$: Observable<string>
+
+  /**
+   * @inheritdoc
+   * @param clipboard The injected clipboard service.
+   */
+  public constructor(
+    private clipboard: Clipboard,
+    private readonly redditService: RedditService
+  ) {
+    this.redditPageType$ = this.redditService.getRedditPageType()
+  }
 
   /**
    * The content object from Reddit.
@@ -50,7 +79,7 @@ export class MediaComponent implements OnChanges {
   public size?: number
 
   /**
-   * Whenever contetn changes, we need to update the image source.
+   * Whenever content changes, we need to update the image source.
    * This is done to ensure that the image source is always up to date
    * with the latest content, and so we can track for any errors.
    */
@@ -63,9 +92,17 @@ export class MediaComponent implements OnChanges {
   /**
    * If the image fails to load, we can use the thumbnail as a fallback if it exists.
    */
-  onImageError() {
+  public onImageError(): void {
     if (this.content?.thumbnail) {
       this.imageSrc = this.content.thumbnail
     }
+  }
+
+  /**
+   * Copies the author's name to the clipboard.
+   * @param author The author's name to copy.
+   */
+  public copyToClipboard(author: string): void {
+    this.clipboard.copy(author)
   }
 }
