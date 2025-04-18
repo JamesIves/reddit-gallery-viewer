@@ -112,7 +112,7 @@ export class MediaComponent implements OnChanges {
    */
   public onTouchStart(event: Event): void {
     const target = event.target as HTMLElement
-    target.classList.add('active')
+    target.classList.add('activate')
   }
 
   /**
@@ -121,6 +121,6 @@ export class MediaComponent implements OnChanges {
    */
   public onTouchEnd(event: Event): void {
     const target = event.target as HTMLElement
-    target.classList.remove('active')
+    target.classList.remove('activate')
   }
 }
