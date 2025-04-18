@@ -89,7 +89,7 @@ video {
 }
 
 .headline {
-  @apply relative inline-block font-righteous text-[clamp(3rem,10vw,9rem)] text-white shadow-[0.03em_0.03em_0_hsla(230,40%,50%,1)];
+  @apply relative inline-block font-righteous text-[clamp(3rem,10vw,9rem)] text-white;
   z-index: 1;
 }
 
