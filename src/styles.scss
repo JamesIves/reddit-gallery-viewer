@@ -109,7 +109,7 @@ video {
   content: attr(data-shadow);
 }
 
-.animate-press:focus {
+.animate-press:active {
   animation: press 0.3s ease-out;
 }
 
