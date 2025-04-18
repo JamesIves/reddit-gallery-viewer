@@ -109,8 +109,8 @@ video {
   content: attr(data-shadow);
 }
 
-.animate-press:active {
-  animation: press 0.3s ease-out;
+.active {
+  transform: translateY(3px);
 }
 
 @keyframes shard {
@@ -142,18 +142,6 @@ video {
   }
   to {
     left: 100%;
-  }
-}
-
-@keyframes press {
-  0% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(4px);
-  }
-  100% {
-    transform: translateY(0);
   }
 }
 

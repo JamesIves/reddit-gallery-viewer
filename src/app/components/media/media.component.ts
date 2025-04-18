@@ -105,4 +105,22 @@ export class MediaComponent implements OnChanges {
   public copyToClipboard(author: string): void {
     this.clipboard.copy(author)
   }
+
+  /**
+   * Animates the button when the user touches it on mobile.
+   * This is done to provide feedback to the user that the button has been pressed.
+   */
+  public onTouchStart(event: Event): void {
+    const target = event.target as HTMLElement
+    target.classList.add('active')
+  }
+
+  /**
+   * Removes the animation class when the user releases the button.
+   * This is done to provide feedback to the user that the button has been released.
+   */
+  public onTouchEnd(event: Event): void {
+    const target = event.target as HTMLElement
+    target.classList.remove('active')
+  }
 }
