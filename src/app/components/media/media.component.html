@@ -1,5 +1,6 @@
 <div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
   <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-14 sm:p-4 sm:pb-14">
+    <!-- Image content -->
     <img
       class="h-full w-full bg-slate-950 object-contain"
       data-testid="media-image"
@@ -13,6 +14,7 @@
       (error)="onImageError()"
     />
 
+    <!-- Reddit video content -->
     <video
       *ngIf="
         content.preview &&
@@ -28,18 +30,41 @@
     >
       <source [src]="content.preview.reddit_video_preview.fallback_url" />
     </video>
+    <!-- YouTube/Twitch responsive embed container -->
+    <div
+      *ngIf="
+        (content.post_hint === redditPostHint.RICH_VIDEO ||
+          content.post_hint === redditPostHint.LINK) &&
+        content.secure_media_embed &&
+        getVideoPlatform(content) !== videoPlatform.OTHER
+      "
+      class="relative h-full w-full overflow-hidden bg-slate-950"
+      data-testid="video-embed-container"
+    >
+      <iframe
+        class="absolute left-0 top-0 h-full w-full border-0"
+        data-testid="video-iframe"
+        [src]="getVideoEmbedUrl(content) ?? '' | trustResource"
+        title="{{ content.title }}"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen
+      ></iframe>
+    </div>
 
+    <!-- Standard iframe for other embed types -->
     <iframe
       class="h-full w-full bg-slate-950"
       data-testid="media-iframe"
       *ngIf="
         (content.post_hint === redditPostHint.RICH_VIDEO ||
           content.post_hint === redditPostHint.LINK) &&
-        content.secure_media_embed
+        content.secure_media_embed &&
+        getVideoPlatform(content) === videoPlatform.OTHER
       "
       [src]="content.secure_media_embed.media_domain_url | trustResource"
     ></iframe>
 
+    <!-- Gallery -->
     <app-gallery
       *ngIf="
         content.is_gallery && content.gallery_data && content.gallery_data.items

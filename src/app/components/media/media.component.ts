@@ -10,7 +10,8 @@ import {CommonModule, DecimalPipe} from '@angular/common'
 import {
   IRedditResult,
   RedditPageType,
-  RedditPostHint
+  RedditPostHint,
+  VideoPlatform
 } from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
 import {RelativeTimePipe} from 'src/app/pipes/relative-time/relative-time.pipe'
@@ -61,6 +62,11 @@ export class MediaComponent implements OnChanges {
    * Used to push the current Reddit page type back to the input placeholder.
    */
   public readonly redditPageType$: Observable<string>
+
+  /**
+   * Video platform types for template usage
+   */
+  protected readonly videoPlatform = VideoPlatform
 
   /**
    * @inheritdoc
@@ -122,20 +128,191 @@ export class MediaComponent implements OnChanges {
   }
 
   /**
-   * Animates the button when the user touches it on mobile.
-   * This is done to provide feedback to the user that the button has been pressed.
+   * Detects the video platform type from Reddit content
    */
-  public onTouchStart(event: Event): void {
-    const target = event.target as HTMLElement
-    target.classList.add('activate')
+  public getVideoPlatform(content: IRedditResult): VideoPlatform {
+    if (!content) return VideoPlatform.OTHER
+
+    const domain = content.domain || ''
+    const secure_media_type = content.secure_media?.type || ''
+
+    /**
+     * YouTube detection
+     */
+    if (
+      domain.includes('youtube.com') ||
+      domain.includes('youtu.be') ||
+      secure_media_type.includes('youtube')
+    ) {
+      return VideoPlatform.YOUTUBE
+    }
+
+    /**
+     * Twitch detection
+     */
+    if (
+      domain.includes('twitch.tv') ||
+      secure_media_type.includes('twitch') ||
+      (content.secure_media_embed?.content || '').includes('twitch')
+    ) {
+      return VideoPlatform.TWITCH
+    }
+
+    return VideoPlatform.OTHER
   }
 
   /**
-   * Removes the animation class when the user releases the button.
-   * This is done to provide feedback to the user that the button has been released.
+   * Extracts video ID and builds proper embed URL for the video platform
    */
-  public onTouchEnd(event: Event): void {
-    const target = event.target as HTMLElement
-    target.classList.remove('activate')
+  public getVideoEmbedUrl(content: IRedditResult): string | null {
+    const platform = this.getVideoPlatform(content)
+
+    switch (platform) {
+      case VideoPlatform.YOUTUBE:
+        return this.getYouTubeEmbedUrl(content)
+      case VideoPlatform.TWITCH:
+        return this.getTwitchEmbedUrl(content)
+      default:
+        return content.secure_media_embed?.media_domain_url || null
+    }
+  }
+
+  /**
+   * Extracts YouTube video ID and returns proper embed URL
+   */
+  private getYouTubeEmbedUrl(content: IRedditResult): string | null {
+    const videoId = this.extractYouTubeId(content)
+    if (!videoId) return null
+
+    return `https://www.youtube.com/embed/${videoId}?autoplay=0&rel=0&modestbranding=1`
+  }
+
+  /**
+   * Extracts Twitch video/clip ID and returns proper embed URL
+   */
+  private getTwitchEmbedUrl(content: IRedditResult): string | null {
+    const {clipId, videoId, channelName} = this.extractTwitchInfo(content)
+
+    if (clipId) {
+      return `https://clips.twitch.tv/embed?clip=${clipId}&parent=${window.location.hostname}&autoplay=false`
+    } else if (videoId) {
+      return `https://player.twitch.tv/?video=${videoId}&parent=${window.location.hostname}&autoplay=false`
+    } else if (channelName) {
+      return `https://player.twitch.tv/?channel=${channelName}&parent=${window.location.hostname}&autoplay=false`
+    }
+
+    return null
+  }
+
+  /**
+   * Extracts YouTube video ID from various URL formats
+   */
+  private extractYouTubeId(content: IRedditResult): string | null {
+    /**
+     * Try to extract from URL
+     */
+    if (content.url) {
+      const urlMatch = content.url.match(
+        /(?:youtube\.com\/(?:[^/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?/\s]{11})/i
+      )
+      if (urlMatch && urlMatch[1]) {
+        return urlMatch[1]
+      }
+    }
+
+    /**
+     * Try to extract from embed HTML
+     */
+    if (content.secure_media?.oembed?.html) {
+      const embedMatch = content.secure_media.oembed.html.match(
+        /youtube\.com\/embed\/([^"&?/\s]{11})/i
+      )
+      if (embedMatch && embedMatch[1]) {
+        return embedMatch[1]
+      }
+    }
+
+    return null
+  }
+
+  /**
+   * Extracts Twitch video/clip ID or channel name from content
+   */
+  private extractTwitchInfo(content: IRedditResult): {
+    clipId?: string
+    videoId?: string
+    channelName?: string
+  } {
+    const result: {clipId?: string; videoId?: string; channelName?: string} = {}
+
+    /**
+     * Extract from URL
+     */
+    if (content.url) {
+      /**
+       * Check for clips - fixed escapes
+       */
+      const clipMatch =
+        content.url.match(/twitch\.tv\/\w+\/clip\/([a-zA-Z0-9_-]+)/i) ||
+        content.url.match(/clips\.twitch\.tv\/([a-zA-Z0-9_-]+)/i)
+      if (clipMatch && clipMatch[1]) {
+        result.clipId = clipMatch[1]
+        return result
+      }
+
+      /**
+       * Check for videos - fixed escapes
+       */
+      const videoMatch = content.url.match(/twitch\.tv\/videos\/(\d+)/i)
+      if (videoMatch && videoMatch[1]) {
+        result.videoId = videoMatch[1]
+        return result
+      }
+
+      /**
+       * Check for channels - fixed escapes
+       */
+      const channelMatch = content.url.match(/twitch\.tv\/([a-zA-Z0-9_]+)$/i)
+      if (channelMatch && channelMatch[1]) {
+        result.channelName = channelMatch[1]
+        return result
+      }
+    }
+
+    /**
+     * Extract from embed HTML if direct URL extraction fails
+     */
+    if (content.secure_media?.oembed?.html) {
+      const html = content.secure_media.oembed.html
+
+      /**
+       * Try to extract clip ID
+       */
+      const clipEmbedMatch = html.match(/clip=([a-zA-Z0-9_-]+)/i)
+      if (clipEmbedMatch && clipEmbedMatch[1]) {
+        result.clipId = clipEmbedMatch[1]
+        return result
+      }
+
+      /**
+       * Try to extract video ID
+       */
+      const videoEmbedMatch = html.match(/video=(\d+)/i)
+      if (videoEmbedMatch && videoEmbedMatch[1]) {
+        result.videoId = videoEmbedMatch[1]
+        return result
+      }
+
+      /**
+       * Try to extract channel name
+       */
+      const channelEmbedMatch = html.match(/channel=([a-zA-Z0-9_]+)/i)
+      if (channelEmbedMatch && channelEmbedMatch[1]) {
+        result.channelName = channelEmbedMatch[1]
+        return result
+      }
+    }
+
+    return result
   }
 }

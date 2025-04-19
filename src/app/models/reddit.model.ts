@@ -171,6 +171,7 @@ export interface IRedditGalleryData {
  * Describes the content API response from Reddit.
  */
 export interface IRedditResult {
+  domain: string
   author: string
   url: string
   title: string
@@ -197,35 +198,299 @@ export interface IRedditResult {
    */
   over_18: boolean
 
+  /**
+   * Contains secure media embed information including oembed data
+   */
   secure_media?: {
+    /**
+     * Oembed data containing HTML embed code
+     */
     oembed: {
+      /**
+       * HTML embed code provided by the platform
+       */
       html: string
+      /**
+       * Provider URL (e.g., youtube.com)
+       */
+      provider_url?: string
+      /**
+       * Title of the embedded content
+       */
+      title?: string
+      /**
+       * Width of thumbnail
+       */
+      thumbnail_width?: number
+      /**
+       * Height of the embedded content
+       */
+      height?: number
+      /**
+       * Width of the embedded content
+       */
+      width?: number
+      /**
+       * Version of the oembed specification
+       */
+      version?: string
+      /**
+       * Author name
+       */
+      author_name?: string
+      /**
+       * Provider name (e.g., YouTube)
+       */
+      provider_name?: string
+      /**
+       * Thumbnail URL
+       */
+      thumbnail_url?: string
+      /**
+       * Type of the content (e.g., video)
+       */
+      type?: string
+      /**
+       * Thumbnail height
+       */
+      thumbnail_height?: number
+      /**
+       * Author URL
+       */
+      author_url?: string
     }
+    /**
+     * Type of the secure media (e.g., 'youtube.com')
+     */
+    type?: string
   }
 
+  /**
+   * Contains secure media embed information
+   */
   secure_media_embed?: {
+    /**
+     * URL for the media domain
+     */
     media_domain_url: string
+    /**
+     * HTML content of the embed
+     */
     content: string
+    /**
+     * Width of the embed
+     */
+    width?: number
+    /**
+     * Whether scrolling is enabled
+     */
+    scrolling?: boolean
+    /**
+     * Height of the embed
+     */
+    height?: number
   }
 
+  /**
+   * Contains preview information
+   */
   preview?: {
+    /**
+     * Reddit video preview information
+     */
     reddit_video_preview?: {
+      /**
+       * Fallback URL for the video
+       */
       fallback_url: string
+      /**
+       * Whether the video has audio
+       */
+      has_audio?: boolean
+      /**
+       * Height of the video
+       */
+      height?: number
+      /**
+       * Width of the video
+       */
+      width?: number
+      /**
+       * Duration of the video in seconds
+       */
+      duration?: number
     }
+    /**
+     * Preview images
+     */
     images: {
+      /**
+       * Source image information
+       */
       source: {
+        /**
+         * URL of the image
+         */
         url: string
+        /**
+         * Width of the image
+         */
         width: number
+        /**
+         * Height of the image
+         */
         height: number
       }
+      /**
+       * Image resolutions
+       */
+      resolutions?: {
+        /**
+         * URL of the resolution
+         */
+        url: string
+        /**
+         * Width of the resolution
+         */
+        width: number
+        /**
+         * Height of the resolution
+         */
+        height: number
+      }[]
+      /**
+       * Image variants
+       */
+      variants?: Record<string, unknown>
+      /**
+       * ID of the image
+       */
+      id?: string
     }[]
+    /**
+     * Whether preview is enabled
+     */
+    enabled?: boolean
   }
 
+  /**
+   * Complete media object that includes oembed data
+   */
+  media?: {
+    /**
+     * Oembed data
+     */
+    oembed: {
+      /**
+       * HTML embed code
+       */
+      html: string
+      /**
+       * Provider URL
+       */
+      provider_url?: string
+      /**
+       * Title of the content
+       */
+      title?: string
+      /**
+       * Width of thumbnail
+       */
+      thumbnail_width?: number
+      /**
+       * Height of the embed
+       */
+      height?: number
+      /**
+       * Width of the embed
+       */
+      width?: number
+      /**
+       * Version of oembed
+       */
+      version?: string
+      /**
+       * Author name
+       */
+      author_name?: string
+      /**
+       * Provider name
+       */
+      provider_name?: string
+      /**
+       * Thumbnail URL
+       */
+      thumbnail_url?: string
+      /**
+       * Type of content
+       */
+      type?: string
+      /**
+       * Thumbnail height
+       */
+      thumbnail_height?: number
+      /**
+       * Author URL
+       */
+      author_url?: string
+    }
+    /**
+     * Type of media (e.g., 'youtube.com')
+     */
+    type?: string
+  }
+
+  /**
+   * Hint about the type of post
+   */
   post_hint: RedditPostHint
+
+  /**
+   * Name of the subreddit
+   */
   subreddit: string
+
+  /**
+   * Number of comments
+   */
   num_comments: number
+
+  /**
+   * Number of upvotes
+   */
   ups?: number
+
+  /**
+   * Permalink to the post
+   */
   permalink: string
+
+  /**
+   * Whether the post is a video
+   */
+  is_video?: boolean
+
+  /**
+   * Media embed information
+   */
+  media_embed?: {
+    /**
+     * HTML content of the embed
+     */
+    content?: string
+    /**
+     * Width of the embed
+     */
+    width?: number
+    /**
+     * Whether scrolling is enabled
+     */
+    scrolling?: boolean
+    /**
+     * Height of the embed
+     */
+    height?: number
+  }
 }
 
 /**
@@ -237,4 +502,13 @@ export interface IRedditResultNatural {
       data: IRedditResult
     }[]
   }
+}
+
+/**
+ * Video platform types
+ */
+export enum VideoPlatform {
+  YOUTUBE = 'youtube',
+  TWITCH = 'twitch',
+  OTHER = 'other'
 }
