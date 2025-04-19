@@ -2,7 +2,7 @@
   <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-14 sm:p-4 sm:pb-14">
     <!-- Image content -->
     <img
-      class="h-full w-full bg-slate-950 object-contain"
+      class="h-full w-full rounded-lg bg-slate-950 object-contain"
       data-testid="media-image"
       [alt]="content.title"
       *ngIf="
@@ -22,7 +22,7 @@
         content.post_hint === redditPostHint.LINK
       "
       data-testid="media-video"
-      class="mx-auto h-full w-auto bg-slate-950 object-contain"
+      class="mx-auto h-full w-auto rounded-lg bg-slate-950 object-contain"
       autoplay
       loop
       muted
@@ -42,7 +42,7 @@
       data-testid="video-embed-container"
     >
       <iframe
-        class="absolute left-0 top-0 h-full w-full border-0"
+        class="absolute left-0 top-0 h-full w-full rounded-lg border-0"
         data-testid="video-iframe"
         [src]="getVideoEmbedUrl(content) ?? '' | trustResource"
         title="{{ content.title }}"
@@ -53,7 +53,7 @@
 
     <!-- Standard iframe for other embed types -->
     <iframe
-      class="h-full w-full bg-slate-950"
+      class="h-full w-full rounded-lg bg-slate-950"
       data-testid="media-iframe"
       *ngIf="
         (content.post_hint === redditPostHint.RICH_VIDEO ||
@@ -121,7 +121,7 @@
       <span
         target="_blank"
         rel="noopener noreferrer"
-        class="animate-press inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+        class="inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
