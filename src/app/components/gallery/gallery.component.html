@@ -3,7 +3,12 @@
     class="absolute left-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
     (click)="scrollPrev()"
     aria-label="Previous Image"
-    *ngIf="galleryData && galleryData?.items && galleryData.items.length > 1"
+    *ngIf="
+      !isMobile &&
+      galleryData &&
+      galleryData?.items &&
+      galleryData.items.length > 1
+    "
     [disabled]="activeIndex === 0"
   >
     <svg
@@ -45,7 +50,12 @@
     class="absolute right-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
     (click)="scrollNext()"
     aria-label="Next Image"
-    *ngIf="galleryData && galleryData?.items && galleryData.items.length > 1"
+    *ngIf="
+      !isMobile &&
+      galleryData &&
+      galleryData?.items &&
+      galleryData.items.length > 1
+    "
     [disabled]="activeIndex === validItems.length - 1"
   >
     <svg

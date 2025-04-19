@@ -14,6 +14,7 @@ import {
 } from 'src/app/models/reddit.model'
 import {Subject, fromEvent} from 'rxjs'
 import {debounceTime, takeUntil} from 'rxjs/operators'
+import {DeviceService} from 'src/services/device/device.service'
 
 /**
  * Component for displaying a gallery of media items.
@@ -46,7 +47,12 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   public activeIndex = 0
 
   /**
-   * Subject to handle unsubscription on destroy
+   * A reference to the device service for checking if the device is mobile.
+   */
+  public isMobile = false
+
+  /**
+   * Subject to handle un-subscription on destroy
    */
   private destroy$ = new Subject<void>()
 
@@ -57,7 +63,17 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   @ViewChild('scrollContainer', {static: true})
   public scrollContainer!: ElementRef<HTMLDivElement>
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  /**
+   * @inheritdoc
+   * @param cdr ChangeDetectorRef for change detection
+   *
+   */
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private deviceService: DeviceService
+  ) {
+    this.isMobile = this.deviceService.isMobileDevice()
+  }
 
   /**
    * Set up scroll event listener after view is initialized

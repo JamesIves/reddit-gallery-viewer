@@ -6,6 +6,7 @@ import {
   IRedditMediaMetadata,
   IRedditGalleryData
 } from 'src/app/models/reddit.model'
+import {DeviceService} from 'src/services/device/device.service'
 
 describe('GalleryComponent', () => {
   let component: GalleryComponent
@@ -14,7 +15,15 @@ describe('GalleryComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GalleryComponent]
+      imports: [GalleryComponent],
+      providers: [
+        {
+          provide: DeviceService,
+          useValue: {
+            isMobileDevice: () => false // Default to desktop for tests
+          }
+        }
+      ]
     }).compileComponents()
 
     fixture = TestBed.createComponent(GalleryComponent)
