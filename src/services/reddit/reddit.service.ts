@@ -276,7 +276,7 @@ export class RedditService {
   }: IRedditRequestOptions): Observable<IRedditResult[]> {
     const pageType = this._redditPageType$.getValue()
     const path = new URL(
-      `${RedditService.API_BASE}/${pageType}/${name}${filter !== RedditFilter.ALL ? `/${filter}` : ''}.json`
+      `${RedditService.API_BASE}/${pageType}/${name}${filter !== RedditFilter.ALL ? `/${filter}` : ''}.json?raw_json=1`
     )
     path.searchParams.append(
       RedditRequestParameters.LIMIT,
@@ -302,20 +302,36 @@ export class RedditService {
       map(result =>
         result.data.children
           .map(item => item.data)
-          .filter(
-            (item: IRedditResult) =>
-              // Filters inappropriate content from the results if safe mode is enabled (default).
-              ((safeMode === SafeMode.ENABLED && !item.over_18) ||
-                safeMode === SafeMode.DISABLED) &&
-              item.post_hint &&
-              ((item.post_hint === RedditPostHint.LINK &&
-                item.secure_media_embed &&
-                item.secure_media_embed.media_domain_url) ||
-                item.post_hint === RedditPostHint.IMAGE ||
-                item.post_hint === RedditPostHint.RICH_VIDEO) &&
-              (pageType !== RedditPageType.USER ||
-                item.author.toLowerCase() === name.toLowerCase())
-          )
+          .filter((item: IRedditResult) => {
+            /**
+             * Ensure the content is safe for viewing based on the current safe mode settings.
+             */
+            const safeForViewing =
+              (safeMode === SafeMode.ENABLED && !item.over_18) ||
+              safeMode === SafeMode.DISABLED
+
+            /**
+             * Check if the content is valid for viewing (ie if the app can display it).
+             */
+            const isValidContent =
+              item.is_gallery ||
+              (item.post_hint &&
+                ((item.post_hint === RedditPostHint.LINK &&
+                  item.secure_media_embed &&
+                  item.secure_media_embed.media_domain_url) ||
+                  item.post_hint === RedditPostHint.IMAGE ||
+                  item.post_hint === RedditPostHint.RICH_VIDEO))
+
+            /**
+             * For user pages we need to ensure that the author matches the current user.
+             * This is used to filter out content that doesn't belong to the user, such as reposts, comments, etc.
+             */
+            const authorMatches =
+              pageType !== RedditPageType.USER ||
+              item.author.toLowerCase() === name.toLowerCase()
+
+            return safeForViewing && isValidContent && authorMatches
+          })
       )
     )
   }

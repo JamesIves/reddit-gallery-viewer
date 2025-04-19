@@ -3,7 +3,8 @@ import {
   Component,
   Input,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
+  ViewChild
 } from '@angular/core'
 import {CommonModule, DecimalPipe} from '@angular/common'
 import {
@@ -13,9 +14,10 @@ import {
 } from 'src/app/models/reddit.model'
 import {TrustResourcePipe} from 'src/app/pipes/trust-resource/trust-resource.pipe'
 import {RelativeTimePipe} from 'src/app/pipes/relative-time/relative-time.pipe'
-import {Clipboard} from '@angular/cdk/clipboard'
 import {RedditService} from 'src/services/reddit/reddit.service'
 import {Observable} from 'rxjs'
+import {GalleryComponent} from '../gallery/gallery.component'
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling'
 
 /**
  * Displays image/video content along with any additional details
@@ -23,11 +25,23 @@ import {Observable} from 'rxjs'
  */
 @Component({
   selector: 'app-media',
-  imports: [CommonModule, TrustResourcePipe, DecimalPipe, RelativeTimePipe],
+  imports: [
+    CommonModule,
+    TrustResourcePipe,
+    DecimalPipe,
+    RelativeTimePipe,
+    GalleryComponent
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './media.component.html'
 })
 export class MediaComponent implements OnChanges {
+  /**
+   * Used to keep track of the current viewport scroll depth.
+   */
+  @ViewChild(CdkVirtualScrollViewport)
+  public viewPort?: CdkVirtualScrollViewport
+
   /**
    * @inheritdoc
    */
@@ -52,10 +66,7 @@ export class MediaComponent implements OnChanges {
    * @inheritdoc
    * @param clipboard The injected clipboard service.
    */
-  public constructor(
-    private clipboard: Clipboard,
-    private readonly redditService: RedditService
-  ) {
+  public constructor(private readonly redditService: RedditService) {
     this.redditPageType$ = this.redditService.getRedditPageType()
   }
 
@@ -99,11 +110,15 @@ export class MediaComponent implements OnChanges {
   }
 
   /**
-   * Copies the author's name to the clipboard.
-   * @param author The author's name to copy.
+   * Switches the current page type to the selected one.
+   * When a user clicks the button they can view more content from the user or subreddit.
    */
-  public copyToClipboard(author: string): void {
-    this.clipboard.copy(author)
+  public viewMore(pageType: RedditPageType, author: string): void {
+    // Scrolls the user to the top as the feed is being reset.
+    window.scrollTo(0, 0)
+
+    this.redditService.setRedditPageType(pageType)
+    this.redditService.setSubRedditName(author)
   }
 
   /**

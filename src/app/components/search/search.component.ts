@@ -1,7 +1,7 @@
 import {CommonModule} from '@angular/common'
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms'
-import {Observable} from 'rxjs'
+import {distinctUntilChanged, Observable, Subject, takeUntil} from 'rxjs'
 import {RedditPageType} from 'src/app/models/reddit.model'
 import {RedditService} from 'src/services/reddit/reddit.service'
 
@@ -15,7 +15,7 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [CommonModule, ReactiveFormsModule]
 })
-export class SearchComponent {
+export class SearchComponent implements OnDestroy {
   /**
    * Enum for Reddit page types (e.g., SUBREDDIT or USER).
    */
@@ -34,6 +34,11 @@ export class SearchComponent {
   public readonly redditPageType$: Observable<string>
 
   /**
+   * Subject to handle unsubscription on destroy.
+   */
+  private destroy$ = new Subject<void>()
+
+  /**
    * Constructor for the SearchComponent.
    * @param formBuilder The Angular FormBuilder service for creating forms.
    * @param redditService The RedditService for managing subreddit and page type state.
@@ -42,8 +47,39 @@ export class SearchComponent {
     private readonly formBuilder: FormBuilder,
     private readonly redditService: RedditService
   ) {
-    this.subRedditName$ = this.redditService.getSubRedditName()
+    this.subRedditName$ = this.redditService
+      .getSubRedditName()
+      .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
+
+    this.subRedditName$.subscribe(() => {
+      /**
+       * Clear the input value when subreddit changes, but keep the placeholder
+       */
+      this.searchForm.get('term')?.setValue('')
+
+      /**
+       * Reset the dirty/touched state
+       */
+      this.searchForm.get('term')?.markAsPristine()
+      this.searchForm.get('term')?.markAsUntouched()
+    })
+
     this.redditPageType$ = this.redditService.getRedditPageType()
+
+    this.redditPageType$
+      .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
+      .subscribe(pageType => {
+        // Update the form control value
+        this.searchForm.get('pageType')?.setValue(pageType as RedditPageType)
+      })
+  }
+
+  /**
+   * Lifecycle hook that is called when the component is destroyed.
+   */
+  public ngOnDestroy(): void {
+    this.destroy$.next()
+    this.destroy$.complete()
   }
 
   /**
@@ -72,7 +108,6 @@ export class SearchComponent {
   /**
    * Handles the form submission event.
    * Updates the subreddit name and page type in the RedditService.
-   * @param event The form submission event.
    */
   public onSubmit(event: Event): void {
     if (this.searchForm.value.pageType) {
@@ -83,7 +118,10 @@ export class SearchComponent {
       this.redditService.setSubRedditName(this.searchForm.value.term.trim())
     }
 
-    event.preventDefault()
+    if (event) {
+      event.preventDefault()
+    }
+
     const inputElement = (event.target as HTMLFormElement).querySelector(
       'input[name="term"]'
     ) as HTMLInputElement
