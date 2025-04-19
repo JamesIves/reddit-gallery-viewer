@@ -66,7 +66,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   /**
    * @inheritdoc
    * @param cdr ChangeDetectorRef for change detection
-   *
+   * @param deviceService DeviceService for checking if the device is mobile
    */
   constructor(
     private cdr: ChangeDetectorRef,

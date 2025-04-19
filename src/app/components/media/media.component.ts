@@ -70,7 +70,7 @@ export class MediaComponent implements OnChanges {
 
   /**
    * @inheritdoc
-   * @param clipboard The injected clipboard service.
+   * @param redditService The Reddit service for managing page types and subreddit names.
    */
   public constructor(private readonly redditService: RedditService) {
     this.redditPageType$ = this.redditService.getRedditPageType()
