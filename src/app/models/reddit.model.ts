@@ -171,7 +171,7 @@ export interface IRedditGalleryData {
  * Describes the content API response from Reddit.
  */
 export interface IRedditResult {
-  domain: string
+  domain?: string
   author: string
   url: string
   title: string
