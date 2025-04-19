@@ -1,6 +1,6 @@
 <div class="relative flex h-full w-full items-center overflow-hidden">
   <button
-    class="absolute left-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40"
+    class="absolute left-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
     (click)="scrollPrev()"
     aria-label="Previous Image"
     *ngIf="galleryData && galleryData?.items && galleryData.items.length > 1"
@@ -42,7 +42,7 @@
   </div>
 
   <button
-    class="absolute right-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40"
+    class="absolute right-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
     (click)="scrollNext()"
     aria-label="Next Image"
     *ngIf="galleryData && galleryData?.items && galleryData.items.length > 1"
@@ -54,7 +54,7 @@
       role="presentation"
       focusable="false"
       fill="currentColor"
-      class="h-3 w-3"
+      class="h-3 w-3 sm:h-4 sm:w-4"
     >
       <path
         d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
