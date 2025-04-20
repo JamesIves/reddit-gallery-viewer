@@ -100,6 +100,8 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
         .pipe(debounceTime(50), takeUntil(this.destroy$))
         .subscribe(() => this.updateActiveIndex())
     }
+
+    this.cdr.detectChanges()
   }
 
   /**
@@ -125,7 +127,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
 
     if (
       newIndex >= 0 &&
-      newIndex < this.galleryData.items.length &&
+      newIndex < this.validItems.length &&
       newIndex !== this.activeIndex
     ) {
       this.activeIndex = newIndex
