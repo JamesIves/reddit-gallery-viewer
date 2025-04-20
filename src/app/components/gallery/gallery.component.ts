@@ -90,6 +90,9 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * Set up scroll event listener after view is initialized
    */
   public ngAfterViewInit(): void {
+    // Add this line to properly initialize active index
+    this.activeIndex = 0
+
     if (this.scrollContainer) {
       /**
        * Listen for scroll events to update active index
@@ -137,6 +140,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    */
   public scrollNext(): void {
     if (this.isTransitioning) return
+    this.isTransitioning = true
 
     const container = this.scrollContainer.nativeElement
     const scrollAmount = container.offsetWidth
@@ -153,6 +157,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    */
   public scrollPrev(): void {
     if (this.isTransitioning) return
+    this.isTransitioning = true
 
     const container = this.scrollContainer.nativeElement
     const scrollAmount = container.offsetWidth
