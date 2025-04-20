@@ -47,6 +47,17 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   public activeIndex = 0
 
   /**
+   * Flags to indicate if the gallery is transitioning.
+   * This is used to prevent visual jank during scroll events.
+   */
+  private isTransitioning = false
+
+  /**
+   * The duration of the transition effect in milliseconds.
+   */
+  private readonly transitionDuration = 200
+
+  /**
    * A reference to the device service for checking if the device is mobile.
    */
   public isMobile = false
@@ -125,9 +136,15 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * This method calculates the scroll amount based on the container's width
    */
   public scrollNext(): void {
+    if (this.isTransitioning) return
+
     const container = this.scrollContainer.nativeElement
     const scrollAmount = container.offsetWidth
     container.scrollBy({left: scrollAmount, behavior: 'smooth'})
+
+    setTimeout(() => {
+      this.isTransitioning = false
+    }, this.transitionDuration)
   }
 
   /**
@@ -135,9 +152,15 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * This method calculates the scroll amount based on the container's width
    */
   public scrollPrev(): void {
+    if (this.isTransitioning) return
+
     const container = this.scrollContainer.nativeElement
     const scrollAmount = container.offsetWidth
     container.scrollBy({left: -scrollAmount, behavior: 'smooth'})
+
+    setTimeout(() => {
+      this.isTransitioning = false
+    }, this.transitionDuration)
   }
 
   /**
