@@ -90,7 +90,6 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * Set up scroll event listener after view is initialized
    */
   public ngAfterViewInit(): void {
-    // Add this line to properly initialize active index
     this.activeIndex = 0
 
     if (this.scrollContainer) {
