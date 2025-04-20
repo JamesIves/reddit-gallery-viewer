@@ -79,9 +79,10 @@
   >
     <ng-container *ngFor="let item of validItems; let i = index">
       <button
-        class="h-1.5 w-1.5 rounded-full transition-all focus:outline-none"
+        class="h-1.5 w-1.5 rounded-full transition-all"
         [class.bg-white]="activeIndex === i"
         [class.bg-white-50]="activeIndex !== i"
+        [disabled]="activeIndex === i"
         [class.w-3]="activeIndex === i"
         (click)="scrollToIndex(i)"
         [attr.aria-label]="'Go to image ' + (i + 1)"
