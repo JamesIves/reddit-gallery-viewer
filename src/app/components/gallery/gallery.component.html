@@ -30,7 +30,7 @@
     class="scrollbar-hide flex h-full w-full snap-x snap-mandatory items-center gap-4 overflow-x-auto scroll-smooth rounded-lg"
     data-testid="gallery-container"
   >
-    <ng-container *ngFor="let item of galleryData?.items">
+    <ng-container *ngFor="let item of validItems">
       <div
         class="h-full w-full flex-none snap-center"
         *ngIf="metaData && metaData[item.media_id] && metaData[item.media_id].s"

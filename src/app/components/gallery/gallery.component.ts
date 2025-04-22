@@ -6,11 +6,14 @@ import {
   ElementRef,
   AfterViewInit,
   OnDestroy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  SimpleChanges,
+  OnChanges
 } from '@angular/core'
 import {
   IRedditMediaMetadata,
-  IRedditGalleryData
+  IRedditGalleryData,
+  IRedditGalleryItem
 } from 'src/app/models/reddit.model'
 import {Subject, fromEvent} from 'rxjs'
 import {debounceTime, takeUntil} from 'rxjs/operators'
@@ -26,7 +29,7 @@ import {DeviceService} from 'src/services/device/device.service'
   imports: [CommonModule],
   standalone: true
 })
-export class GalleryComponent implements AfterViewInit, OnDestroy {
+export class GalleryComponent implements AfterViewInit, OnDestroy, OnChanges {
   /**
    * The metadata for the media items in the gallery.
    */
@@ -90,18 +93,51 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * Set up scroll event listener after view is initialized
    */
   public ngAfterViewInit(): void {
+    /**
+     * Force scroll to start position and set active index
+     */
     this.activeIndex = 0
 
-    if (this.scrollContainer) {
+    if (this.scrollContainer?.nativeElement) {
+      this.scrollContainer.nativeElement.scrollLeft = 0
+
       /**
-       * Listen for scroll events to update active index
+       * Listen for scroll events
        */
       fromEvent(this.scrollContainer.nativeElement, 'scroll')
         .pipe(debounceTime(50), takeUntil(this.destroy$))
         .subscribe(() => this.updateActiveIndex())
-    }
 
-    this.cdr.detectChanges()
+      /**
+       * Set a timeout to ensure the scroll position is set correctly
+       */
+      setTimeout(() => {
+        this.updateActiveIndex()
+        this.cdr.detectChanges()
+      }, 50)
+    }
+  }
+
+  /**
+   * If gallery data or metadata changes, reset the gallery
+   */
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (
+      (changes['galleryData'] || changes['metaData']) &&
+      this.scrollContainer
+    ) {
+      this.activeIndex = 0
+
+      /**
+       * Schedule a micro-task to ensure DOM has updated
+       */
+      Promise.resolve().then(() => {
+        if (this.scrollContainer?.nativeElement) {
+          this.scrollContainer.nativeElement.scrollLeft = 0
+          this.cdr.detectChanges()
+        }
+      })
+    }
   }
 
   /**
@@ -116,20 +152,22 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
    * Updates the active index based on current scroll position
    */
   private updateActiveIndex(): void {
-    if (!this.scrollContainer || !this.galleryData?.items?.length) return
+    if (!this.scrollContainer?.nativeElement || !this.validItems.length) return
 
     const container = this.scrollContainer.nativeElement
     const itemWidth = container.offsetWidth
     const scrollPos = container.scrollLeft
 
-    // Calculate the active index based on scroll position
-    const newIndex = Math.round(scrollPos / itemWidth)
+    /**
+     * More precise calculation with clamp to valid range
+     */
+    const calculatedIndex = Math.round(scrollPos / itemWidth)
+    const newIndex = Math.max(
+      0,
+      Math.min(calculatedIndex, this.validItems.length - 1)
+    )
 
-    if (
-      newIndex >= 0 &&
-      newIndex < this.validItems.length &&
-      newIndex !== this.activeIndex
-    ) {
+    if (newIndex !== this.activeIndex) {
       this.activeIndex = newIndex
       this.cdr.detectChanges()
     }
@@ -207,7 +245,7 @@ export class GalleryComponent implements AfterViewInit, OnDestroy {
   /**
    * Get valid gallery items (ones with metadata)
    */
-  public get validItems(): unknown[] {
+  public get validItems(): IRedditGalleryItem[] {
     if (!this.galleryData?.items || !this.metaData) return []
 
     return this.galleryData.items.filter(
