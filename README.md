@@ -12,7 +12,7 @@ Special thank you to all the past and present [GitHub Sponsors](https://github.c
 ## Getting Started
 
 > [!TIP]
-> You can [try a hosted version the application here](https://jives.dev/reddit-gallery-viewer).
+> You can [try a hosted version the application here](https://jamesiv.es/reddit-gallery-viewer).
 
 You can run the application locally by running `npm install` followed by `npm start`. You can then [view the application locally on port 4200](http://localhost:4200). The Reddit API does not (at the time of writing this) require any sort of client credentials, so there's no additional setup needed there.
 

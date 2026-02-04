@@ -48,7 +48,7 @@
               "sourceMap": false,
               "namedChunks": true,
               "outputHashing": "all",
-              "baseHref": "https://jives.dev/reddit-gallery-viewer/"
+              "baseHref": "https://jamesiv.es/reddit-gallery-viewer/"
             },
             "development": {
               "optimization": false,
