@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {RedditService} from 'src/services/reddit/reddit.service'
 import {Observable} from 'rxjs'
@@ -16,6 +16,8 @@ import {RedditFilter, RedditSubFilter} from 'src/app/models/reddit.model'
   templateUrl: './sub-filter.component.html'
 })
 export class SubFilterComponent {
+  private readonly redditService = inject(RedditService)
+
   /**
    * Observable used to inform the current active filter.
    */
@@ -38,9 +40,8 @@ export class SubFilterComponent {
 
   /**
    * @inheritdoc
-   * @param redditService The injected Reddit service.
    */
-  public constructor(private readonly redditService: RedditService) {
+  public constructor() {
     this.activeFilter$ = this.redditService.getSubRedditFilter()
     this.activeSubFilter$ = this.redditService.getSubRedditSubFilter()
   }

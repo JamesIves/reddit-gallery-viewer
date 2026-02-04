@@ -6,7 +6,8 @@ import {
   Component,
   CUSTOM_ELEMENTS_SCHEMA,
   OnInit,
-  ViewChild
+  ViewChild,
+  inject
 } from '@angular/core'
 import {debounceTime, fromEvent, Observable, Subscription} from 'rxjs'
 import {BreakPoint, ViewPortSize} from 'src/app/models/viewport.enum'
@@ -27,6 +28,21 @@ import {SubFilterComponent} from '../sub-filter/sub-filter.component'
   templateUrl: './search-results.component.html'
 })
 export class SearchResultsComponent implements OnInit {
+  /**
+   * Injected Reddit service for managing page types and subreddit names.
+   */
+  private readonly redditService = inject(RedditService)
+
+  /**
+   * Injected Loader service for managing loading state.
+   */
+  private readonly loaderService = inject(LoaderService)
+
+  /**
+   * Injected ChangeDetectorRef for manually triggering change detection when needed.
+   */
+  private readonly cdr = inject(ChangeDetectorRef)
+
   /**
    * Determines the distance from the bottom before new content is requested.
    */
@@ -91,13 +107,8 @@ export class SearchResultsComponent implements OnInit {
 
   /**
    * @inheritdoc
-   * @param redditService The Reddit service used to handle data from the Reddit API.
    */
-  public constructor(
-    private readonly redditService: RedditService,
-    private readonly loaderService: LoaderService,
-    private readonly cdr: ChangeDetectorRef
-  ) {
+  public constructor() {
     this.query$ = this.redditService.getQuery()
     this.loading$ = this.loaderService.getLoading()
   }
