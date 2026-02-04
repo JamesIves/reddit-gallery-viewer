@@ -7,7 +7,8 @@ import {
   OnDestroy,
   ChangeDetectorRef,
   SimpleChanges,
-  OnChanges
+  OnChanges,
+  inject
 } from '@angular/core'
 import {
   IRedditMediaMetadata,
@@ -29,6 +30,16 @@ import {DeviceService} from 'src/services/device/device.service'
   standalone: true
 })
 export class GalleryComponent implements AfterViewInit, OnDestroy, OnChanges {
+  /**
+   * Injected ChangeDetectorRef for manually triggering change detection when needed.
+   */
+  private cdr = inject(ChangeDetectorRef)
+
+  /**
+   * Injected DeviceService for checking if the device is mobile.
+   */
+  private deviceService = inject(DeviceService)
+
   /**
    * The metadata for the media items in the gallery.
    */
@@ -78,13 +89,8 @@ export class GalleryComponent implements AfterViewInit, OnDestroy, OnChanges {
 
   /**
    * @inheritdoc
-   * @param cdr ChangeDetectorRef for change detection
-   * @param deviceService DeviceService for checking if the device is mobile
    */
-  constructor(
-    private cdr: ChangeDetectorRef,
-    private deviceService: DeviceService
-  ) {
+  constructor() {
     this.isMobile = this.deviceService.isMobileDevice()
   }
 

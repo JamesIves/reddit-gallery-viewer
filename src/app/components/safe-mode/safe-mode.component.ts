@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {SafeMode} from 'src/app/models/reddit.model'
 import {Observable} from 'rxjs'
@@ -17,6 +17,11 @@ import {RedditService} from 'src/services/reddit/reddit.service'
 })
 export class SafeModeComponent {
   /**
+   * Injected Reddit service for managing safe mode state.
+   */
+  private readonly redditService = inject(RedditService)
+
+  /**
    * @inheritdoc
    */
   protected readonly safeModeSetting = SafeMode
@@ -33,9 +38,8 @@ export class SafeModeComponent {
 
   /**
    * @inheritdoc
-   * @param redditService The injected reddit service.
    */
-  public constructor(private readonly redditService: RedditService) {
+  public constructor() {
     this.safeMode$ = this.redditService.getSafeMode()
   }
 

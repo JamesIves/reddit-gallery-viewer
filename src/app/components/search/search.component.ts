@@ -1,5 +1,10 @@
 import {CommonModule} from '@angular/common'
-import {ChangeDetectionStrategy, Component, OnDestroy} from '@angular/core'
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnDestroy,
+  inject
+} from '@angular/core'
 import {FormBuilder, ReactiveFormsModule} from '@angular/forms'
 import {distinctUntilChanged, Observable, Subject, takeUntil} from 'rxjs'
 import {RedditPageType} from 'src/app/models/reddit.model'
@@ -16,6 +21,16 @@ import {RedditService} from 'src/services/reddit/reddit.service'
   imports: [CommonModule, ReactiveFormsModule]
 })
 export class SearchComponent implements OnDestroy {
+  /**
+   * Injected FormBuilder for creating reactive forms.
+   */
+  private readonly formBuilder = inject(FormBuilder)
+
+  /**
+   * Injected RedditService for managing subreddit and page type state.
+   */
+  private readonly redditService = inject(RedditService)
+
   /**
    * Enum for Reddit page types (e.g., SUBREDDIT or USER).
    */
@@ -40,13 +55,8 @@ export class SearchComponent implements OnDestroy {
 
   /**
    * Constructor for the SearchComponent.
-   * @param formBuilder The Angular FormBuilder service for creating forms.
-   * @param redditService The RedditService for managing subreddit and page type state.
    */
-  public constructor(
-    private readonly formBuilder: FormBuilder,
-    private readonly redditService: RedditService
-  ) {
+  public constructor() {
     this.subRedditName$ = this.redditService
       .getSubRedditName()
       .pipe(distinctUntilChanged(), takeUntil(this.destroy$))
