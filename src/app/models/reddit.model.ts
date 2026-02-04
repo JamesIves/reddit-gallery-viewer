@@ -164,7 +164,7 @@ export interface IRedditGalleryData {
   /**
    * Array of gallery items
    */
-  items: IRedditGalleryItem[]
+  items?: IRedditGalleryItem[]
 }
 
 /**

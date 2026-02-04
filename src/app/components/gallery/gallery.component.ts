@@ -1,4 +1,3 @@
-import {CommonModule} from '@angular/common'
 import {
   Component,
   Input,
@@ -26,7 +25,7 @@ import {DeviceService} from 'src/services/device/device.service'
 @Component({
   selector: 'app-gallery',
   templateUrl: './gallery.component.html',
-  imports: [CommonModule],
+  imports: [],
   standalone: true
 })
 export class GalleryComponent implements AfterViewInit, OnDestroy, OnChanges {

@@ -3,79 +3,76 @@
 >
   <app-sub-filter></app-sub-filter>
 
-  <ng-container
-    *ngIf="{query: query$ | async, loading: loading$ | async} as data"
-  >
-    <div *ngIf="data.query">
-      <!-- Leverages virtual scroll to keep performance under control with large amounts of images.
-      Docs: https://material.angular.io/cdk/scrolling -->
-      <cdk-virtual-scroll-viewport
-        role="presentation"
-        scrollWindow
-        [itemSize]="itemSize"
-        (scrolledIndexChange)="onScroll(data.query.nextPage)"
-        class="search-results__viewport"
-      >
-        <ul>
-          <li
-            *cdkVirtualFor="let result of data.query.results"
-            class="h-[{{ itemSize }}px] block"
+  @if ({query: query$ | async, loading: loading$ | async}; as data) {
+    @if (data.query) {
+      <div>
+        <!-- Leverages virtual scroll to keep performance under control with large amounts of images.
+        Docs: https://material.angular.io/cdk/scrolling -->
+        <cdk-virtual-scroll-viewport
+          role="presentation"
+          scrollWindow
+          [itemSize]="itemSize"
+          (scrolledIndexChange)="onScroll(data.query.nextPage)"
+          class="search-results__viewport"
+        >
+          <ul>
+            <li
+              *cdkVirtualFor="let result of data.query.results"
+              class="h-[{{ itemSize }}px] block"
+            >
+              <app-media [content]="result" [size]="itemSize"></app-media>
+            </li>
+          </ul>
+        </cdk-virtual-scroll-viewport>
+        @if (!data.query.results.length && !data.loading) {
+          <div
+            data-testid="search-results-empty"
+            class="mx-auto max-w-2xl text-center"
           >
-            <app-media [content]="result" [size]="itemSize"></app-media>
-          </li>
-        </ul>
-      </cdk-virtual-scroll-viewport>
-
-      <div
-        data-testid="search-results-empty"
-        *ngIf="!data.query.results.length && !data.loading"
-        class="mx-auto max-w-2xl text-center"
-      >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              class="mx-auto h-12 w-12 fill-slate-600"
+              aria-hidden="true"
+            >
+              <path
+                d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zm240 80c0-8.8 7.2-16 16-16c45 0 85.6 20.5 115.7 53.1c6 6.5 5.6 16.6-.9 22.6s-16.6 5.6-22.6-.9c-25-27.1-57.4-42.9-92.3-42.9c-8.8 0-16-7.2-16-16zm-80 80c-26.5 0-48-21-48-47c0-20 28.6-60.4 41.6-77.7c3.2-4.4 9.6-4.4 12.8 0C179.6 308.6 208 349 208 369c0 26-21.5 47-48 47zM303.6 208c0-17.7 14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32s-32-14.3-32-32zm-128 32c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"
+              />
+            </svg>
+            <h3 class="mt-2 text-sm font-medium text-slate-900">
+              Nothing Found
+            </h3>
+            <p class="mt-1 text-sm text-slate-500">
+              No results found. This could be because the subreddit or user does
+              not exist, there’s no gallery content available (possibly due to
+              rate limiting or age restricted content), or no content matches
+              the current filter. Adjust your search and try again.
+            </p>
+          </div>
+        }
+      </div>
+    }
+    @if (data.loading) {
+      <div class="flex items-center justify-center" role="status">
         <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          class="mx-auto h-12 w-12 fill-slate-600"
           aria-hidden="true"
+          class="mr-2 h-12 w-12 animate-spin fill-rose-600 text-slate-200"
+          viewBox="0 0 100 101"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
           <path
-            d="M0 256C0 397.4 114.6 512 256 512s256-114.6 256-256S397.4 0 256 0S0 114.6 0 256zm240 80c0-8.8 7.2-16 16-16c45 0 85.6 20.5 115.7 53.1c6 6.5 5.6 16.6-.9 22.6s-16.6 5.6-22.6-.9c-25-27.1-57.4-42.9-92.3-42.9c-8.8 0-16-7.2-16-16zm-80 80c-26.5 0-48-21-48-47c0-20 28.6-60.4 41.6-77.7c3.2-4.4 9.6-4.4 12.8 0C179.6 308.6 208 349 208 369c0 26-21.5 47-48 47zM303.6 208c0-17.7 14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32s-32-14.3-32-32zm-128 32c-17.7 0-32-14.3-32-32s14.3-32 32-32s32 14.3 32 32s-14.3 32-32 32z"
+            d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+            fill="currentColor"
+          />
+          <path
+            d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+            fill="currentFill"
           />
         </svg>
-
-        <h3 class="mt-2 text-sm font-medium text-slate-900">Nothing Found</h3>
-        <p class="mt-1 text-sm text-slate-500">
-          No results found. This could be because the subreddit or user does not
-          exist, there’s no gallery content available (possibly due to rate
-          limiting or age restricted content), or no content matches the current
-          filter. Adjust your search and try again.
-        </p>
+        <span class="sr-only">Loading...</span>
       </div>
-    </div>
-
-    <div
-      class="flex items-center justify-center"
-      role="status"
-      *ngIf="data.loading"
-    >
-      <svg
-        aria-hidden="true"
-        class="mr-2 h-12 w-12 animate-spin fill-rose-600 text-slate-200"
-        viewBox="0 0 100 101"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <path
-          d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
-          fill="currentColor"
-        />
-        <path
-          d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
-          fill="currentFill"
-        />
-      </svg>
-      <span class="sr-only">Loading...</span>
-    </div>
-
+    }
     <button
       data-testid="search-results-rtt"
       type="button"
@@ -99,9 +96,9 @@
         ></path>
       </svg>
     </button>
-  </ng-container>
+  }
 </div>
 
 <!-- This is a bit of a hack to ensure that Tailwind registers
-  all of the CSS classes we need at different breakpoints. -->
+all of the CSS classes we need at different breakpoints. -->
 <div class="sr-only h-[1264px] h-[450px] h-[600px]"></div>

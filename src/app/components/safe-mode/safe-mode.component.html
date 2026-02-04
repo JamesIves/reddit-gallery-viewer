@@ -1,4 +1,4 @@
-<ng-container *ngIf="safeMode$ | async as enabledSafeMode">
+@if (safeMode$ | async; as enabledSafeMode) {
   <div class="flex flex-row items-center justify-between gap-2 text-center">
     <button
       (click)="
@@ -26,7 +26,6 @@
         class="pointer-events-none inline-block h-5 w-5 transform rounded-full bg-white shadow ring-0 transition duration-200 ease-in-out"
       ></span>
     </button>
-
     <span class="flex flex-grow">
       <span
         class="dynamic-text-shadow text-sm font-bold text-white"
@@ -35,7 +34,6 @@
       >
     </span>
   </div>
-
   <!-- Alert Dialog -->
   <div
     [ngClass]="showAlert ? 'active z-20' : '-z-10'"
@@ -49,7 +47,6 @@
       [ngClass]="showAlert ? 'opacity-100' : 'opacity-0'"
       class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity duration-300 ease-out"
     ></div>
-
     <div class="fixed inset-0 z-10 overflow-y-auto">
       <div
         class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
@@ -122,4 +119,4 @@
       </div>
     </div>
   </div>
-</ng-container>
+}

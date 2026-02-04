@@ -1,164 +1,168 @@
-<div *ngIf="content" class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
-  <div class="h-full w-full rounded-lg bg-slate-200 p-2 pb-14 sm:p-4 sm:pb-14">
-    <!-- Image content -->
-    <img
-      class="h-full w-full rounded-lg bg-slate-950 object-contain"
-      data-testid="media-image"
-      [alt]="content.title"
-      *ngIf="
+@if (content) {
+  <div class="pb-[32px] h-[{{ size }}px] block overflow-hidden">
+    <div
+      class="h-full w-full rounded-lg bg-slate-200 p-2 pb-14 sm:p-4 sm:pb-14"
+    >
+      <!-- Image content -->
+      @if (
         content.preview &&
         content.preview.images.length &&
         content.post_hint === redditPostHint.IMAGE
-      "
-      [src]="imageSrc"
-      (error)="onImageError()"
-    />
-
-    <!-- Reddit video content -->
-    <video
-      *ngIf="
+      ) {
+        <img
+          class="h-full w-full rounded-lg bg-slate-950 object-contain"
+          data-testid="media-image"
+          [alt]="content.title"
+          [src]="imageSrc"
+          (error)="onImageError()"
+        />
+      }
+      <!-- Reddit video content -->
+      @if (
         content.preview &&
         content.preview.reddit_video_preview &&
         content.post_hint === redditPostHint.LINK
-      "
-      data-testid="media-video"
-      class="mx-auto h-full w-auto rounded-lg bg-slate-950 object-contain"
-      autoplay
-      loop
-      muted
-      playsinline
-    >
-      <source [src]="content.preview.reddit_video_preview.fallback_url" />
-    </video>
-    <!-- YouTube/Twitch responsive embed container -->
-    <div
-      *ngIf="
+      ) {
+        <video
+          data-testid="media-video"
+          class="mx-auto h-full w-auto rounded-lg bg-slate-950 object-contain"
+          autoplay
+          loop
+          muted
+          playsinline
+        >
+          <source [src]="content.preview.reddit_video_preview.fallback_url" />
+        </video>
+      }
+      <!-- YouTube/Twitch responsive embed container -->
+      @if (
         (content.post_hint === redditPostHint.RICH_VIDEO ||
           content.post_hint === redditPostHint.LINK) &&
         content.secure_media_embed &&
         getVideoPlatform(content) !== videoPlatform.OTHER
-      "
-      class="relative h-full w-full overflow-hidden bg-slate-950"
-      data-testid="video-embed-container"
-    >
-      <iframe
-        class="absolute left-0 top-0 h-full w-full rounded-lg border-0"
-        data-testid="video-iframe"
-        [src]="getVideoEmbedUrl(content) ?? '' | trustResource"
-        title="{{ content.title }}"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen
-      ></iframe>
-    </div>
-
-    <!-- Standard iframe for other embed types -->
-    <iframe
-      class="h-full w-full rounded-lg bg-slate-950"
-      data-testid="media-iframe"
-      *ngIf="
+      ) {
+        <div
+          class="relative h-full w-full overflow-hidden bg-slate-950"
+          data-testid="video-embed-container"
+        >
+          <iframe
+            class="absolute left-0 top-0 h-full w-full rounded-lg border-0"
+            data-testid="video-iframe"
+            [src]="getVideoEmbedUrl(content) ?? '' | trustResource"
+            title="{{ content.title }}"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowfullscreen
+          ></iframe>
+        </div>
+      }
+      <!-- Standard iframe for other embed types -->
+      @if (
         (content.post_hint === redditPostHint.RICH_VIDEO ||
           content.post_hint === redditPostHint.LINK) &&
         content.secure_media_embed &&
         getVideoPlatform(content) === videoPlatform.OTHER
-      "
-      [src]="content.secure_media_embed.media_domain_url | trustResource"
-    ></iframe>
-
-    <!-- Gallery -->
-    <app-gallery
-      *ngIf="
+      ) {
+        <iframe
+          class="h-full w-full rounded-lg bg-slate-950"
+          data-testid="media-iframe"
+          [src]="content.secure_media_embed.media_domain_url | trustResource"
+        ></iframe>
+      }
+      <!-- Gallery -->
+      @if (
         content.is_gallery && content.gallery_data && content.gallery_data.items
-      "
-      [metaData]="content.media_metadata || {}"
-      [galleryData]="content.gallery_data || {}"
-    ></app-gallery>
-
-    <div
-      class="my-1 max-w-full overflow-hidden truncate text-xs font-medium text-slate-900"
-    >
-      {{ content.title }}
-    </div>
-    <div
-      class="flex items-center gap-x-1 overflow-visible"
-      *ngIf="redditPageType$ | async as activePageType"
-    >
-      <button
-        type="button"
-        (click)="
-          viewMore(
-            activePageType === redditPageType.USER
-              ? redditPageType.SUBREDDIT
-              : redditPageType.USER,
-            activePageType === redditPageType.USER
-              ? content.subreddit
-              : content.author
-          )
-        "
-        aria-label="Copy to clipboard"
-        class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+      ) {
+        <app-gallery
+          [metaData]="content.media_metadata || {}"
+          [galleryData]="content.gallery_data || {}"
+        ></app-gallery>
+      }
+      <div
+        class="my-1 max-w-full overflow-hidden truncate text-xs font-medium text-slate-900"
       >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          class="me-1.5 h-2.5 w-2.5"
-        >
-          <path stroke="none" d="M0 0h24v24H0z" fill="none" />
-          <path d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z" />
-          <path
-            d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"
-          />
-        </svg>
-        {{
-          activePageType === redditPageType.USER
-            ? 'r/' + content.subreddit
-            : 'u/' + content.author
-        }}
-      </button>
-
-      <span
-        target="_blank"
-        rel="noopener noreferrer"
-        class="inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          class="me-1.5 h-2.5 w-2.5"
-          fill="currentColor"
-          role="presentation"
-          focusable="false"
-        >
-          <path
-            d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2l144 0c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48l-97.5 0c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3l0-38.3 0-48 0-24.9c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32L0 224c0-17.7 14.3-32 32-32z"
-          />
-        </svg>
-
-        {{ content.ups | number }}
-      </span>
-
-      <span
-        *ngIf="content.created_utc"
-        class="inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
-      >
-        <svg
-          width="24"
-          height="24"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 512 512"
-          class="me-1.5 h-2.5 w-2.5"
-          role="presentation"
-          focusable="false"
-        >
-          <path
-            d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
-          />
-        </svg>
-        {{ content.created_utc | relativeTime }}
-      </span>
+        {{ content.title }}
+      </div>
+      @if (redditPageType$ | async; as activePageType) {
+        <div class="flex items-center gap-x-1 overflow-visible">
+          <button
+            type="button"
+            (click)="
+              viewMore(
+                activePageType === redditPageType.USER
+                  ? redditPageType.SUBREDDIT
+                  : redditPageType.USER,
+                activePageType === redditPageType.USER
+                  ? content.subreddit
+                  : content.author
+              )
+            "
+            aria-label="Copy to clipboard"
+            class="inline-flex items-center rounded border border-indigo-400 bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="me-1.5 h-2.5 w-2.5"
+            >
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path
+                d="M12 2a5 5 0 1 1 -5 5l.005 -.217a5 5 0 0 1 4.995 -4.783z"
+              />
+              <path
+                d="M14 14a5 5 0 0 1 5 5v1a2 2 0 0 1 -2 2h-10a2 2 0 0 1 -2 -2v-1a5 5 0 0 1 5 -5h4z"
+              />
+            </svg>
+            {{
+              activePageType === redditPageType.USER
+                ? 'r/' + content.subreddit
+                : 'u/' + content.author
+            }}
+          </button>
+          <span
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              class="me-1.5 h-2.5 w-2.5"
+              fill="currentColor"
+              role="presentation"
+              focusable="false"
+            >
+              <path
+                d="M313.4 32.9c26 5.2 42.9 30.5 37.7 56.5l-2.3 11.4c-5.3 26.7-15.1 52.1-28.8 75.2l144 0c26.5 0 48 21.5 48 48c0 18.5-10.5 34.6-25.9 42.6C497 275.4 504 288.9 504 304c0 23.4-16.8 42.9-38.9 47.1c4.4 7.3 6.9 15.8 6.9 24.9c0 21.3-13.9 39.4-33.1 45.6c.7 3.3 1.1 6.8 1.1 10.4c0 26.5-21.5 48-48 48l-97.5 0c-19 0-37.5-5.6-53.3-16.1l-38.5-25.7C176 420.4 160 390.4 160 358.3l0-38.3 0-48 0-24.9c0-29.2 13.3-56.7 36-75l7.4-5.9c26.5-21.2 44.6-51 51.2-84.2l2.3-11.4c5.2-26 30.5-42.9 56.5-37.7zM32 192l64 0c17.7 0 32 14.3 32 32l0 224c0 17.7-14.3 32-32 32l-64 0c-17.7 0-32-14.3-32-32L0 224c0-17.7 14.3-32 32-32z"
+              />
+            </svg>
+            {{ content.ups | number }}
+          </span>
+          @if (content.created_utc) {
+            <span
+              class="inline-flex items-center rounded bg-transparent px-2.5 py-0.5 text-xs font-medium text-indigo-800 transition-all hover:border-indigo-800 focus:border-indigo-800"
+            >
+              <svg
+                width="24"
+                height="24"
+                fill="currentColor"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 512 512"
+                class="me-1.5 h-2.5 w-2.5"
+                role="presentation"
+                focusable="false"
+              >
+                <path
+                  d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120l0 136c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2 280 120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"
+                />
+              </svg>
+              {{ content.created_utc | relativeTime }}
+            </span>
+          }
+        </div>
+      }
     </div>
   </div>
-</div>
+}
