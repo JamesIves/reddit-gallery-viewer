@@ -122,7 +122,7 @@ export class SearchComponent implements OnDestroy {
       event.preventDefault()
     }
 
-    const inputElement = (event.target as HTMLFormElement).querySelector(
+    const inputElement = (event?.target as HTMLFormElement)?.querySelector(
       'input[name="term"]'
     ) as HTMLInputElement
 

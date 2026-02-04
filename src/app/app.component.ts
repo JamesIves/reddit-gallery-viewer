@@ -41,18 +41,18 @@ export class AppComponent implements OnInit {
 %c▀▀▀▀▀▀  
 
 %cGitHub: https://github.com/JamesIves/reddit-gallery-viewer
-Website: https://jives.dev
+Homepage: https://jamesiv.es
       `,
-      'color: #e4fa56',
-      'color: #e4fa56',
-      'color: #e4fa56',
-      'color: #a2db47',
-      'color: #a2db47',
-      'color: #a2db47',
-      'color: #52ad3e',
-      'color: #52ad3e',
-      'color: #52ad3e',
-      'color: #f98973'
+      'color: #e4fa56; font-family: monospace; line-height: 1;',
+      'color: #e4fa56; font-family: monospace; line-height: 1;',
+      'color: #e4fa56; font-family: monospace; line-height: 1;',
+      'color: #a2db47; font-family: monospace; line-height: 1;',
+      'color: #a2db47; font-family: monospace; line-height: 1;',
+      'color: #a2db47; font-family: monospace; line-height: 1;',
+      'color: #52ad3e; font-family: monospace; line-height: 1;',
+      'color: #52ad3e; font-family: monospace; line-height: 1;',
+      'color: #52ad3e; font-family: monospace; line-height: 1;',
+      'color: #f98973; font-family: monospace; line-height: 1;'
     )
   }
 }
