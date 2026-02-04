@@ -1,5 +1,5 @@
 import {HttpClient} from '@angular/common/http'
-import {Injectable} from '@angular/core'
+import {Injectable, inject} from '@angular/core'
 import {BehaviorSubject, combineLatest, map, Observable, of} from 'rxjs'
 import {catchError, mergeMap, scan, startWith, switchMap} from 'rxjs/operators'
 import {
@@ -22,6 +22,8 @@ import {
   providedIn: 'root'
 })
 export class RedditService {
+  private readonly http = inject(HttpClient)
+
   private static readonly API_BASE = 'https://old.reddit.com'
   private static readonly MAX_CONTENT_FETCH = 24
   private static readonly DEFAULT_SUBREDDIT = 'cats'
@@ -85,7 +87,7 @@ export class RedditService {
    * and as a result _query$ can be leveraged in a template with the
    * combination of the async pipe to fetch the most up to date content.
    */
-  public constructor(private readonly http: HttpClient) {
+  public constructor() {
     this._query$ = combineLatest([
       this.getSubRedditName(),
       this.getSubRedditFilter(),

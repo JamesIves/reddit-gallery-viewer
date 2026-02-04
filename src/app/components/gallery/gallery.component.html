@@ -1,94 +1,98 @@
 <div class="relative flex h-full w-full items-center overflow-hidden">
-  <button
-    class="absolute left-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
-    (click)="scrollPrev()"
-    aria-label="Previous Image"
-    *ngIf="
-      !isMobile &&
-      galleryData &&
-      galleryData?.items &&
-      galleryData.items.length > 1
-    "
-    [disabled]="activeIndex === 0"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 320 512"
-      role="presentation"
-      focusable="false"
-      fill="currentColor"
-      class="h-3 w-3"
+  @if (
+    !isMobile &&
+    galleryData &&
+    galleryData.items &&
+    galleryData.items.length > 1
+  ) {
+    <button
+      class="absolute left-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
+      (click)="scrollPrev()"
+      aria-label="Previous Image"
+      [disabled]="activeIndex === 0"
     >
-      <path
-        d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"
-      />
-    </svg>
-  </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 320 512"
+        role="presentation"
+        focusable="false"
+        fill="currentColor"
+        class="h-3 w-3"
+      >
+        <path
+          d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"
+        />
+      </svg>
+    </button>
+  }
 
   <div
     #scrollContainer
     class="scrollbar-hide flex h-full w-full snap-x snap-mandatory items-center gap-4 overflow-x-auto scroll-smooth rounded-lg"
     data-testid="gallery-container"
   >
-    <ng-container *ngFor="let item of validItems">
-      <div
-        class="h-full w-full flex-none snap-center"
-        *ngIf="metaData && metaData[item.media_id] && metaData[item.media_id].s"
-        data-testid="gallery-item"
-      >
-        <img
-          [src]="getImageUrl(item.media_id)"
-          [alt]="metaData[item.media_id].id"
-          class="block h-full w-full rounded-lg bg-slate-950 object-contain"
-          data-testid="gallery-image"
-        />
-      </div>
-    </ng-container>
+    @for (item of validItems; track item) {
+      @if (metaData && metaData[item.media_id] && metaData[item.media_id].s) {
+        <div
+          class="h-full w-full flex-none snap-center"
+          data-testid="gallery-item"
+        >
+          <img
+            [src]="getImageUrl(item.media_id)"
+            [alt]="metaData[item.media_id].id"
+            class="block h-full w-full rounded-lg bg-slate-950 object-contain"
+            data-testid="gallery-image"
+          />
+        </div>
+      }
+    }
   </div>
 
-  <button
-    class="absolute right-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
-    (click)="scrollNext()"
-    aria-label="Next Image"
-    *ngIf="
-      !isMobile &&
-      galleryData &&
-      galleryData?.items &&
-      galleryData.items.length > 1
-    "
-    [disabled]="activeIndex === validItems.length - 1"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 320 512"
-      role="presentation"
-      focusable="false"
-      fill="currentColor"
-      class="h-3 w-3 sm:h-4 sm:w-4"
+  @if (
+    !isMobile &&
+    galleryData &&
+    galleryData.items &&
+    galleryData.items.length > 1
+  ) {
+    <button
+      class="absolute right-2.5 top-1/2 z-10 flex h-8 w-8 -translate-y-1/2 cursor-pointer items-center justify-center rounded-full border-none bg-black/50 text-white transition-all hover:bg-black/80 disabled:cursor-not-allowed disabled:opacity-40 sm:h-10 sm:w-10"
+      (click)="scrollNext()"
+      aria-label="Next Image"
+      [disabled]="activeIndex === validItems.length - 1"
     >
-      <path
-        d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
-      />
-    </svg>
-  </button>
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 320 512"
+        role="presentation"
+        focusable="false"
+        fill="currentColor"
+        class="h-3 w-3 sm:h-4 sm:w-4"
+      >
+        <path
+          d="M310.6 233.4c12.5 12.5 12.5 32.8 0 45.3l-192 192c-12.5 12.5-32.8 12.5-45.3 0s-12.5-32.8 0-45.3L242.7 256 73.4 86.6c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0l192 192z"
+        />
+      </svg>
+    </button>
+  }
 
   <!-- Pagination Dots -->
-  <div
-    class="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 justify-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5"
-    *ngIf="validItems.length > 1"
-  >
-    <ng-container *ngFor="let item of validItems; let i = index">
-      <button
-        class="h-1.5 w-1.5 rounded-full transition-all"
-        [class.bg-white]="activeIndex === i"
-        [class.bg-white-50]="activeIndex !== i"
-        [disabled]="activeIndex === i"
-        [class.w-3]="activeIndex === i"
-        (click)="scrollToIndex(i)"
-        [attr.aria-label]="'Go to image ' + (i + 1)"
-      ></button>
-    </ng-container>
-  </div>
+  @if (validItems.length > 1) {
+    <div
+      class="absolute bottom-2 left-1/2 z-10 flex -translate-x-1/2 justify-center gap-1.5 rounded-full bg-black/60 px-3 py-1.5"
+    >
+      @for (item of validItems; track item; let i = $index) {
+        <button
+          class="h-1.5 w-1.5 rounded-full transition-all"
+          [class.bg-white]="activeIndex === i"
+          [class.bg-white-50]="activeIndex !== i"
+          [disabled]="activeIndex === i"
+          [class.w-3]="activeIndex === i"
+          (click)="scrollToIndex(i)"
+          [attr.aria-label]="'Go to image ' + (i + 1)"
+        ></button>
+      }
+    </div>
+  }
 </div>
 
 <style>

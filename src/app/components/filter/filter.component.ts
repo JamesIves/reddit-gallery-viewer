@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component} from '@angular/core'
+import {ChangeDetectionStrategy, Component, inject} from '@angular/core'
 import {CommonModule} from '@angular/common'
 import {RedditFilter} from 'src/app/models/reddit.model'
 import {RedditService} from 'src/services/reddit/reddit.service'
@@ -17,6 +17,16 @@ import {LoaderService} from 'src/services/loader/loader.service'
 })
 export class FilterComponent {
   /**
+   * Injected Reddit service for managing filter state.
+   */
+  private readonly redditService = inject(RedditService)
+
+  /**
+   * Injected Loader service for managing loading state.
+   */
+  private readonly loaderService = inject(LoaderService)
+
+  /**
    * @inheritdoc
    */
   protected readonly redditFilter = RedditFilter
@@ -33,13 +43,8 @@ export class FilterComponent {
 
   /**
    * @inheritdoc
-   * @param redditService The injected Reddit service.
-   * @param loaderService The injected Loader service.
    */
-  public constructor(
-    private readonly redditService: RedditService,
-    private readonly loaderService: LoaderService
-  ) {
+  public constructor() {
     this.activeFilter = this.redditService.getSubRedditFilter()
     this.loading$ = this.loaderService.getLoading()
   }

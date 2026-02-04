@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core'
+import {Injectable, inject} from '@angular/core'
 import {HttpRequest, HttpHandler, HttpEvent} from '@angular/common/http'
 import {Observable} from 'rxjs'
 import {finalize} from 'rxjs/operators'
@@ -11,16 +11,12 @@ import {LoaderService} from './loader.service'
  */
 @Injectable()
 export class LoaderInterceptorService {
+  private readonly loaderService = inject(LoaderService)
+
   /**
    * The current number of active requests.
    */
   private activeRequests = 0
-
-  /**
-   *
-   * @param loaderService The injected loader service.
-   */
-  public constructor(private readonly loaderService: LoaderService) {}
 
   /**
    * Intercepts any incoming/outgoing requests and tallies them

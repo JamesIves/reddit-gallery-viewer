@@ -7,55 +7,56 @@
     class="sr-only mb-1 block text-sm font-medium text-white"
     >Sub Filter</label
   >
-  <select
-    id="subfilter"
-    *ngIf="activeSubFilter$ | async as subFilter"
-    (change)="toggleSubFilter($event)"
-    name="subfilter"
-    data-testid="subfilter"
-    class="block w-full rounded-md border-gray-300 bg-slate-600 py-4 pl-3 text-sm font-bold text-white transition-all hover:bg-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-base md:text-lg"
-  >
-    <option
-      [selected]="subFilter === redditSubFilter.ALL"
-      [value]="redditSubFilter.ALL"
-      data-testid="subfilter-all"
+  @if (activeSubFilter$ | async; as subFilter) {
+    <select
+      id="subfilter"
+      (change)="toggleSubFilter($event)"
+      name="subfilter"
+      data-testid="subfilter"
+      class="block w-full rounded-md border-gray-300 bg-slate-600 py-4 pl-3 text-sm font-bold text-white transition-all hover:bg-slate-700 focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-base md:text-lg"
     >
-      All Time
-    </option>
-    <option
-      [selected]="subFilter === redditSubFilter.HOUR"
-      [value]="redditSubFilter.HOUR"
-      data-testid="subfilter-hour"
-    >
-      Past Hour
-    </option>
-    <option
-      [selected]="subFilter === redditSubFilter.DAY"
-      [value]="redditSubFilter.DAY"
-      data-testid="subfilter-day"
-    >
-      Past Day
-    </option>
-    <option
-      [selected]="subFilter === redditSubFilter.WEEK"
-      [value]="redditSubFilter.WEEK"
-      data-testid="subfilter-week"
-    >
-      Past Week
-    </option>
-    <option
-      [selected]="subFilter === redditSubFilter.MONTH"
-      [value]="redditSubFilter.MONTH"
-      data-testid="subfilter-month"
-    >
-      Past Month
-    </option>
-    <option
-      [selected]="subFilter === redditSubFilter.YEAR"
-      [value]="redditSubFilter.YEAR"
-      data-testid="subfilter-year"
-    >
-      Past Year
-    </option>
-  </select>
+      <option
+        [selected]="subFilter === redditSubFilter.ALL"
+        [value]="redditSubFilter.ALL"
+        data-testid="subfilter-all"
+      >
+        All Time
+      </option>
+      <option
+        [selected]="subFilter === redditSubFilter.HOUR"
+        [value]="redditSubFilter.HOUR"
+        data-testid="subfilter-hour"
+      >
+        Past Hour
+      </option>
+      <option
+        [selected]="subFilter === redditSubFilter.DAY"
+        [value]="redditSubFilter.DAY"
+        data-testid="subfilter-day"
+      >
+        Past Day
+      </option>
+      <option
+        [selected]="subFilter === redditSubFilter.WEEK"
+        [value]="redditSubFilter.WEEK"
+        data-testid="subfilter-week"
+      >
+        Past Week
+      </option>
+      <option
+        [selected]="subFilter === redditSubFilter.MONTH"
+        [value]="redditSubFilter.MONTH"
+        data-testid="subfilter-month"
+      >
+        Past Month
+      </option>
+      <option
+        [selected]="subFilter === redditSubFilter.YEAR"
+        [value]="redditSubFilter.YEAR"
+        data-testid="subfilter-year"
+      >
+        Past Year
+      </option>
+    </select>
+  }
 </div>

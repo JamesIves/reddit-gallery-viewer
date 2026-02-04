@@ -4,7 +4,8 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  inject
 } from '@angular/core'
 import {CommonModule, DecimalPipe} from '@angular/common'
 import {
@@ -38,6 +39,11 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling'
 })
 export class MediaComponent implements OnChanges {
   /**
+   * Injected Reddit service for managing page types and subreddit names.
+   */
+  private readonly redditService = inject(RedditService)
+
+  /**
    * Used to keep track of the current viewport scroll depth.
    */
   @ViewChild(CdkVirtualScrollViewport)
@@ -70,9 +76,8 @@ export class MediaComponent implements OnChanges {
 
   /**
    * @inheritdoc
-   * @param redditService The Reddit service for managing page types and subreddit names.
    */
-  public constructor(private readonly redditService: RedditService) {
+  public constructor() {
     this.redditPageType$ = this.redditService.getRedditPageType()
   }
 
