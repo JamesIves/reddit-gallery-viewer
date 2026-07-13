@@ -1,3 +1,4 @@
 export const environment = {
-  production: false
+  production: false,
+  redditProxyUrl: 'http://localhost:8787'
 }

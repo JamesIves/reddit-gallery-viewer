@@ -2,6 +2,7 @@ import {HttpClient} from '@angular/common/http'
 import {Injectable, inject} from '@angular/core'
 import {BehaviorSubject, combineLatest, map, Observable, of} from 'rxjs'
 import {catchError, mergeMap, scan, startWith, switchMap} from 'rxjs/operators'
+import {environment} from 'src/environments/environment'
 import {
   RedditFilter,
   IRedditQuery,
@@ -298,9 +299,10 @@ export class RedditService {
       path.searchParams.append(RedditRequestParameters.T, subFilter)
     }
 
-    console.info('✅ Making request to:', path.toString())
+    const proxiedUrl = `${environment.redditProxyUrl}/?url=${encodeURIComponent(path.toString())}`
+    console.info('✅ Making request to:', proxiedUrl)
 
-    return this.http.get<IRedditResultNatural>(path.toString()).pipe(
+    return this.http.get<IRedditResultNatural>(proxiedUrl).pipe(
       map(result =>
         result.data.children
           .map(item => item.data)
