@@ -2,6 +2,9 @@
 
 <img align="right" width="112" height="auto"  src="./.github/docs/icon.webp" alt="Icon">
 
+> [!CAUTION]
+> Unfortunately Reddit has chosen to disallow open access to their content feed API's. As a result this application no longer works the way that it used to when it was first made. 
+
 Shows a never-ending stream of media from the Reddit API. Created with <a href="https://angular.io/">Angular</a> and <a href="https://rxjs.dev/">RxJS</a> using the <a href="https://www.reddit.com/dev/api/">Reddit API</a>.
 This was primarily created as a demo to showcase the usage of virtual scrolling combined with API driven content.
 
